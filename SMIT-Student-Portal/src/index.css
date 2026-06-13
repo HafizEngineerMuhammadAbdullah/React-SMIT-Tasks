@@ -1,1 +1,6 @@
 @import "tailwindcss";
+
+.text {
+  /* font-family: "Signika"; */
+  font-family: "Poppins", sans-serif;
+}

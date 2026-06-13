@@ -4,80 +4,152 @@ import { EyeOff } from "lucide-react";
 import styles from "./StyleForm.module.css";
 
 const HandleForm = () => {
+  // handle State (Use States which is Hook) of input fields
+  // const [inputType, setInputType] = useState("password");
+  const [isShowPassword, setIsShowPassword] = useState(false);
+  const [cnicNo, setCnicNo] = useState("");
+  const [password, setPassword] = useState("");
 
-  const [isShowPassword, setShowPassword] = useState(false);
+  // const togglePasswordVisibility = () => {
+  //   // setIsShowPassword(!isShowPassword);
+  //   if (!isShowPassword) {
+  //     setInputType("text");
+  //     setIsShowPassword(true);
+  //   } else {
+  //     setInputType("password");
+  //     setIsShowPassword(false);
+  //   }
+  // };
 
+  // function to toggle input type state(toggle input type) & isShowPassword state that tracks whether the password is displayed(showed) or not
+  const togglePasswordVisibility = () => {
+    setIsShowPassword((prev) => !prev);
+  };
+
+  // function to resist(prevent) the default behaviour of browser which is reloading the page every time when we click on anywhere inside the form element
   const resistReload = (e) => {
     e.preventDefault();
   };
-  
+
+  // function that handle submit means it shows users Data when the form has been submitted
+  const handleSubmit = () => {
+    console.log("-------User Details ----------");
+    console.log(`User CNIC no : ${cnicNo}`);
+    console.log(`User Password : ${password}`);
+
+    const userData = {
+      cnicNo,
+      password,
+    };
+
+    console.log(userData);
+  };
+
   return (
     <div>
       <form
-        onSubmit={resistReload}
-        className={`${styles.form} w-[30vw] h-[60vh] flex flex-col gap-5`}
+        onSubmit={(e) => {
+          resistReload(e);
+          handleSubmit();
+        }}
+        // className={`${styles.form} w-[30vw] h-[60vh] flex flex-col gap-4`}
+        className={`${styles.form} w-full max-w-md flex flex-col gap-4`}
       >
+        {/* Buttons Div */}
         <div className="h-10 w-full p-1 flex items-center rounded-lg bg-[#f5f5f5]">
+          {/* button-01 */}
           <button
-            className={`${styles.btn} bg-[#ffffff] text-[#0a0a0a] btn w-1/2 rounded`}
+            type="button"
+            className={`${styles.btn} bg-[#ffffff] text-[#0a0a0a] w-1/2 rounded`}
           >
             Login
           </button>
-          <button className={`${styles.btn} text-[#737373] btn w-1/2`}>
+          {/* button-02 */}
+          <button
+            type="button"
+            className={`${styles.btn} text-[#737373] w-1/2`}
+          >
             Create Password
           </button>
         </div>
 
-        <div className="w-full h-[85%] flex flex-col border-[#b1a9a9] border rounded-2xl">
+        {/* Actual Form Div */}
+        <div className="w-full h-[80%] flex flex-col border-[#b1a9a9] border rounded-2xl">
+          {/* Paragraph Div */}
           <div className="p-6">
             <p className="text-[#0a0a0a] font-semibold leading-none tracking-tight">
               Login
             </p>
-            <p className="text-[#737373] font-normal text-[15px] mt-2">
+            {/* <p className="text-[#737373] text-[15px] mt-1.5"> */}
+            <p className="text-sm text-[#737373] sm:text-base font-normal mt-1.5">
               Kindly provide the CNIC number and password used during SMIT
               course registration.
             </p>
           </div>
+
+          {/* Cnic Div */}
           <div className="p-6 pt-0">
             <div className="flex flex-col justify-center space-y-1">
               <label htmlFor="cnic" className="text-sm font-normal">
                 CNIC *
               </label>
+              {/* Performs Two Way Data Binding here */}
               <input
                 className="bg-[#e8f0fe] h-9 w-full rounded-md px-3 py-1 mt-1 border border-[#8c969773] focus:outline-1"
                 type="text"
+                value={cnicNo}
+                onChange={(e) => setCnicNo(e.target.value)}
                 name="user-cnic"
                 id="cnic"
               />
             </div>
+
+            {/* Password Div */}
             <div className="flex flex-col justify-center space-y-1 mt-2">
               <label htmlFor="password" className="text-sm font-normal">
                 Password *
               </label>
+              {/* Eye div */}
               <div className="relative">
+                {/* Input fields type update dynamically(toggle input type between password & text type) */}
+                {/* Performs Two Way Data Binding here */}
                 <input
                   className="bg-[#e8f0fe] h-9 w-full rounded-md px-3 py-1 mt-1 border border-[#8c969773] focus:outline-1"
-                  type="password"
+                  // type={inputType}
+                  type={isShowPassword ? "text" : "password"}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   name="user-password"
                   id="password"
                 />
+                {/* Eye toggle button */}
                 <button
-                  onClick={() => setShowPassword(!isShowPassword)}
+                  type="button"
+                  onClick={togglePasswordVisibility}
                   className="h-1 absolute right-3 top-3 text-gray-500 hover:text-gray-700 cursor-pointer"
                 >
-                  {isShowPassword ? <EyeOff size={18}/> : <Eye size={18} />}
+                  {/* if eye is on means the password won't show else when cilck eye is off means password should be showed  */}
+                  {isShowPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                 </button>
               </div>
             </div>
           </div>
+          {/* Login Button */}
           <div className="h-full w-full flex items-center p-6 pt-0">
-            <button className="w-full rounded-md text-sm font-medium text text-[#fafafa] bg-[#2b4f8cde] hover:bg-[#2b4f8cff] py-2 px-4 cursor-pointer">
+            <button
+              type="submit"
+              className="w-full rounded-md text-sm font-medium text text-[#fafafa] bg-[#2b4f8cde] hover:bg-[#2b4f8cff] py-2 px-4 cursor-pointer"
+            >
               LOGIN
             </button>
           </div>
         </div>
       </form>
-      <button className="mt-4 h-9 w-full px-4 py-2 cursor-pointer hover:bg-gray-100 text-black border border-[#c0b9b9be] bg-white-shadow-sm inline-flex justify-center items-center rounded-md text-[15px] font-medium">
+      {/* Last Button */}
+      <button
+        type="button"
+        className="mt-2 h-9 w-full px-4 py-2 cursor-pointer hover:bg-gray-100 text-black border border-[#c0b9b9be] bg-white-shadow-sm inline-flex justify-center items-center rounded-md text-[15px] font-medium"
+      >
         Login as teacher
       </button>
     </div>

@@ -6,12 +6,13 @@ const App = () => {
     <div className="min-h-screen w-full flex flex-col gap-3 items-center p-4 pt-10 overflow-y-auto">
       <div>
         <img
-          className="mx-auto"
           src="/assets/smit-logo.png"
-          width="120"
-          alt=""
+          className="w-24 sm:w-28 md:w-32 mx-auto"
+          alt="SMIT Logo"
         />
-        <p className="text-[#0a0a0a] font-[16px] text-center">Student Portal</p>
+        <p className="text text-[#0a0a0a] text-[16px] font-normal text-center">
+          Student Portal
+        </p>
       </div>
       <HandleForm />
     </div>
