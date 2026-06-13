@@ -11,7 +11,7 @@ const App = () => {
           width="120"
           alt=""
         />
-        <p className="text text-[#0a0a0a] font-[16px] text-center">Student Portal</p>
+        <p className="text-[#0a0a0a] font-[16px] text-center">Student Portal</p>
       </div>
       <HandleForm />
     </div>

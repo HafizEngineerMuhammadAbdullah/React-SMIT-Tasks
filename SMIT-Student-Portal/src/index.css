@@ -1,13 +1,1 @@
 @import "tailwindcss";
-
-.text {
-  font-family: "Signika";
-}
-
-.btn {
-  border: none;
-  font-size: 14px;
-  font-family: "Signika";
-  padding: 4px 12px;
-  cursor: pointer;
-}

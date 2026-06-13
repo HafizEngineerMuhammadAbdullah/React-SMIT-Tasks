@@ -1,0 +1,20 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: "Poppins";
+  src: url("/SMIT-Student-Portal/public/assets/fonts/Poppins-Regular.ttf") format("truetype");
+}
+
+.form {
+  /* font-family: "Signika"; */
+  font-family: "Poppins", sans-serif;
+}
+
+.btn {
+  border: none;
+  font-size: 14px;
+  /* font-family: "Signika"; */
+  font-family: "Poppins", sans-serif;
+  padding: 4px 12px;
+  cursor: pointer;
+}
