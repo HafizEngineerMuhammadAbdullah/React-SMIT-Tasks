@@ -1,14 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Eye } from "lucide-react";
 import { EyeOff } from "lucide-react";
 import styles from "./StyleForm.module.css";
+import { ToastContainer, toast } from "react-toastify";
 
 const HandleForm = () => {
+  // form Data
+  const [formData, setFormData] = useState({
+    userCnicNo: "",
+    userPassword: "",
+  });
+
+  const [error, setError] = useState("");
+
   // handle State (Use States which is Hook) of input fields
   // const [inputType, setInputType] = useState("password");
   const [isShowPassword, setIsShowPassword] = useState(false);
-  const [cnicNo, setCnicNo] = useState("");
-  const [password, setPassword] = useState("");
+  // const [cnicNo, setCnicNo] = useState("");
+  // const [password, setPassword] = useState("");
 
   // const togglePasswordVisibility = () => {
   //   // setIsShowPassword(!isShowPassword);
@@ -31,18 +40,106 @@ const HandleForm = () => {
     e.preventDefault();
   };
 
+  // function that handle Change when every time changes occur on input box
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    // spread operator copy formData object into a new prevForm obj & then update the value of the corresponding particular key in the prevForm obj & update the state
+    setFormData((prevform) => ({ ...prevform, [name]: value }));
+
+
+    useEffect(() => {
+      console.log("Updated form Data : ", formData);
+    }, [formData])
+
+    console.log("Old Form Data : ", formData);
+  };
+
   // function that handle submit means it shows users Data when the form has been submitted
-  const handleSubmit = () => {
+  const submitHandler = () => {
+
+    const hasUpperCase = /[A-Z]/;
+    const hasSpecialChar = /[!@#$%^&*()_:.,|]/;
+    // Form Validation :-
+    if (formData.userPassword.length < 8) {
+      setError(`Password must be 8 characters(letters) long!`);
+      toast.warn("too short Password!", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+
+      return;
+    }
+
+    if (!hasSpecialChar.test(formData.userPassword)) {
+      setError(`Password must contain at least single(one) special letter!`);
+      toast.error("Password must contain special Letter!", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+      return;
+    }
+
+    if (!hasUpperCase.test(formData.userPassword)) {
+      setError(`Password must contain at least one(single) capital letter`);
+      toast.info("Password must contain uppercase letter!", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      return;
+    }
+
+    setError("");
+
+    // extract the old data from Browser local storage 
+    const existingUser = JSON.parse(localStorage.getItem("userData")) || [];
+    // push the new Data of user
+    existingUser.push(formData);
+    // convert the array data to JSON string & put into Browser local Storage
+    localStorage.setItem("userData", JSON.stringify(existingUser));
+
+    setFormData({
+      userCnicNo: "",
+      userPassword: "",
+    });
+
+    toast.success("Form Submitted Successfully!", {
+      position: "top-center",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: false,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+      // transition: Bounce,
+    });
     console.log("-------User Details ----------");
-    console.log(`User CNIC no : ${cnicNo}`);
-    console.log(`User Password : ${password}`);
+    console.log(`User CNIC no : ${formData.userCnicNo}`);
+    console.log(`User Password : ${formData.userPassword}`);
 
-    const userData = {
-      cnicNo,
-      password,
-    };
-
-    console.log(userData);
+    // const userData = {
+    //   cnicNo,
+    //   password,
+    // };
+    console.log(formData);
   };
 
   return (
@@ -50,7 +147,7 @@ const HandleForm = () => {
       <form
         onSubmit={(e) => {
           resistReload(e);
-          handleSubmit();
+          submitHandler();
         }}
         // className={`${styles.form} w-[30vw] h-[60vh] flex flex-col gap-4`}
         className={`${styles.form} w-full max-w-md flex flex-col gap-4`}
@@ -71,6 +168,12 @@ const HandleForm = () => {
           >
             Create Password
           </button>
+        </div>
+
+        <div>
+          <p className="text-sm text-red-700 font-medium font-mono text-center text-shadow-2xs">
+            {error}
+          </p>
         </div>
 
         {/* Actual Form Div */}
@@ -97,10 +200,13 @@ const HandleForm = () => {
               <input
                 className="bg-[#e8f0fe] h-9 w-full rounded-md px-3 py-1 mt-1 border border-[#8c969773] focus:outline-1"
                 type="text"
-                value={cnicNo}
-                onChange={(e) => setCnicNo(e.target.value)}
-                name="user-cnic"
+                name="userCnicNo"
+                value={formData.userCnicNo}
+                required={true}
+                // onChange={(e) => setCnicNo(e.target.value)}
+                onChange={handleChange}
                 id="cnic"
+                autoComplete="user-cnic"
               />
             </div>
 
@@ -117,10 +223,13 @@ const HandleForm = () => {
                   className="bg-[#e8f0fe] h-9 w-full rounded-md px-3 py-1 mt-1 border border-[#8c969773] focus:outline-1"
                   // type={inputType}
                   type={isShowPassword ? "text" : "password"}
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  name="user-password"
+                  name="userPassword"
+                  value={formData.userPassword}
+                  required={true}
+                  // onChange={(e) => setPassword(e.target.value)}
+                  onChange={handleChange}
                   id="password"
+                  autoComplete="user-password"
                 />
                 {/* Eye toggle button */}
                 <button
@@ -152,6 +261,8 @@ const HandleForm = () => {
       >
         Login as teacher
       </button>
+      {/* Toast Container */}
+      <ToastContainer></ToastContainer>
     </div>
   );
 };
