@@ -40,16 +40,30 @@ const HandleForm = () => {
     e.preventDefault();
   };
 
+  useEffect(() => {
+    console.log("Updated form Data : ", formData);
+  }, [formData])//runs every time when the formData changes
+
+
+
   // function that handle Change when every time changes occur on input box
   const handleChange = (e) => {
     const { name, value } = e.target;
+    //    if (name === "userCnicNo") {
+    //   // Keep only digits
+    //   value = value.replace(/\D/g, "");
+
+    //   // Insert hyphens: 12345-1234567-1
+    //   if (value.length > 5 && value.length <= 12) {
+    //     value = `${value.slice(0, 5)}-${value.slice(5)}`;
+    //   } else if (value.length > 12) {
+    //     value = `${value.slice(0, 5)}-${value.slice(5, 12)}-${value.slice(12, 13)}`;
+    //   }
+    // }
     // spread operator copy formData object into a new prevForm obj & then update the value of the corresponding particular key in the prevForm obj & update the state
     setFormData((prevform) => ({ ...prevform, [name]: value }));
 
 
-    // useEffect(() => {
-    //   console.log("Updated form Data : ", formData);
-    // }, [formData])//runs every time when the formData changes
 
     console.log("Old Form Data : ", formData);
   };
@@ -59,7 +73,26 @@ const HandleForm = () => {
 
     const hasUpperCase = /[A-Z]/;
     const hasSpecialChar = /[!@#$%^&*()_:.,|]/;
+    const cnic = formData.userCnicNo.trim();//remove leading & trailing spaces
+    // const cnicRegex = /^\d{5}-\d{7}-\d{1}$/;
+    const cnicRegex = /^\d{5}-\d{7}-\d$/;
     // Form Validation :-
+
+    if (!cnicRegex.test(cnic)) {
+      setError("Please enter a valid CNIC (e.g. 42101-1234567-1)");
+      toast.error("Please Enter Valid Cnic No!", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+      return;
+    }
+
     if (formData.userPassword.length < 8) {
       setError(`Password must be 8 characters(letters) long!`);
       toast.warn("too short Password!", {
@@ -110,7 +143,7 @@ const HandleForm = () => {
 
     // extract the old data from Browser local storage 
     const existingUser = JSON.parse(localStorage.getItem("userData")) || [];
-    // push the new Data of user
+    // push the new Data of user in array
     existingUser.push(formData);
     // convert the array data to JSON string & put into Browser local Storage
     localStorage.setItem("userData", JSON.stringify(existingUser));
@@ -206,7 +239,9 @@ const HandleForm = () => {
                 // onChange={(e) => setCnicNo(e.target.value)}
                 onChange={handleChange}
                 id="cnic"
+                maxLength={15}
                 autoComplete="user-cnic"
+                placeholder="42101-1234567-1"
               />
             </div>
 
