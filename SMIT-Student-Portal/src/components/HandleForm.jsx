@@ -47,9 +47,9 @@ const HandleForm = () => {
     setFormData((prevform) => ({ ...prevform, [name]: value }));
 
 
-    useEffect(() => {
-      console.log("Updated form Data : ", formData);
-    }, [formData])
+    // useEffect(() => {
+    //   console.log("Updated form Data : ", formData);
+    // }, [formData])//runs every time when the formData changes
 
     console.log("Old Form Data : ", formData);
   };
