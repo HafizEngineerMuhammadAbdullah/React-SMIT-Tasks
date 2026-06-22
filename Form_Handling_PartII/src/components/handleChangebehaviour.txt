@@ -1,0 +1,21 @@
+User types "A"
+        │
+        ▼
+handleChange executes
+        │
+        ▼
+setFormData(...) is called
+        │
+        ▼
+React schedules a state update
+        │
+        ▼
+Component re-renders
+        │
+        ▼
+useEffect runs
+        │
+        ▼
+console.log(formData) // now shows the updated value
+
+This updates state, but the new value won't be available immediately because state updates are asynchronous.
