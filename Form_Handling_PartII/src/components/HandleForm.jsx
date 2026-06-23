@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { User, UserRound, Mail, LockKeyhole, Phone } from 'lucide-react';
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
+import Swal from 'sweetalert2'
 
 
 const HandleForm = () => {
 
-  //useState formData
+  //Initial formData
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -21,12 +22,11 @@ const HandleForm = () => {
   const [error, setError] = useState("");
 
 
-  const inputStyle = "w-full border border-black p-1 px-9 my-1.5";
 
 
   // function to toggle password visibility
   const togglePasswordVisibility = () => {
-    setShowPassword(prev => (!prev));
+    setShowPassword(prev => !prev);
   }
 
   // useEffect runs after render & give latest update of formData(to observe state changes)
@@ -44,8 +44,8 @@ const HandleForm = () => {
     let updatedValue = value;
 
     if (name === "phoneNo") {
-      // remove every non-digit character
-      updatedValue = value.replace(/\D/g, "");//keep digits only
+      // remove every non-digit character & ensure user could enter at most 7 digits
+      updatedValue = value.replace(/\D/g, "").slice(0, 7);//keep digits only
     }
 
     setFormData(prevForm => ({
@@ -61,7 +61,7 @@ const HandleForm = () => {
   }
 
   // performs Validation before submission
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
 
 
@@ -72,22 +72,23 @@ const HandleForm = () => {
     const firstNameRegex = /^[A-Za-z]{6,15}$/;
     const lastNameRegex = /^[A-Za-z]{6,15}$/
     const phoneRegex = /^\d{7}$/;
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    // const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     // first letter must be a character, // - total length: 7 to 16 characters , remaining characters may be letters,digits or allowed special symbols(characters)
     // ^ => start(beginning of string) 
     // $ => end of string 
     const passwordRegex =
       /^[A-Za-z][A-Za-z0-9!@#%^&*$]{6,15}$/;
     const hasSpecial = /[!@#%^&*$]/;
+    const hasUppercase = /[A-Z]/;
     // 1. Validate First Name
     if (!firstNameRegex.test(formData.firstName)) {
-      setError("First Name must contain only letters and be 6–15 characters long.");
+      setError("First Name must contain only letters and be 7–16 characters long.");
       return;
     }
 
     // 2. Validate Last Name
     if (!lastNameRegex.test(formData.lastName)) {
-      setError("Last Name must contain only letters and be 6–15 characters long.");
+      setError("Last Name must contain only letters and be 7–16 characters long.");
       return;
     }
 
@@ -98,16 +99,17 @@ const HandleForm = () => {
     }
 
     // 4. Validate Mobile No
+    // Should contain exactly 7 digit
     if (!phoneRegex.test(formData.phoneNo)) {
       setError("Phone number must contain exactly 7 digits.");
       return;
     }
 
     // 5. Validate Email
-    if (!emailRegex.test(formData.email)) {
-      setError("Please enter a valid email address.");
-      return;
-    }
+    // if (!emailRegex.test(formData.email)) {
+    //   setError("Please enter a valid email address.");
+    //   return;
+    // }
 
     // const fullNumber = `+92-${formData.operator}-${formData.phoneNo}`;
     // functional update
@@ -119,6 +121,7 @@ const HandleForm = () => {
     // React state updates asynchronously because React schedules the update and re-renders later.
     const userToSave = {
       ...formData,
+      // update the fullNumber
       fullNumber: `+92-${formData.operator}-${formData.phoneNo}`
     }
 
@@ -127,18 +130,73 @@ const HandleForm = () => {
       setError("Password first character must be english letter and be 7-15 characters long!");
       return;
     }
+    // check if there is a special character exist in the password or not
     if (!hasSpecial.test(formData.password)) {
       setError("Password must contain at least one special character.");
       return;
     }
+    // check if there is an UpperCase letter exist in the password or not
+    if (!hasUppercase.test(formData.password)) {
+      setError("Password must contain at least one upper case letter.");
+      return;
+    }
 
-    setError("");
+
 
     // Now extract the data from the local storage(if present) & put it into an array
     const existingUsers = JSON.parse(localStorage.getItem("userData")) || [];
-    // psuh the current data of user in an array
+    //check if email is distinct(unique) or it is duplicate
+    const alreadyExists = existingUsers.some((user) =>
+      // if duplicate email exists
+      user.email === formData.email
+    )
+
+    if (alreadyExists) {
+      setError("Email already registered!");
+      return;
+    }
+    // push the current data of user in an array
     existingUsers.push(userToSave);
+
     localStorage.setItem("userData", JSON.stringify(existingUsers));
+
+    // Terms & Condition Message
+    const { value: accept } = await Swal.fire({
+      title: "Terms and conditions",
+      input: "checkbox",
+      inputValue: 1,
+      inputPlaceholder: "I agree with the terms and conditions",
+      confirmButtonText: `Continue&nbsp;<i class="fa fa-arrow-right"></i>`,
+      inputValidator: (result) => {
+        return !result && "You need to agree with T&C";
+      }
+    });
+    if (accept) Swal.fire("You agreed with T&C :)");
+
+
+    // set error as empty
+    setError("");
+
+
+    // form submitted successfully message
+    Swal.fire({
+      title: "Form submitted Successfully!",
+      icon: "success",
+      timerProgressBar: true,
+      // text: "You clicked the button!",
+      showClass: {
+        popup: `
+      animate__animated
+      animate__fadeInUp
+      animate__faster
+    ` },
+      hideClass: {
+        popup: `
+      animate__animated
+      animate__fadeOutDown
+      animate__faster
+    ` }
+    });
 
     // Empty formData
     setFormData({
@@ -150,10 +208,11 @@ const HandleForm = () => {
       email: "",
       password: ""
     })
-
-    alert("successfully submitted!")
-
   }
+
+
+  const inputStyle = "w-full border border-black p-1 px-9 my-1.5";
+
   return (
     <div className='w-full max-w-md border border-gray-300 p-6'>
       <form onSubmit={submitHandler} action="" className='flex flex-col justify-between items-start gap-y-2'>
@@ -166,7 +225,7 @@ const HandleForm = () => {
         {/* Create New Account Paragraph */}
         <div> <p className='text-[#f3a412] font-semibold text-xl'>Create New Account</p></div>
 
-        {/* Error Paragraph */}
+        {/* Show Error Paragraph */}
         <div className='w-full text-center'><p className='text-red-500 text-sm font-mono font-medium'>{error}</p></div>
 
         {/* for First Name */}
@@ -177,7 +236,13 @@ const HandleForm = () => {
             <input
               id='userFirstName'
               onChange={handleChange}
-              className={inputStyle} name="firstName" value={formData.firstName} type="text" placeholder='enter your first name' required={true} />
+              className={inputStyle}
+              name="firstName"
+              value={formData.firstName}
+              type="text"
+              placeholder='enter your first name'
+              autoComplete='user-first-name'
+              required={true} />
             <User className="absolute left-1.5 top-3" size={20} color='gray' />
           </div>
         </div>
@@ -186,7 +251,16 @@ const HandleForm = () => {
         <div className='w-full'>
           <label htmlFor="userLastName">Last Name</label>
           <div className='relative'>
-            <input type="text" id='userLastName' onChange={handleChange} className={inputStyle} name="lastName" value={formData.lastName} placeholder='enter your last name' required={true} />
+            <input
+              id='userLastName'
+              type="text"
+              onChange={handleChange}
+              className={inputStyle}
+              name="lastName"
+              value={formData.lastName}
+              placeholder='enter your last name'
+              autoComplete='user-last-name'
+              required={true} />
             <UserRound className='absolute left-1.5 top-3' size={20} color='gray' />
           </div>
         </div>
@@ -195,7 +269,12 @@ const HandleForm = () => {
         <div className='w-full'>
           <label htmlFor="userMobileNo">Mobile No</label>
           <div className='flex items-center gap-x-2 my-0.5'>
-            <input type="text" className="border p-1" disabled={true} value="+92" size={2} />
+            <input
+              type="text"
+              className="border p-1"
+              disabled={true}
+              value="+92"
+              size={2} />
             <select name="operator" id="" onChange={handleChange} value={formData.operator} className="border p-1">
               <option value="Operator">Operator</option>
               <option value="0300">0300</option>
@@ -206,7 +285,16 @@ const HandleForm = () => {
               <option value="0350">0350</option>
             </select>
             <div className='w-full relative'>
-              <input type="text" id='userMobileNo' onChange={handleChange} className={inputStyle} name="phoneNo" value={formData.phoneNo} placeholder='7 digit number' required={true} />
+              <input
+                id='userMobileNo'
+                type="text"
+                onChange={handleChange}
+                className={inputStyle}
+                name="phoneNo"
+                value={formData.phoneNo}
+                placeholder='7 digit number'
+                autoComplete='user-phoneNo'
+                required={true} />
               <Phone className="absolute left-1.5 top-3" size={20} color='gray' />
             </div>
           </div>
@@ -216,7 +304,16 @@ const HandleForm = () => {
         <div className='w-full'>
           <label htmlFor="userEmail">Email Address</label>
           <div className='relative'>
-            <input type="email" id='userEmail' onChange={handleChange} className={inputStyle} name="email" value={formData.email} placeholder='please enter valid email address' required={true} />
+            <input
+              id='userEmail'
+              type="email"
+              onChange={handleChange}
+              className={inputStyle}
+              name="email"
+              value={formData.email}
+              placeholder='please enter valid email address'
+              autoComplete='user-email'
+              required={true} />
             <Mail className='absolute left-1.5 top-3' size={20} color='gray' />
           </div>
         </div>
@@ -225,8 +322,19 @@ const HandleForm = () => {
         <div className='w-full'>
           <label htmlFor="userPassword">Password</label>
           <div className='relative'>
-            <input type={isShowPassword ? "text" : "password"} id='userPassword' onChange={handleChange} className={inputStyle} name="password" value={formData.password} placeholder='please enter valid password' required={true} />
+            <input
+              id='userPassword'
+              type={isShowPassword ? "text" : "password"}
+              onChange={handleChange}
+              className={inputStyle}
+              name="password"
+              value={formData.password}
+              placeholder='please enter valid password'
+              autoComplete='user-password'
+              required={true} />
+
             <LockKeyhole className='absolute left-1.5 top-3' size={20} color='gray' />
+
             <p className='absolute right-5 top-1.5 mx-3 text-gray-500 text-xl'>|</p>
 
             {/*  if isShowPassword is true, eyeoff appear otherwise eyeon appear */}
@@ -246,7 +354,11 @@ const HandleForm = () => {
 
         {/* for Submit Button */}
 
-        <button type="submit" className='w-full text-center text-white bg-[#fab112] py-2 cursor-pointer'>Submit</button>
+        <button
+          type="submit"
+          className='w-full text-center text-white bg-[#F59321] py-2 cursor-pointer hover:bg-[#df7904]'>
+          Submit
+        </button>
 
       </form>
     </div>
