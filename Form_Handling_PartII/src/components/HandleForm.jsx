@@ -56,7 +56,7 @@ const HandleForm = () => {
     // setFormData((prevForm) => ({
     //   [name]: value
     // }))
-    // This logs the previous state because React schedules the update.
+    // This logs the previous state because React schedules the update later.
     console.log("old data : ", formData);
   }
 
@@ -72,7 +72,7 @@ const HandleForm = () => {
     const firstNameRegex = /^[A-Za-z]{6,15}$/;
     const lastNameRegex = /^[A-Za-z]{6,15}$/
     const phoneRegex = /^\d{7}$/;
-    // const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;// [^\s@] => Matches any character except whitespaces & '@'
     // first letter must be a character, // - total length: 7 to 16 characters , remaining characters may be letters,digits or allowed special symbols(characters)
     // ^ => start(beginning of string) 
     // $ => end of string 
@@ -106,10 +106,10 @@ const HandleForm = () => {
     }
 
     // 5. Validate Email
-    // if (!emailRegex.test(formData.email)) {
-    //   setError("Please enter a valid email address.");
-    //   return;
-    // }
+    if (!emailRegex.test(formData.email)) {
+      setError("Please enter a valid email address.");
+      return;
+    }
 
     // const fullNumber = `+92-${formData.operator}-${formData.phoneNo}`;
     // functional update
@@ -145,7 +145,7 @@ const HandleForm = () => {
 
     // Now extract the data from the local storage(if present) & put it into an array
     const existingUsers = JSON.parse(localStorage.getItem("userData")) || [];
-    //check if email is distinct(unique) or it is duplicate
+    //check if email is distinct(unique) or it is duplicate(check for duplicate Email Address)
     const alreadyExists = existingUsers.some((user) =>
       // if duplicate email exists
       user.email === formData.email
