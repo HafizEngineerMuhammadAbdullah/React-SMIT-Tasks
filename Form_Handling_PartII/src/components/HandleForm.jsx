@@ -29,14 +29,14 @@ const HandleForm = () => {
     setShowPassword(prev => !prev);
   }
 
-  // useEffect runs after render & give latest update of formData(to observe state changes)
+  // useEffect runs after render & give latest update of formData(if we want to observe state changes)
   useEffect(() => {
     console.log("Updated data : ", formData);
 
   }, [formData]);
 
 
-  // function to handle change, it triggers whenever we type or remove sth  from an input box
+  // function to handle change, it triggers(this function calls) whenever we type or remove sth from an input box
   const handleChange = (e) => {
     // extract the name & value from change event object e.target
     const { name, value } = e.target;
@@ -53,6 +53,7 @@ const HandleForm = () => {
       // [name]: value
       [name]: updatedValue
     }))
+
     // setFormData((prevForm) => ({
     //   [name]: value
     // }))
@@ -61,11 +62,9 @@ const HandleForm = () => {
   }
 
   // performs Validation before submission
-  const submitHandler = async (e) => {
-    e.preventDefault();
+  const validateForm = () => {
 
-
-    // form Validation :-
+    //  Form Validation :-
     // • first Name requires: only letters
     // • minimum 6 characters
     // • maximum 15 characters
@@ -78,37 +77,39 @@ const HandleForm = () => {
     // $ => end of string 
     const passwordRegex =
       /^[A-Za-z][A-Za-z0-9!@#%^&*$]{6,15}$/;
-    const hasSpecial = /[!@#%^&*$]/;
+    const hasSpecialChar = /[!@#%^&*$]/;
     const hasUppercase = /[A-Z]/;
+
+
     // 1. Validate First Name
     if (!firstNameRegex.test(formData.firstName)) {
       setError("First Name must contain only letters and be 7–16 characters long.");
-      return;
+      return false;
     }
 
     // 2. Validate Last Name
     if (!lastNameRegex.test(formData.lastName)) {
       setError("Last Name must contain only letters and be 7–16 characters long.");
-      return;
+      return false;
     }
 
     // 3. Validate Phone Operator
     if (formData.operator === "Operator") {
       setError("kindly set the Phone Number Operator!");
-      return;
+      return false;
     }
 
     // 4. Validate Mobile No
     // Should contain exactly 7 digit
     if (!phoneRegex.test(formData.phoneNo)) {
       setError("Phone number must contain exactly 7 digits.");
-      return;
+      return false;
     }
 
     // 5. Validate Email
     if (!emailRegex.test(formData.email)) {
       setError("Please enter a valid email address.");
-      return;
+      return false;
     }
 
     // const fullNumber = `+92-${formData.operator}-${formData.phoneNo}`;
@@ -118,30 +119,81 @@ const HandleForm = () => {
     //   ...prevForm,
     //   fullNumber: fullNumber
     // }))
+
+    // 6.Validate Password
+    if (!passwordRegex.test(formData.password)) {
+      setError("Password first character must be english letter and be 7-15 characters long!");
+      return false;
+    }
+    // check if there is a special character exist in the password or not
+    if (!hasSpecialChar.test(formData.password)) {
+      setError("Password must contain at least one special character.");
+      return false;
+    }
+    // check if there is an UpperCase letter exist in the password or not
+    if (!hasUppercase.test(formData.password)) {
+      setError("Password must contain at least one upper case letter.");
+      return false;
+    }
+
+
+    return true;
+  }
+
+
+
+  const submitHandler = async (e) => {
+    e.preventDefault();
+
+    // if Validation are not accepted,return from here 
+    // Stop Submission if validation fails 
+    if (!validateForm()) return;
+
+    // Terms & Condition Message
+    const { value: accept } = await Swal.fire({
+      title: "Terms and conditions",
+      input: "checkbox",
+      inputValue: 1,
+      inputPlaceholder: "I agree with the terms and conditions",
+      confirmButtonText: `Continue&nbsp;<i class="fa fa-arrow-right"></i>`,
+      inputValidator: (result) => {
+        return !result && "You need to agree with T&C";
+      }
+    });
+    // Stop execution if user don't accept
+    if (!accept) return;
+
+    // if agreed with terms & conditions,show Message
+    Swal.fire("You agreed with T&C :)")
+
+
+
+    // form submitted successfully message
+    Swal.fire({
+      title: "Form submitted Successfully!",
+      icon: "success",
+      timerProgressBar: true,
+      // text: "You clicked the button!",
+      showClass: {
+        popup: `
+          animate__animated
+          animate__fadeInUp
+          animate__faster
+        ` },
+      hideClass: {
+        popup: `
+          animate__animated
+          animate__fadeOutDown
+          animate__faster
+        ` }
+    });
+
     // React state updates asynchronously because React schedules the update and re-renders later.
     const userToSave = {
       ...formData,
       // update the fullNumber
       fullNumber: `+92-${formData.operator}-${formData.phoneNo}`
     }
-
-    // 5.Validate Password
-    if (!passwordRegex.test(formData.password)) {
-      setError("Password first character must be english letter and be 7-15 characters long!");
-      return;
-    }
-    // check if there is a special character exist in the password or not
-    if (!hasSpecial.test(formData.password)) {
-      setError("Password must contain at least one special character.");
-      return;
-    }
-    // check if there is an UpperCase letter exist in the password or not
-    if (!hasUppercase.test(formData.password)) {
-      setError("Password must contain at least one upper case letter.");
-      return;
-    }
-
-
 
     // Now extract the data from the local storage(if present) & put it into an array
     const existingUsers = JSON.parse(localStorage.getItem("userData")) || [];
@@ -160,43 +212,9 @@ const HandleForm = () => {
 
     localStorage.setItem("userData", JSON.stringify(existingUsers));
 
-    // Terms & Condition Message
-    const { value: accept } = await Swal.fire({
-      title: "Terms and conditions",
-      input: "checkbox",
-      inputValue: 1,
-      inputPlaceholder: "I agree with the terms and conditions",
-      confirmButtonText: `Continue&nbsp;<i class="fa fa-arrow-right"></i>`,
-      inputValidator: (result) => {
-        return !result && "You need to agree with T&C";
-      }
-    });
-    if (accept) Swal.fire("You agreed with T&C :)");
-
 
     // set error as empty
     setError("");
-
-
-    // form submitted successfully message
-    Swal.fire({
-      title: "Form submitted Successfully!",
-      icon: "success",
-      timerProgressBar: true,
-      // text: "You clicked the button!",
-      showClass: {
-        popup: `
-      animate__animated
-      animate__fadeInUp
-      animate__faster
-    ` },
-      hideClass: {
-        popup: `
-      animate__animated
-      animate__fadeOutDown
-      animate__faster
-    ` }
-    });
 
     // Empty formData
     setFormData({
