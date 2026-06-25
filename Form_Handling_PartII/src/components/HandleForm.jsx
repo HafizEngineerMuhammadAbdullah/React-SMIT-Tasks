@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { User, UserRound, Mail, LockKeyhole, Phone } from 'lucide-react';
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
 
 
 const HandleForm = () => {
@@ -33,7 +33,7 @@ const HandleForm = () => {
   useEffect(() => {
     console.log("Updated data : ", formData);
 
-  }, [formData]);
+  }, [formData]);//runs every time whenever formData state changes
 
 
   // function to handle change, it triggers(this function calls) whenever we type or remove sth from an input box
@@ -43,6 +43,7 @@ const HandleForm = () => {
 
     let updatedValue = value;
 
+    // Preventing non-digits in the phone field
     if (name === "phoneNo") {
       // remove every non-digit character & ensure user could enter at most 7 digits
       updatedValue = value.replace(/\D/g, "").slice(0, 7);//keep digits only
@@ -61,8 +62,11 @@ const HandleForm = () => {
     console.log("old data : ", formData);
   }
 
+
   // performs Validation before submission
   const validateForm = () => {
+
+   
 
     //  Form Validation :-
     // • first Name requires: only letters
@@ -75,6 +79,8 @@ const HandleForm = () => {
     // first letter must be a character, // - total length: 7 to 16 characters , remaining characters may be letters,digits or allowed special symbols(characters)
     // ^ => start(beginning of string) 
     // $ => end of string 
+    // • minimum 7 characters
+    // • maximum 16 characters
     const passwordRegex =
       /^[A-Za-z][A-Za-z0-9!@#%^&*$]{6,15}$/;
     const hasSpecialChar = /[!@#%^&*$]/;
@@ -83,19 +89,19 @@ const HandleForm = () => {
 
     // 1. Validate First Name
     if (!firstNameRegex.test(formData.firstName)) {
-      setError("First Name must contain only letters and be 7–16 characters long.");
+      setError("First Name must contain only letters and be 6–15 characters long.");
       return false;
     }
 
     // 2. Validate Last Name
     if (!lastNameRegex.test(formData.lastName)) {
-      setError("Last Name must contain only letters and be 7–16 characters long.");
+      setError("Last Name must contain only letters and be 6–15 characters long.");
       return false;
     }
 
     // 3. Validate Phone Operator
     if (formData.operator === "Operator") {
-      setError("kindly set the Phone Number Operator!");
+      setError("kindly, set the Phone Number Operator!");
       return false;
     }
 
@@ -120,7 +126,7 @@ const HandleForm = () => {
     //   fullNumber: fullNumber
     // }))
 
-    // 6.Validate Password
+    // 6. Validate Password
     if (!passwordRegex.test(formData.password)) {
       setError("Password first character must be english letter and be 7-15 characters long!");
       return false;
@@ -142,11 +148,13 @@ const HandleForm = () => {
 
 
 
+  // function to handle Submit
   const submitHandler = async (e) => {
     e.preventDefault();
 
     // if Validation are not accepted,return from here 
     // Stop Submission if validation fails 
+    setError("");
     if (!validateForm()) return;
 
     // Terms & Condition Message
@@ -197,10 +205,11 @@ const HandleForm = () => {
 
     // Now extract the data from the local storage(if present) & put it into an array
     const existingUsers = JSON.parse(localStorage.getItem("userData")) || [];
+    // Checking for duplicate Emails in a Local Storage
     //check if email is distinct(unique) or it is duplicate(check for duplicate Email Address)
     const alreadyExists = existingUsers.some((user) =>
       // if duplicate email exists
-      user.email === formData.email
+      user.email.toLowerCase() === formData.email.toLowerCase()
     )
 
     if (alreadyExists) {
@@ -259,7 +268,7 @@ const HandleForm = () => {
               value={formData.firstName}
               type="text"
               placeholder='enter your first name'
-              autoComplete='user-first-name'
+              autoComplete='given-name'
               required={true} />
             <User className="absolute left-1.5 top-3" size={20} color='gray' />
           </div>
@@ -277,7 +286,7 @@ const HandleForm = () => {
               name="lastName"
               value={formData.lastName}
               placeholder='enter your last name'
-              autoComplete='user-last-name'
+              autoComplete='family-name'
               required={true} />
             <UserRound className='absolute left-1.5 top-3' size={20} color='gray' />
           </div>
@@ -311,7 +320,7 @@ const HandleForm = () => {
                 name="phoneNo"
                 value={formData.phoneNo}
                 placeholder='7 digit number'
-                autoComplete='user-phoneNo'
+                autoComplete='tel'
                 required={true} />
               <Phone className="absolute left-1.5 top-3" size={20} color='gray' />
             </div>
@@ -330,7 +339,7 @@ const HandleForm = () => {
               name="email"
               value={formData.email}
               placeholder='please enter valid email address'
-              autoComplete='user-email'
+              autoComplete='email'
               required={true} />
             <Mail className='absolute left-1.5 top-3' size={20} color='gray' />
           </div>
@@ -348,33 +357,34 @@ const HandleForm = () => {
               name="password"
               value={formData.password}
               placeholder='please enter valid password'
-              autoComplete='user-password'
+              autoComplete='new-password'
               required={true} />
 
             <LockKeyhole className='absolute left-1.5 top-3' size={20} color='gray' />
 
-            <p className='absolute right-5 top-1.5 mx-3 text-gray-500 text-xl'>|</p>
+            <p className='absolute right-5 top-1.5 mx-3 text-gray-400 text-xl'>|</p>
 
             {/*  if isShowPassword is true, eyeoff appear otherwise eyeon appear */}
             {/* {isShowPassword ? <IoMdEyeOff className='absolute right-2.5 top-3.5 text-gray-700 cursor-pointer' onClick={togglePasswordVisibility} /> : <IoMdEye className='absolute right-2.5 top-3.5 text-gray-700 cursor-pointer' onClick={togglePasswordVisibility} />} */}
             <button
               type="button"
               onClick={togglePasswordVisibility}
-              className="absolute right-2.5 top-3.5 text-gray-700 cursor-pointer"
+              className="absolute right-2.5 top-3.5 text-gray-500 cursor-pointer"
             >
+              {/* Password Show/Hide Toggle Logic */}
               {isShowPassword ? <IoMdEyeOff /> : <IoMdEye />}
             </button>
 
           </div>
         </div>
 
-        <div><p className='text-blue-600 text-sm'>7-16 characters starts with Alphabets,then Numbers OR Special Characters !@#%^&*$</p></div>
+        <div><p className='text-blue-600 text-sm font-semibold font-mono tracking-wide'>7-16 characters starts with Alphabets,then Numbers OR Special Characters !@#%^&*$</p></div>
 
         {/* for Submit Button */}
 
         <button
           type="submit"
-          className='w-full text-center text-white bg-[#F59321] py-2 cursor-pointer hover:bg-[#df7904]'>
+          className='w-full text-center text-white font-medium bg-[#F59321] py-2 cursor-pointer hover:bg-[#df7904] active:scale-95'>
           Submit
         </button>
 
