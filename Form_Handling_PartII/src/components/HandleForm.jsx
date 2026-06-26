@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { User, UserRound, Mail, LockKeyhole, Phone } from 'lucide-react';
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
+import toast, { Toaster } from "react-hot-toast";
 import Swal from 'sweetalert2';
+// import Swal from 'sweetalert2/dist/sweetalert2.js'
+// import 'sweetalert2/src/sweetalert2.scss'
 
 
 const HandleForm = () => {
@@ -66,7 +69,7 @@ const HandleForm = () => {
   // performs Validation before submission
   const validateForm = () => {
 
-   
+
 
     //  Form Validation :-
     // • first Name requires: only letters
@@ -196,6 +199,42 @@ const HandleForm = () => {
         ` }
     });
 
+
+    toast.custom((t) => (
+      <div
+        className={`${t.visible ? 'animate-custom-enter' : 'animate-custom-leave'
+          } max-w-md w-full bg-[#333] shadow-lg rounded-lg pointer-events-auto flex ring-1 ring-black ring-opacity-5`}
+      >
+        <div className="flex-1 w-0 p-4">
+          <div className="flex items-start">
+            <div className="flex-shrink-0 pt-0.5">
+              <img
+                className="h-10 w-10 rounded-full"
+                src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixqx=6GHAjsWpt9&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.2&w=160&h=160&q=80"
+                alt=""
+              />
+            </div>
+            <div className="ml-3 flex-1">
+              <p className="text-sm font-medium text-gray-900">
+                {`${formData.firstName} ${formData.lastName}`}
+              </p>
+              <p className="mt-1 text-sm text-gray-500">
+                Form Submitted Successfully!
+              </p>
+            </div>
+          </div>
+        </div>
+        <div className="flex border-l border-gray-200">
+          <button
+            onClick={() => toast.dismiss(t.id)}
+            className="w-full border border-transparent rounded-none rounded-r-lg p-4 flex items-center justify-center text-sm font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    ))
+
     // React state updates asynchronously because React schedules the update and re-renders later.
     const userToSave = {
       ...formData,
@@ -242,11 +281,12 @@ const HandleForm = () => {
 
   return (
     <div className='w-full max-w-md border border-gray-300 p-6'>
-      <form onSubmit={submitHandler} action="" className='flex flex-col justify-between items-start gap-y-2'>
+      <div><Toaster /></div>
+      <form onSubmit={submitHandler} className='flex flex-col justify-between items-start gap-y-2'>
 
         <div className='w-full flex gap-x-3.5 items-center-safe'>
           <p>Already have an account?</p>
-          <button type="button" className='bg-[rgb(93,211,38)] py-2 px-4 text-[white] cursor-pointer'>Sign In to LMS</button>
+          <button type="button" className='bg-[rgb(93,211,38)] py-2 px-4 text-[white] cursor-pointer hover:bg-[rgb(93,247,22)]'>Sign In to LMS</button>
         </div>
 
         {/* Create New Account Paragraph */}
