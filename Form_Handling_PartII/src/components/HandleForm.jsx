@@ -3,8 +3,6 @@ import { User, UserRound, Mail, LockKeyhole, Phone } from 'lucide-react';
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
 import toast, { Toaster } from "react-hot-toast";
 import Swal from 'sweetalert2';
-// import Swal from 'sweetalert2/dist/sweetalert2.js'
-// import 'sweetalert2/src/sweetalert2.scss'
 
 
 const HandleForm = () => {
@@ -32,12 +30,17 @@ const HandleForm = () => {
     setShowPassword(prev => !prev);
   }
 
+  
   // useEffect runs after render & give latest update of formData(if we want to observe state changes)
   useEffect(() => {
     console.log("Updated data : ", formData);
-
+    
   }, [formData]);//runs every time whenever formData state changes
-
+  
+  // show Error Message
+  const showError = (message) => {
+    setError(message);
+  }
 
   // function to handle change, it triggers(this function calls) whenever we type or remove sth from an input box
   const handleChange = (e) => {
@@ -49,7 +52,7 @@ const HandleForm = () => {
     // Preventing non-digits in the phone field
     if (name === "phoneNo") {
       // remove every non-digit character & ensure user could enter at most 7 digits
-      updatedValue = value.replace(/\D/g, "").slice(0, 7);//keep digits only
+      updatedValue = value.replace(/\D/g, "").slice(0, 7);//keep digits & 7 digits only
     }
 
     setFormData(prevForm => ({
@@ -68,7 +71,7 @@ const HandleForm = () => {
 
   // performs Validation before submission
   const validateForm = () => {
-
+    showError("");
 
 
     //  Form Validation :-
@@ -92,32 +95,32 @@ const HandleForm = () => {
 
     // 1. Validate First Name
     if (!firstNameRegex.test(formData.firstName)) {
-      setError("First Name must contain only letters and be 6–15 characters long.");
+      showError("First Name must contain only letters and be 6–15 characters long.");
       return false;
     }
 
     // 2. Validate Last Name
     if (!lastNameRegex.test(formData.lastName)) {
-      setError("Last Name must contain only letters and be 6–15 characters long.");
+      showError("Last Name must contain only letters and be 6–15 characters long.");
       return false;
     }
 
     // 3. Validate Phone Operator
     if (formData.operator === "Operator") {
-      setError("kindly, set the Phone Number Operator!");
+      showError("kindly, set the Phone Number Operator!");
       return false;
     }
 
     // 4. Validate Mobile No
     // Should contain exactly 7 digit
     if (!phoneRegex.test(formData.phoneNo)) {
-      setError("Phone number must contain exactly 7 digits.");
+      showError("Phone number must contain exactly 7 digits.");
       return false;
     }
 
     // 5. Validate Email
     if (!emailRegex.test(formData.email)) {
-      setError("Please enter a valid email address.");
+      showError("Please enter a valid email address.");
       return false;
     }
 
@@ -131,22 +134,76 @@ const HandleForm = () => {
 
     // 6. Validate Password
     if (!passwordRegex.test(formData.password)) {
-      setError("Password first character must be english letter and be 7-15 characters long!");
+      showError("Password first character must be english letter and be 7-15 characters long!");
       return false;
     }
     // check if there is a special character exist in the password or not
     if (!hasSpecialChar.test(formData.password)) {
-      setError("Password must contain at least one special character.");
+      showError("Password must contain at least one special character.");
       return false;
     }
     // check if there is an UpperCase letter exist in the password or not
     if (!hasUppercase.test(formData.password)) {
-      setError("Password must contain at least one upper case letter.");
+      showError("Password must contain at least one upper case letter.");
       return false;
     }
 
-
     return true;
+  }
+
+
+
+  const checkIfEmailExists = () => {
+
+    let existingUsers = [];
+    // it could throw SyntaxError
+    try {
+      // Now extract the data from the local storage(if present) & put it into an array
+      existingUsers = JSON.parse(localStorage.getItem("userData")) || [];
+    } catch {
+      existingUsers = [];
+    }
+    // Checking for duplicate Emails in a Local Storage
+    //check if email is distinct(unique) or it is duplicate(check for duplicate Email Address)
+    const alreadyExists = existingUsers.some((user) =>
+      // if duplicate email exists
+      user.email.toLowerCase() === formData.email.toLowerCase()
+    )
+
+    if (alreadyExists) {
+      showError("Email already registered!");
+      return true;//duplicate email found
+    }
+
+    return false;//duplicate email not found
+  }
+
+  const pushUserData = () => {
+
+    // NOW save the user Data (Permission Granted!)
+    // React state updates asynchronously because React schedules the update and re-renders later.
+    const fullNumber = `+92-${formData.operator}-${formData.phoneNo}`;
+    const userToSave = {
+      ...formData,
+      // update the fullNumber
+      fullNumber
+    };
+
+    // push the current data of user in an array
+    let existingUsers = [];
+    try {
+      existingUsers = JSON.parse(localStorage.getItem("userData")) || [];
+    } catch {
+      existingUsers = [];
+    }
+    // push the user Data into Local storage if & only if the Email is not duplicated
+    existingUsers.push(userToSave);
+    // it can throw QuotaExceededError iff local storage becomes full
+    try {
+      localStorage.setItem("userData", JSON.stringify(existingUsers));
+    } catch (err) {
+      console.log(err);
+    }
   }
 
 
@@ -157,10 +214,13 @@ const HandleForm = () => {
 
     // if Validation are not accepted,return from here 
     // Stop Submission if validation fails 
-    setError("");
+    // Validate Inputs
     if (!validateForm()) return;
 
-    // Terms & Condition Message
+    // Check for duplicates BEFORE asking for T&C
+    if (checkIfEmailExists()) return;
+
+    // Ask for Terms & Condition (Message)
     const { value: accept } = await Swal.fire({
       title: "Terms and conditions",
       input: "checkbox",
@@ -177,26 +237,34 @@ const HandleForm = () => {
     // if agreed with terms & conditions,show Message
     Swal.fire("You agreed with T&C :)")
 
-
-
     // form submitted successfully message
+    let timerInterval;
+
     Swal.fire({
-      title: "Form submitted Successfully!",
-      icon: "success",
+      title: "Submitting Your Form...",
+      html: "Processing your data in <b></b>ms.",
+      timer: 2500,
       timerProgressBar: true,
-      // text: "You clicked the button!",
-      showClass: {
-        popup: `
-          animate__animated
-          animate__fadeInUp
-          animate__faster
-        ` },
-      hideClass: {
-        popup: `
-          animate__animated
-          animate__fadeOutDown
-          animate__faster
-        ` }
+      icon: "success",
+      iconColor: "#2ecc71",
+      confirmButtonColor: "#3085d6",
+
+      didOpen: () => {
+        Swal.showLoading();
+        const timer = Swal.getPopup().querySelector("b");
+        timerInterval = setInterval(() => {
+          timer.textContent = `${Swal.getTimerLeft()}`;
+        }, 7000);
+      },
+
+      willClose: () => {
+        clearInterval(timerInterval);
+      }
+    }).then((result) => {
+
+      if (result.dismiss === Swal.DismissReason.timer) {
+        console.log("Form successfully submitted!");
+      }
     });
 
 
@@ -235,34 +303,12 @@ const HandleForm = () => {
       </div>
     ))
 
-    // React state updates asynchronously because React schedules the update and re-renders later.
-    const userToSave = {
-      ...formData,
-      // update the fullNumber
-      fullNumber: `+92-${formData.operator}-${formData.phoneNo}`
-    }
-
-    // Now extract the data from the local storage(if present) & put it into an array
-    const existingUsers = JSON.parse(localStorage.getItem("userData")) || [];
-    // Checking for duplicate Emails in a Local Storage
-    //check if email is distinct(unique) or it is duplicate(check for duplicate Email Address)
-    const alreadyExists = existingUsers.some((user) =>
-      // if duplicate email exists
-      user.email.toLowerCase() === formData.email.toLowerCase()
-    )
-
-    if (alreadyExists) {
-      setError("Email already registered!");
-      return;
-    }
-    // push the current data of user in an array
-    existingUsers.push(userToSave);
-
-    localStorage.setItem("userData", JSON.stringify(existingUsers));
+    // push the user Data into Local Storage
+    pushUserData();
 
 
     // set error as empty
-    setError("");
+    showError("");
 
     // Empty formData
     setFormData({
