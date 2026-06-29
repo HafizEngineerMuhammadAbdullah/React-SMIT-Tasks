@@ -1,0 +1,108 @@
+.header{
+  width: 100vw;
+  height: 80px;
+  background-color: #777373;
+}
+
+/* Navbar */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  padding: 16px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: "Open Sans";
+}
+
+/* foodpanda Logo & Text */
+.foodpandaLogoText {
+  display: flex;
+  align-items: center;
+  padding: 4px 40px;
+  column-gap: 10px;
+  cursor: pointer;
+}
+
+/* foodpanda Logo */
+.foodpandaLogo {
+  height: 32px;
+  width: 32px;
+  border-radius: 7px;
+}
+
+/* foodpanda Text */
+.foodpandaText {
+  font-size: 24px;
+  font-weight: 600;
+  color: #FF2B85;
+}
+
+/* Foodpanda Location */
+/* .foodpandaLocation {
+  display: flex;
+  align-items: center;
+  column-gap: 7px;
+}
+
+.address{
+   font-weight: 500;
+   font-size: 16px;
+} */
+
+/* foodpanda nav links */
+.foodpandaNavLinks {
+  display: flex;
+  align-items: center;
+  column-gap: 20px;
+}
+
+.navLinks {
+  font-size: 14px;
+  text-decoration: none;
+  color: #111;
+  font-weight: bold;
+  position: relative;
+}
+
+.navLinks::after {
+  /* creates a fake element */
+  content: "";
+  /* now we can set position as where we want */
+  position: absolute;
+  left: 0;
+  bottom: -10px;
+  width: 0%;
+  height: 2px;
+  background: linear-gradient(90deg, #ff2b85, #a855f7);
+  color: #ff2b85;
+  transition: width 0.1s ease-in;
+}
+
+.navLinks:hover::after {
+  width: 100%;
+}
+
+/* Location Button */
+.btn {
+  padding: 16px 20px;
+  background-color: #FF2B85;
+  color: #fff;
+  font-weight: bolder;
+  border: none;
+  border-radius: 24px;
+  cursor: pointer;
+  font-family: sans-serif;
+}
+
+.btn:hover {
+  background-color: #c21760;
+}
+
+/* Search Icon */
+.searchIcon {
+  display: inline-block;
+  margin-right: 100px;
+}
