@@ -56,13 +56,15 @@ const Hero = () => {
                         2000,
                         'AI/ML Enthusiast',
                         2000,
+                        'DSA & Leetcode Enthusiast',
+                        2000,
                         'Interested in Gaming Development',
                         2000,
-                        'Aspring Full-Stack development', // Types 'One'
+                        'Aspring Full-Stack Development', // Types 'One'
                         1000, // Waits 1s
                         'UI/UX Enthusiast', // Deletes 'One' and types 'Two'
                         2000, // Waits 2s
-                        'React Specialist', // Types 'Three' without deleting 'Two'
+                        'ReactJs Specialist', // Types 'Three' without deleting 'Two'
                         2000,
                         () => {
                             console.log('Sequence completed');
