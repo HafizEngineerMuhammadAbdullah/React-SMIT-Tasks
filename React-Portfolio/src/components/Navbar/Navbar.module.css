@@ -1,0 +1,131 @@
+/* for header */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  background-color: rgba(10, 10, 10, 0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 0.8rem 0;
+}
+
+/* for Navbar */
+.navbar {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* for Logo */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+/* for Logo Icon */
+.logoIcon {
+  font-size: 1.8rem;
+}
+
+/* for logo text  */
+.logoText {
+  background: linear-gradient(135deg, #6c63ff, #a855f7);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* for navbar at desktop screen */
+.navDesktop {
+  display: flex;
+  gap: 2.5rem;
+  align-items: center;
+}
+
+/* for Navlinks */
+.navLinks {
+  color: #e2e8f0;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: color 0.2s;
+  position: relative;
+}
+
+.navLinks::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  height: 2px;
+  width: 0%;
+  background: linear-gradient(90deg, #3a31f6, #952ff4);
+  transition: width 0.2s ease-in;
+}
+
+/* when the hover being performed n navLinks,change in after element(fake element) */
+.navLinks:hover::after {
+  width: 100%;
+}
+
+/* for menu toggle button */
+.menuToggle {
+  display: none;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0.25rem;
+}
+
+/* for navbar at mobile screen */
+.navMobile {
+  display: none;
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 280px;
+  height: 100vh;
+  background: rgba(10, 10, 10, 0.98);
+  backdrop-filter: blur(12px);
+  padding: 5rem 2rem 2rem;
+  flex-direction: column;
+  gap: 1.5rem;
+  box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
+}
+
+/* when navbar opens at mobile screen */
+.navMobile.open {
+  display: flex;
+}
+
+/* for navLinks at mobile screen */
+.navLinkMobile {
+  color: #e2e8f0;
+  text-decoration: none;
+  font-size: 1.2rem;
+  font-weight: 500;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  transition: all 0.2s;
+}
+
+@media (max-width: 768px) {
+  .navDesktop {
+    display: none;
+  }
+  .menuToggle {
+    display: block;
+    z-index: 1;
+  }
+}
