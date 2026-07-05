@@ -58,6 +58,15 @@ Building and managing forms in React with validation and submission handling.
 
 ---
 
+# My Multi-Project Repository
+
+This repository contains two separate applications:
+
+*   🚀 **Project SMIT Student Portal**: [Live Link to Project 1](https://smit-student-portal-rho.vercel.app/ )
+*   💻 **Project Foodpanda App**: [Live Link to Project 2](https://foodpanda-app.vercel.app/)
+*   💻 **Project Portfolio App**: [Live Link to Project 2]( https://my-react-portfolio-gray-eight.vercel.app)
+*   💻 **Project Form 01**: [Live Link to Project 2](https://form-handling-drab.vercel.app/)
+
 ## 🚀 Getting Started
 
 Each project is self-contained. To run any project:
