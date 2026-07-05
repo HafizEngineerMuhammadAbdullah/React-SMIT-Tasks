@@ -1,7 +1,8 @@
 import React from 'react';
 import styles from "./Hero.module.css";
 import { motion } from "motion/react";
-import { fadeInUp,scaleOnHover } from '../../animation/variants';
+import { TypeAnimation } from 'react-type-animation'
+import { fadeInUp, scaleOnHover } from '../../animation/variants';
 import { FaGithub, FaLinkedin, FaTwitter } from 'react-icons/fa';
 
 const Hero = () => {
@@ -45,6 +46,33 @@ const Hero = () => {
                 >
                     {/* Subtitle */}
                     Full-stack developer · UI/UX enthusiast · React specialist
+                </motion.p>
+
+                {/* Typing Animation */}
+                <motion.p className={styles.subtitle}>
+                <TypeAnimation
+                    sequence={[
+                        'Frontend Developer',
+                        2000,
+                        'AI/ML Enthusiast',
+                        2000,
+                        'Interested in Gaming Development',
+                        2000,
+                        'Aspring Full-Stack development', // Types 'One'
+                        1000, // Waits 1s
+                        'UI/UX Enthusiast', // Deletes 'One' and types 'Two'
+                        2000, // Waits 2s
+                        'React Specialist', // Types 'Three' without deleting 'Two'
+                        2000,
+                        () => {
+                            console.log('Sequence completed');
+                        },
+                    ]}
+                    wrapper="span"
+                    cursor={true}
+                    repeat={Infinity}
+                    style={{ fontSize: '2em', display: 'inline-block' }}
+                />
                 </motion.p>
 
                 {/* Description Section */}
@@ -114,7 +142,7 @@ const Hero = () => {
                     ))}
                 </motion.div>
             </motion.div>
-            
+
             {/* Images Section */}
             <motion.div
                 className={styles.heroImage}
