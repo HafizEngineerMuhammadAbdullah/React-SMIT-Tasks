@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>React Router DOM — The Complete Route Map</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+:root{
+  --bg:#0b1220;
+  --panel:#111b30;
+  --panel-2:#0e1728;
+  --line:#22314f;
+  --text:#e7edf7;
+  --muted:#8ea0c2;
+  --tag:#4fd1c5;     /* <  >  </  /> JSX tags */
+  --brace:#c9a4ff;   /* {  } */
+  --paren:#ff9fc7;   /* (  ) */
+  --quote:#ffd166;   /* "  '  ` strings */
+  --bracket:#6fb6ff; /* [  ] */
+  --kw:#7aa2ff;
+  --comment:#5c6b8a;
+  --good:#57e0a0;
+  --bad:#ff7b8f;
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  background:
+    radial-gradient(1000px 500px at 15% -5%, #14213f 0%, transparent 60%),
+    radial-gradient(900px 500px at 100% 0%, #102035 0%, transparent 55%),
+    var(--bg);
+  color:var(--text);
+  font-family:'Inter',sans-serif;
+  line-height:1.6;
+}
+.wrap{max-width:920px;margin:0 auto;padding:0 22px 100px;}
+
+/* progress rail */
+.rail{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--tag),var(--brace),var(--quote));width:0%;z-index:50;transition:width .1s;}
+
+/* HERO */
+.hero{padding:70px 0 40px;position:relative;}
+.eyebrow{
+  display:inline-flex;gap:8px;align-items:center;
+  font-family:'JetBrains Mono',monospace;font-size:12.5px;color:var(--tag);
+  border:1px solid #1e3a4a;background:#0d2027;padding:6px 12px;border-radius:20px;
+  letter-spacing:.03em;
+}
+.eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--tag);box-shadow:0 0 8px var(--tag);}
+h1.title{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:clamp(34px,6vw,54px);
+  line-height:1.05;
+  margin:18px 0 12px;
+  letter-spacing:-0.02em;
+}
+h1.title .accent{color:var(--tag);}
+.sub{color:var(--muted);font-size:17px;max-width:640px;}
+.sub b{color:var(--text);}
+
+.roadmap{
+  display:flex;flex-wrap:wrap;gap:8px;margin-top:26px;
+}
+.roadmap a{
+  font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--muted);
+  border:1px solid var(--line);padding:6px 10px;border-radius:8px;text-decoration:none;
+  transition:.15s;background:var(--panel-2);
+}
+.roadmap a:hover{border-color:var(--tag);color:var(--tag);}
+
+/* SECTION */
+section.concept{
+  margin-top:56px;padding-top:26px;border-top:1px solid var(--line);scroll-margin-top:20px;
+}
+.tag-num{
+  font-family:'JetBrains Mono',monospace;color:var(--muted);font-size:13px;
+}
+h2{
+  font-family:'Space Grotesk',sans-serif;font-size:26px;margin:6px 0 8px;letter-spacing:-0.01em;
+}
+h2 code{font-size:.75em;color:var(--tag);background:none;padding:0;}
+p.lead{color:var(--muted);font-size:15.5px;max-width:680px;}
+p.lead b{color:var(--text)}
+
+/* code blocks */
+.code{
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:16px 18px;
+  margin:16px 0;
+  overflow-x:auto;
+  font-family:'JetBrains Mono',monospace;
+  font-size:13.5px;
+  line-height:1.75;
+}
+.code .filename{
+  display:block;color:var(--muted);font-size:11px;margin-bottom:10px;letter-spacing:.04em;
+  text-transform:uppercase;
+}
+.code pre{margin:0;white-space:pre;}
+.tagc{color:var(--tag);font-weight:600;}
+.attr{color:#a9e5ff;}
+.brace{color:var(--brace);font-weight:700;}
+.paren{color:var(--paren);font-weight:700;}
+.str{color:var(--quote);}
+.bracket{color:var(--bracket);font-weight:700;}
+.kw{color:var(--kw);}
+.cm{color:var(--comment);font-style:italic;}
+.plain{color:var(--text);}
+
+/* callouts */
+.callout{
+  display:flex;gap:12px;background:var(--panel-2);border:1px solid var(--line);
+  border-left:3px solid var(--tag);border-radius:8px;padding:12px 16px;margin:16px 0;
+  font-size:14px;color:var(--muted);
+}
+.callout.warn{border-left-color:var(--bad);}
+.callout b{color:var(--text)}
+
+/* diagram box */
+.diagram{
+  background:var(--panel);border:1px solid var(--line);border-radius:12px;
+  padding:18px;margin:18px 0;
+}
+.diagram svg{width:100%;height:auto;display:block;}
+
+/* legend for syntax anatomy */
+.legend{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:18px 0;
+}
+.legend .item{
+  display:flex;align-items:center;gap:10px;background:var(--panel-2);border:1px solid var(--line);
+  border-radius:8px;padding:10px 12px;font-family:'JetBrains Mono',monospace;font-size:13px;
+}
+.legend .swatch{width:22px;height:22px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;flex-shrink:0;}
+
+/* interactive anatomy */
+.anatomy-box{
+  background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px;margin:18px 0;
+}
+.anatomy-code{font-family:'JetBrains Mono',monospace;font-size:15px;line-height:2.1;letter-spacing:.01em;}
+.anatomy-code span{cursor:pointer;border-radius:4px;padding:1px 2px;transition:.12s;}
+.anatomy-code span:hover{background:#1c2947;}
+#anatomy-explain{
+  margin-top:14px;min-height:46px;color:var(--muted);font-size:14px;border-top:1px dashed var(--line);padding-top:12px;
+}
+#anatomy-explain b{color:var(--text)}
+
+/* two column */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+@media(max-width:720px){.grid2{grid-template-columns:1fr;}}
+.card{background:var(--panel-2);border:1px solid var(--line);border-radius:10px;padding:14px 16px;}
+.card h4{margin:0 0 6px;font-family:'Space Grotesk',sans-serif;font-size:15px;}
+.card p{margin:0;color:var(--muted);font-size:13.5px;}
+
+table.cheat{width:100%;border-collapse:collapse;margin:16px 0;font-size:13.5px;}
+table.cheat th{
+  text-align:left;color:var(--muted);font-weight:600;font-size:11px;text-transform:uppercase;
+  letter-spacing:.04em;padding:8px 10px;border-bottom:1px solid var(--line);
+}
+table.cheat td{padding:10px;border-bottom:1px solid var(--line);vertical-align:top;}
+table.cheat code{font-family:'JetBrains Mono',monospace;color:var(--tag);background:#0d1626;padding:2px 6px;border-radius:5px;font-size:12.5px;}
+
+/* QUIZ */
+.quiz-wrap{
+  margin-top:70px;border-top:2px solid var(--line);padding-top:36px;
+}
+.quiz-head h2{font-size:30px;}
+#quiz-progress{color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:13px;margin-bottom:20px;}
+.qcard{
+  background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px;margin-bottom:16px;
+}
+.qcard .qnum{font-family:'JetBrains Mono',monospace;color:var(--tag);font-size:12px;}
+.qcard .qtext{font-size:16px;margin:8px 0 14px;font-weight:500;}
+.qcard .qcode{margin:0 0 14px;}
+.options{display:grid;gap:8px;}
+.opt{
+  text-align:left;background:var(--panel-2);border:1px solid var(--line);color:var(--text);
+  padding:11px 14px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:13.5px;cursor:pointer;
+  transition:.12s;
+}
+.opt:hover{border-color:var(--tag);}
+.opt.correct{border-color:var(--good);background:#0e2a22;color:var(--good);}
+.opt.wrong{border-color:var(--bad);background:#2a1520;color:var(--bad);}
+.opt:disabled{cursor:default;}
+.explain{margin-top:12px;font-size:13.5px;color:var(--muted);display:none;}
+.explain.show{display:block;}
+
+#quiz-result{
+  text-align:center;padding:40px 20px;background:var(--panel);border:1px solid var(--line);
+  border-radius:14px;display:none;
+}
+#quiz-result h3{font-family:'Space Grotesk',sans-serif;font-size:28px;margin:0 0 8px;}
+#quiz-result .score{font-size:46px;font-weight:700;color:var(--tag);font-family:'JetBrains Mono',monospace;}
+.retry{
+  margin-top:16px;background:var(--tag);color:#04211f;border:none;padding:10px 20px;border-radius:8px;
+  font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;
+}
+footer{text-align:center;color:var(--muted);font-size:13px;margin-top:60px;}
+</style>
+</head>
+<body>
+<div class="rail" id="rail"></div>
+<div class="wrap">
+
+  <div class="hero">
+    <span class="eyebrow"><span class="dot"></span>react-router-dom · v6 syntax, v7-aware</span>
+    <h1 class="title">Every route<br>leads <span class="accent">somewhere.</span></h1>
+    <p class="sub">A complete, visual walkthrough of <b>React Router DOM</b> — where every bracket, brace, and quote is color-coded so you always know what belongs where. Read top to bottom, then test yourself at the end.</p>
+    <div class="roadmap">
+      <a href="#s0">0 · Mental model</a>
+      <a href="#s1">1 · Install & Setup</a>
+      <a href="#s2">2 · Syntax Anatomy</a>
+      <a href="#s3">3 · Link & NavLink</a>
+      <a href="#s4">4 · Route Params</a>
+      <a href="#s5">5 · Nested Routes + Outlet</a>
+      <a href="#s6">6 · Index Routes</a>
+      <a href="#s7">7 · useNavigate</a>
+      <a href="#s8">8 · Query Params</a>
+      <a href="#s9">9 · useLocation</a>
+      <a href="#s10">10 · 404 Page</a>
+      <a href="#s11">11 · Protected Routes</a>
+      <a href="#s12">12 · Data Routers</a>
+      <a href="#quiz">🎯 Quiz</a>
+    </div>
+  </div>
+
+  <!-- 0 -->
+  <section class="concept" id="s0">
+    <span class="tag-num">00</span>
+    <h2>The mental model first</h2>
+    <p class="lead">Think of your React app as <b>one page</b> that never reloads. React Router's job is to watch the browser's URL bar and decide <b>which component to show</b> based on what's currently typed there — like a receptionist checking a visitor's badge and pointing them to the right room, without the whole building needing to be rebuilt.</p>
+  </section>
+
+  <div class="diagram">
+    <svg viewBox="0 0 780 220" xmlns="http://www.w3.org/2000/svg" font-family="JetBrains Mono, monospace">
+      <rect x="0" y="0" width="780" height="220" rx="12" fill="#0e1728" stroke="#22314f"/>
+      <text x="20" y="30" fill="#8ea0c2" font-size="12">Browser URL bar</text>
+      <rect x="20" y="42" width="220" height="34" rx="6" fill="#0d1626" stroke="#4fd1c5"/>
+      <text x="32" y="64" fill="#ffd166" font-size="13">/dashboard/stats</text>
+      <path d="M240 59 L300 59" stroke="#4fd1c5" stroke-width="2" marker-end="url(#arrow)"/>
+      <defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#4fd1c5"/></marker></defs>
+      <rect x="308" y="34" width="150" height="50" rx="8" fill="#111b30" stroke="#4fd1c5"/>
+      <text x="330" y="65" fill="#4fd1c5" font-size="13">&lt;Routes&gt;</text>
+      <text x="20" y="110" fill="#8ea0c2" font-size="12">checks each &lt;Route path=".."&gt; top to bottom, renders first match:</text>
+      <rect x="20" y="122" width="220" height="34" rx="6" fill="#0e1e15" stroke="#57e0a0"/>
+      <text x="34" y="144" fill="#57e0a0" font-size="12">path="/" → no match</text>
+      <rect x="20" y="162" width="260" height="34" rx="6" fill="#2a1520" stroke="#ff7b8f"/>
+      <text x="34" y="184" fill="#ff7b8f" font-size="12">path="/about" → no match</text>
+      <rect x="300" y="122" width="300" height="34" rx="6" fill="#0e2a22" stroke="#57e0a0"/>
+      <text x="314" y="144" fill="#57e0a0" font-size="12">path="/dashboard/stats" → ✓ MATCH</text>
+      <path d="M600 139 L660 139" stroke="#57e0a0" stroke-width="2" marker-end="url(#arrow2)"/>
+      <defs><marker id="arrow2" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#57e0a0"/></marker></defs>
+      <rect x="660" y="112" width="100" height="54" rx="8" fill="#111b30" stroke="#57e0a0"/>
+      <text x="678" y="144" fill="#e7edf7" font-size="12">&lt;Stats /&gt;</text>
+      <text x="20" y="205" fill="#5c6b8a" font-size="11">React Router picks exactly one winner and renders only that element — nothing else runs.</text>
+    </svg>
+  </div>
+
+</div>
+
+<div class="wrap">
+
+  <!-- 1 -->
+  <section class="concept" id="s1">
+    <span class="tag-num">01</span>
+    <h2>Install &amp; the 3 core pieces</h2>
+    <p class="lead">Every router setup rests on exactly three building blocks:</p>
+    <div class="grid2">
+      <div class="card"><h4>&lt;BrowserRouter&gt;</h4><p>The outer wrapper. It turns on routing for everything inside it. Wrap your whole app once, at the top.</p></div>
+      <div class="card"><h4>&lt;Routes&gt;</h4><p>A container that looks at the current URL and picks <b>one</b> matching child route to render.</p></div>
+      <div class="card"><h4>&lt;Route&gt;</h4><p>A single rule: "if the URL matches <code>path</code>, render this <code>element</code>."</p></div>
+    </div>
+
+    <div class="code">
+      <span class="filename">terminal</span>
+      <pre><span class="plain">npm install react-router-dom</span></pre>
+    </div>
+
+    <div class="code">
+      <span class="filename">src/main.jsx</span>
+      <pre><span class="kw">import</span> <span class="brace">{</span> <span class="plain">BrowserRouter</span> <span class="brace">}</span> <span class="kw">from</span> <span class="str">"react-router-dom"</span><span class="plain">;</span>
+<span class="kw">import</span> <span class="plain">App</span> <span class="kw">from</span> <span class="str">"./App"</span><span class="plain">;</span>
+
+<span class="plain">ReactDOM.createRoot(document.getElementById(</span><span class="str">"root"</span><span class="plain">)).render(</span>
+  <span class="tagc">&lt;BrowserRouter&gt;</span>
+    <span class="tagc">&lt;App</span> <span class="plain">/&gt;</span>
+  <span class="tagc">&lt;/BrowserRouter&gt;</span>
+<span class="plain">);</span></pre>
+    </div>
+
+    <div class="code">
+      <span class="filename">src/App.jsx</span>
+      <pre><span class="kw">import</span> <span class="brace">{</span> <span class="plain">Routes, Route</span> <span class="brace">}</span> <span class="kw">from</span> <span class="str">"react-router-dom"</span><span class="plain">;</span>
+<span class="kw">import</span> <span class="plain">Home</span> <span class="kw">from</span> <span class="str">"./pages/Home"</span><span class="plain">;</span>
+<span class="kw">import</span> <span class="plain">About</span> <span class="kw">from</span> <span class="str">"./pages/About"</span><span class="plain">;</span>
+
+<span class="kw">function</span> <span class="plain">App()</span> <span class="brace">{</span>
+  <span class="kw">return</span> <span class="paren">(</span>
+    <span class="tagc">&lt;Routes&gt;</span>
+      <span class="tagc">&lt;Route</span> <span class="attr">path</span><span class="plain">=</span><span class="str">"/"</span> <span class="attr">element</span><span class="plain">=</span><span class="brace">{</span><span class="tagc">&lt;Home</span> <span class="plain">/&gt;</span><span class="brace">}</span> <span class="plain">/&gt;</span>
+      <span class="tagc">&lt;Route</span> <span class="attr">path</span><span class="plain">=</span><span class="str">"/about"</span> <span class="attr">element</span><span class="plain">=</span><span class="brace">{</span><span class="tagc">&lt;About</span> <span class="plain">/&gt;</span><span class="brace">}</span> <span class="plain">/&gt;</span>
+    <span class="tagc">&lt;/Routes&gt;</span>
+  <span class="paren">)</span><span class="plain">;</span>
+<span class="brace">}</span>
+
+<span class="kw">export default</span> <span class="plain">App;</span></pre>
+    </div>
+    <div class="callout"><span>💡</span><div><b>Rule of thumb:</b> <code style="color:var(--tag)">path</code> is always a string in quotes. <code style="color:var(--tag)">element</code> is always JSX inside curly braces, because you're handing over an actual React element, not text.</div></div>
+  </section>
+
+  <!-- 2 -->
+  <section class="concept" id="s2">
+    <span class="tag-num">02</span>
+    <h2>Syntax Anatomy — never confuse a bracket again</h2>
+    <p class="lead">This is the part you said trips you up the most. Every code block on this page uses the <b>same colors</b> for the same symbols. Once your eyes learn these five colors, JSX stops looking like noise.</p>
+
+    <div class="legend">
+      <div class="item"><span class="swatch" style="background:#123232;color:var(--tag)">&lt;/&gt;</span> JSX tags — a component</div>
+      <div class="item"><span class="swatch" style="background:#241a38;color:var(--brace)">{ }</span> Curly braces — "step into JS"</div>
+      <div class="item"><span class="swatch" style="background:#33121f;color:var(--paren)">( )</span> Parentheses — function call / grouping</div>
+      <div class="item"><span class="swatch" style="background:#33280f;color:var(--quote)">" "</span> Quotes — a plain string</div>
+      <div class="item"><span class="swatch" style="background:#0e2440;color:var(--bracket)">[ ]</span> Square brackets — an array</div>
+    </div>
+
+    <p class="lead"><b>Tap any colored piece below</b> — it'll explain itself.</p>
+    <div class="anatomy-box">
+      <div class="anatomy-code" id="anatomy">
+<span class="tagc" data-x="A JSX tag. Opens a component called Route. Tags always start with a capital letter for custom components.">&lt;Route</span>
+<span class="attr" data-x="An attribute name (a 'prop'). No quotes, no braces — just the bare word, then an equals sign.">path</span><span class="plain">=</span><span class="str" data-x="A STRING value. Because it's plain text (a URL path), it goes straight in double quotes — no braces needed.">"/users/:id"</span>
+<span class="attr" data-x="Another prop name: element.">element</span><span class="plain">=</span><span class="brace" data-x="An opening curly brace. This tells JSX: 'stop treating this as text, the following is real JavaScript' — here, a JSX expression.">{</span><span class="tagc" data-x="A nested component being created and handed to the 'element' prop.">&lt;UserProfile</span> <span class="plain">/&gt;</span><span class="brace" data-x="The matching closing curly brace — every { must have exactly one closing }.">}</span>
+<span class="plain">/&gt;</span></div>
+      <div id="anatomy-explain">Tap a highlighted word above 👆</div>
+    </div>
+
+    <table class="cheat">
+      <tr><th>You want to write…</th><th>Use</th><th>Example</th></tr>
+      <tr><td>A plain piece of text (URL, class name, id)</td><td><code>" "</code> quotes only</td><td><code>path="/about"</code></td></tr>
+      <tr><td>A React component / expression / variable as a value</td><td><code>{ }</code> braces</td><td><code>element={'{<About />}'}</code></td></tr>
+      <tr><td>A component that itself needs a string prop</td><td>quotes <i>inside</i> the tag, braces around the whole tag</td><td><code>element={'{<Route path="/x" />}'}</code></td></tr>
+      <tr><td>Passing a JS object (like style or state)</td><td><code>{'{{ }}'}</code> — braces-for-JS wrapping a <code>{'{}'}</code> object</td><td><code>style={'{{ color:"red" }}'}</code></td></tr>
+      <tr><td>An array of routes/children</td><td><code>[ ]</code></td><td><code>children:[ &lt;Route .../&gt; ]</code></td></tr>
+    </table>
+    <div class="callout warn"><span>⚠️</span><div><b>The #1 mistake beginners make:</b> writing <code style="color:var(--quote)">element="&lt;Home /&gt;"</code> with quotes. That makes React treat your component as literal text. Components go in <code style="color:var(--brace)">{ }</code>, never <code style="color:var(--quote)">" "</code>.</div></div>
+  </section>
+
+  <!-- 3 -->
+  <section class="concept" id="s3">
+    <span class="tag-num">03</span>
+    <h2>Navigating with <code>&lt;Link&gt;</code> and <code>&lt;NavLink&gt;</code></h2>
+    <p class="lead">Never use a plain <code style="color:var(--tag)">&lt;a href=""&gt;</code> for internal navigation — it reloads the whole page. <code style="color:var(--tag)">&lt;Link&gt;</code> swaps the view instantly instead.</p>
+    <div class="code">
+      <span class="filename">src/components/Navbar.jsx</span>
+      <pre><span class="kw">import</span> <span class="brace">{</span> <span class="plain">Link, NavLink</span> <span class="brace">}</span> <span class="kw">from</span> <span class="str">"react-router-dom"</span><span class="plain">;</span>
+
+<span class="kw">function</span> <span class="plain">Navbar()</span> <span class="brace">{</span>
+  <span class="kw">return</span> <span class="paren">(</span>
+    <span class="tagc">&lt;nav&gt;</span>
+      <span class="tagc">&lt;Link</span> <span class="attr">to</span><span class="plain">=</span><span class="str">"/"</span><span class="tagc">&gt;</span>Home<span class="tagc">&lt;/Link&gt;</span>
+
+      <span class="cm">{/* NavLink knows when it's "active" */}</span>
+      <span class="tagc">&lt;NavLink</span>
+        <span class="attr">to</span><span class="plain">=</span><span class="str">"/about"</span>
+        <span class="attr">className</span><span class="plain">=</span><span class="brace">{</span><span class="paren">(</span><span class="brace">{</span><span class="plain">isActive</span><span class="brace">}</span><span class="paren">)</span> <span class="plain">=&gt;</span> <span class="plain">isActive ? </span><span class="str">"link active"</span> <span class="plain">: </span><span class="str">"link"</span><span class="brace">}</span>
+      <span class="tagc">&gt;</span>
+        About
+      <span class="tagc">&lt;/NavLink&gt;</span>
+    <span class="tagc">&lt;/nav&gt;</span>
+  <span class="paren">)</span><span class="plain">;</span>
+<span class="brace">}</span></pre>
+    </div>
+    <div class="callout"><span>💡</span><div><code style="color:var(--tag)">to</code> is the Link's version of <code>href</code>. <code style="color:var(--brace)">className={'{ }'}</code> takes a function here because NavLink hands you back <code>isActive</code> — that's why you see nested parentheses and braces.</div></div>
+  </section>
+
+  <div class="diagram">
+    <svg viewBox="0 0 780 260" xmlns="http://www.w3.org/2000/svg" font-family="JetBrains Mono, monospace">
+      <rect x="0" y="0" width="780" height="260" rx="12" fill="#0e1728" stroke="#22314f"/>
+      <text x="20" y="26" fill="#8ea0c2" font-size="12">Route tree — coming up next</text>
+      <rect x="60" y="40" width="180" height="40" rx="8" fill="#111b30" stroke="#4fd1c5"/>
+      <text x="78" y="65" fill="#4fd1c5" font-size="13">/dashboard</text>
+      <path d="M150 80 L150 110" stroke="#8ea0c2" stroke-width="2"/>
+      <path d="M150 110 L60 140" stroke="#8ea0c2" stroke-width="2"/>
+      <path d="M150 110 L240 140" stroke="#8ea0c2" stroke-width="2"/>
+      <path d="M150 110 L420 140" stroke="#8ea0c2" stroke-width="2"/>
+      <rect x="10" y="140" width="120" height="40" rx="8" fill="#0e2a22" stroke="#57e0a0"/>
+      <text x="24" y="165" fill="#57e0a0" font-size="12">index (default)</text>
+      <rect x="180" y="140" width="120" height="40" rx="8" fill="#111b30" stroke="#ffd166"/>
+      <text x="204" y="165" fill="#ffd166" font-size="12">"stats"</text>
+      <rect x="360" y="140" width="150" height="40" rx="8" fill="#111b30" stroke="#c9a4ff"/>
+      <text x="380" y="165" fill="#c9a4ff" font-size="12">"users/:id"</text>
+      <text x="10" y="200" fill="#5c6b8a" font-size="11">/dashboard          → index element renders inside &lt;Outlet /&gt;</text>
+      <text x="10" y="218" fill="#5c6b8a" font-size="11">/dashboard/stats    → stats element renders inside &lt;Outlet /&gt;</text>
+      <text x="10" y="236" fill="#5c6b8a" font-size="11">/dashboard/users/42 → :id becomes "42", read via useParams()</text>
+    </svg>
+  </div>
+
+</div>
+
+<div class="wrap">
+
+  <!-- 4 -->
+  <section class="concept" id="s4">
+    <span class="tag-num">04</span>
+    <h2>Dynamic Route Params — <code>useParams()</code></h2>
+    <p class="lead">A colon <code style="color:var(--quote)">:id</code> inside a path string means "match anything here and remember it." Read that value back out with the <code style="color:var(--tag)">useParams</code> hook.</p>
+    <div class="code">
+      <span class="filename">src/App.jsx</span>
+      <pre><span class="tagc">&lt;Route</span> <span class="attr">path</span><span class="plain">=</span><span class="str">"/users/:userId"</span> <span class="attr">element</span><span class="plain">=</span><span class="brace">{</span><span class="tagc">&lt;UserProfile</span> <span class="plain">/&gt;</span><span class="brace">}</span> <span class="plain">/&gt;</span></pre>
+    </div>
+    <div class="code">
+      <span class="filename">src/pages/UserProfile.jsx</span>
+      <pre><span class="kw">import</span> <span class="brace">{</span> <span class="plain">useParams</span> <span class="brace">}</span> <span class="kw">from</span> <span class="str">"react-router-dom"</span><span class="plain">;</span>
+
+<span class="kw">function</span> <span class="plain">UserProfile()</span> <span class="brace">{</span>
+  <span class="kw">const</span> <span class="brace">{</span> <span class="plain">userId</span> <span class="brace">}</span> <span class="plain">= useParams();</span> <span class="cm">// { } because it destructures an object</span>
+
+  <span class="kw">return</span> <span class="brace">{</span><span class="tagc">&lt;h1&gt;</span>Viewing user: <span class="brace">{</span><span class="plain">userId</span><span class="brace">}</span><span class="tagc">&lt;/h1&gt;</span><span class="brace">}</span><span class="plain">;</span>
+<span class="brace">}</span></pre>
+    </div>
+    <p class="lead">Visiting <code style="color:var(--tag)">/users/42</code> renders "Viewing user: 42". No quotes around <code>:userId</code> when reading it — it's a live variable, not text.</p>
+  </section>
+
+  <!-- 5 -->
+  <section class="concept" id="s5">
+    <span class="tag-num">05</span>
+    <h2>Nested Routes &amp; <code>&lt;Outlet /&gt;</code></h2>
+    <p class="lead">Real apps share layout — a navbar/sidebar that stays while inner content changes. Nest <code style="color:var(--tag)">&lt;Route&gt;</code> tags, and use <code style="color:var(--tag)">&lt;Outlet /&gt;</code> inside the parent as a placeholder for whichever child matched.</p>
+    <div class="code">
+      <span class="filename">src/App.jsx</span>
+      <pre><span class="tagc">&lt;Routes&gt;</span>
+  <span class="tagc">&lt;Route</span> <span class="attr">path</span><span class="plain">=</span><span class="str">"/dashboard"</span> <span class="attr">element</span><span class="plain">=</span><span class="brace">{</span><span class="tagc">&lt;DashboardLayout</span> <span class="plain">/&gt;</span><span class="brace">}</span><span class="tagc">&gt;</span>
+    <span class="tagc">&lt;Route</span> <span class="attr">path</span><span class="plain">=</span><span class="str">"stats"</span> <span class="attr">element</span><span class="plain">=</span><span class="brace">{</span><span class="tagc">&lt;Stats</span> <span class="plain">/&gt;</span><span class="brace">}</span> <span class="plain">/&gt;</span>
+    <span class="tagc">&lt;Route</span> <span class="attr">path</span><span class="plain">=</span><span class="str">"settings"</span> <span class="attr">element</span><span class="plain">=</span><span class="brace">{</span><span class="tagc">&lt;Settings</span> <span class="plain">/&gt;</span><span class="brace">}</span> <span class="plain">/&gt;</span>
+  <span class="tagc">&lt;/Route&gt;</span>
+<span class="tagc">&lt;/Routes&gt;</span></pre>
+    </div>
+    <div class="code">
+      <span class="filename">src/layouts/DashboardLayout.jsx</span>
+      <pre><span class="kw">import</span> <span class="brace">{</span> <span class="plain">Outlet</span> <span class="brace">}</span> <span class="kw">from</span> <span class="str">"react-router-dom"</span><span class="plain">;</span>
+
+<span class="kw">function</span> <span class="plain">DashboardLayout()</span> <span class="brace">{</span>
+  <span class="kw">return</span> <span class="paren">(</span>
+    <span class="tagc">&lt;div&gt;</span>
+      <span class="tagc">&lt;Sidebar</span> <span class="plain">/&gt;</span>
+      <span class="tagc">&lt;Outlet</span> <span class="plain">/&gt;</span>  <span class="cm">{/* Stats or Settings renders here */}</span>
+    <span class="tagc">&lt;/div&gt;</span>
+  <span class="paren">)</span><span class="plain">;</span>
+<span class="brace">}</span></pre>
+    </div>
+    <div class="callout"><span>💡</span><div>Notice the child paths <code style="color:var(--quote)">"stats"</code> have <b>no leading slash</b>. React Router appends them onto the parent, so the real URL is <code style="color:var(--tag)">/dashboard/stats</code>.</div></div>
+  </section>
+
+  <!-- 6 -->
+  <section class="concept" id="s6">
+    <span class="tag-num">06</span>
+    <h2>Index Routes — the default child</h2>
+    <p class="lead">What should show at exactly <code style="color:var(--tag)">/dashboard</code>, with no child path? Use <code style="color:var(--tag)">index</code> — a boolean flag, not a string, so it never takes quotes.</p>
+    <div class="code">
+      <span class="filename">src/App.jsx</span>
+      <pre><span class="tagc">&lt;Route</span> <span class="attr">path</span><span class="plain">=</span><span class="str">"/dashboard"</span> <span class="attr">element</span><span class="plain">=</span><span class="brace">{</span><span class="tagc">&lt;DashboardLayout</span> <span class="plain">/&gt;</span><span class="brace">}</span><span class="tagc">&gt;</span>
+  <span class="tagc">&lt;Route</span> <span class="attr">index</span> <span class="attr">element</span><span class="plain">=</span><span class="brace">{</span><span class="tagc">&lt;Overview</span> <span class="plain">/&gt;</span><span class="brace">}</span> <span class="plain">/&gt;</span>  <span class="cm">{/* no path, no quotes needed */}</span>
+  <span class="tagc">&lt;Route</span> <span class="attr">path</span><span class="plain">=</span><span class="str">"stats"</span> <span class="attr">element</span><span class="plain">=</span><span class="brace">{</span><span class="tagc">&lt;Stats</span> <span class="plain">/&gt;</span><span class="brace">}</span> <span class="plain">/&gt;</span>
+<span class="tagc">&lt;/Route&gt;</span></pre>
+    </div>
+  </section>
+
+  <div class="diagram">
+    <svg viewBox="0 0 780 190" xmlns="http://www.w3.org/2000/svg" font-family="JetBrains Mono, monospace">
+      <rect x="0" y="0" width="780" height="190" rx="12" fill="#0e1728" stroke="#22314f"/>
+      <text x="20" y="26" fill="#8ea0c2" font-size="12">Three ways to change the URL — pick by trigger, not habit</text>
+      <rect x="20" y="44" width="220" height="110" rx="10" fill="#111b30" stroke="#4fd1c5"/>
+      <text x="36" y="70" fill="#4fd1c5" font-size="13">&lt;Link to="..."&gt;</text>
+      <text x="36" y="94" fill="#8ea0c2" font-size="11">User clicks something</text>
+      <text x="36" y="112" fill="#8ea0c2" font-size="11">visible in the UI.</text>
+      <text x="36" y="136" fill="#5c6b8a" font-size="10">Menus, cards, buttons</text>
+      <rect x="280" y="44" width="220" height="110" rx="10" fill="#111b30" stroke="#ffd166"/>
+      <text x="296" y="70" fill="#ffd166" font-size="13">useNavigate()</text>
+      <text x="296" y="94" fill="#8ea0c2" font-size="11">Code decides, after</text>
+      <text x="296" y="112" fill="#8ea0c2" font-size="11">some logic finishes.</text>
+      <text x="296" y="136" fill="#5c6b8a" font-size="10">Login success, form submit</text>
+      <rect x="540" y="44" width="220" height="110" rx="10" fill="#111b30" stroke="#c9a4ff"/>
+      <text x="556" y="70" fill="#c9a4ff" font-size="13">&lt;Navigate to="..." /&gt;</text>
+      <text x="556" y="94" fill="#8ea0c2" font-size="11">Redirect while a</text>
+      <text x="556" y="112" fill="#8ea0c2" font-size="11">component renders.</text>
+      <text x="556" y="136" fill="#5c6b8a" font-size="10">Guards, protected routes</text>
+    </svg>
+  </div>
+
+</div>
+
+<div class="wrap">
+
+  <!-- 7 -->
+  <section class="concept" id="s7">
+    <span class="tag-num">07</span>
+    <h2>Going somewhere in code — <code>useNavigate()</code></h2>
+    <p class="lead">Sometimes navigation must happen <b>after logic runs</b> — a form submit, a login check. Call the hook to get a function, then call that function.</p>
+    <div class="code">
+      <span class="filename">src/pages/LoginForm.jsx</span>
+      <pre><span class="kw">import</span> <span class="brace">{</span> <span class="plain">useNavigate</span> <span class="brace">}</span> <span class="kw">from</span> <span class="str">"react-router-dom"</span><span class="plain">;</span>
+
+<span class="kw">function</span> <span class="plain">LoginForm()</span> <span class="brace">{</span>
+  <span class="kw">const</span> <span class="plain">navigate = useNavigate();</span> <span class="cm">// no braces — it's one function, not an object</span>
+
+  <span class="kw">function</span> <span class="plain">handleSubmit()</span> <span class="brace">{</span>
+    <span class="plain">login().then(</span><span class="paren">(</span><span class="paren">)</span> <span class="plain">=&gt;</span> <span class="brace">{</span>
+      <span class="plain">navigate(</span><span class="str">"/dashboard"</span><span class="paren">)</span><span class="plain">;</span>       <span class="cm">// string path in ( )</span>
+      <span class="cm">// navigate(-1) would go back one page in history</span>
+    <span class="brace">}</span><span class="paren">)</span><span class="plain">;</span>
+  <span class="brace">}</span>
+
+  <span class="kw">return</span> <span class="brace">{</span><span class="tagc">&lt;button</span> <span class="attr">onClick</span><span class="plain">=</span><span class="brace">{</span><span class="plain">handleSubmit</span><span class="brace">}</span><span class="tagc">&gt;</span>Log in<span class="tagc">&lt;/button&gt;</span><span class="brace">}</span><span class="plain">;</span>
+<span class="brace">}</span></pre>
+    </div>
+    <div class="callout"><span>💡</span><div><code style="color:var(--tag)">navigate(path)</code> uses <b>parentheses</b> because it's a function call — always the pattern <code>()</code> right after a function name.</div></div>
+  </section>
+
+  <!-- 8 -->
+  <section class="concept" id="s8">
+    <span class="tag-num">08</span>
+    <h2>Reading the URL's query string — <code>useSearchParams()</code></h2>
+    <p class="lead">For <code style="color:var(--tag)">/products?category=shoes&amp;sort=price</code>, the part after <code>?</code> is a query string. This hook returns an array (hence square-bracket destructuring) — a reader and a setter, just like <code>useState</code>.</p>
+    <div class="code">
+      <span class="filename">src/pages/Products.jsx</span>
+      <pre><span class="kw">import</span> <span class="brace">{</span> <span class="plain">useSearchParams</span> <span class="brace">}</span> <span class="kw">from</span> <span class="str">"react-router-dom"</span><span class="plain">;</span>
+
+<span class="kw">function</span> <span class="plain">Products()</span> <span class="brace">{</span>
+  <span class="kw">const</span> <span class="bracket">[</span><span class="plain">searchParams, setSearchParams</span><span class="bracket">]</span> <span class="plain">= useSearchParams();</span>
+
+  <span class="kw">const</span> <span class="plain">category = searchParams.get(</span><span class="str">"category"</span><span class="paren">)</span><span class="plain">;</span> <span class="cm">// "shoes"</span>
+
+  <span class="kw">function</span> <span class="plain">sortByPrice()</span> <span class="brace">{</span>
+    <span class="plain">setSearchParams(</span><span class="brace">{</span> <span class="plain">category, sort:</span> <span class="str">"price"</span> <span class="brace">}</span><span class="paren">)</span><span class="plain">;</span>
+  <span class="brace">}</span>
+
+  <span class="kw">return</span> <span class="brace">{</span><span class="tagc">&lt;p&gt;</span>Category: <span class="brace">{</span><span class="plain">category</span><span class="brace">}</span><span class="tagc">&lt;/p&gt;</span><span class="brace">}</span><span class="plain">;</span>
+<span class="brace">}</span></pre>
+    </div>
+  </section>
+
+  <!-- 9 -->
+  <section class="concept" id="s9">
+    <span class="tag-num">09</span>
+    <h2><code>useLocation()</code> — knowing where you are</h2>
+    <p class="lead">Returns an object describing the current URL in full detail. Useful for analytics, scroll-resets, or reading <code>state</code> passed silently between pages.</p>
+    <div class="code">
+      <span class="filename">src/hooks/example.jsx</span>
+      <pre><span class="kw">import</span> <span class="brace">{</span> <span class="plain">useLocation</span> <span class="brace">}</span> <span class="kw">from</span> <span class="str">"react-router-dom"</span><span class="plain">;</span>
+
+<span class="kw">function</span> <span class="plain">PageTracker()</span> <span class="brace">{</span>
+  <span class="kw">const</span> <span class="plain">location = useLocation();</span>
+
+  <span class="cm">// location.pathname  → "/dashboard/stats"</span>
+  <span class="cm">// location.search    → "?sort=price"</span>
+  <span class="cm">// location.state     → any data sent via &lt;Link state=</span><span class="brace">{</span><span class="brace">{</span><span class="plain">...</span><span class="brace">}</span><span class="brace">}</span><span class="cm">&gt;</span>
+
+  <span class="kw">return</span> <span class="kw">null</span><span class="plain">;</span>
+<span class="brace">}</span></pre>
+    </div>
+  </section>
+
+  <!-- 10 -->
+  <section class="concept" id="s10">
+    <span class="tag-num">10</span>
+    <h2>The catch-all 404 page</h2>
+    <p class="lead">A single <code style="color:var(--quote)">"*"</code> matches anything nothing else caught. Put it <b>last</b> in the list — order matters, React Router picks the first match.</p>
+    <div class="code">
+      <span class="filename">src/App.jsx</span>
+      <pre><span class="tagc">&lt;Routes&gt;</span>
+  <span class="tagc">&lt;Route</span> <span class="attr">path</span><span class="plain">=</span><span class="str">"/"</span> <span class="attr">element</span><span class="plain">=</span><span class="brace">{</span><span class="tagc">&lt;Home</span> <span class="plain">/&gt;</span><span class="brace">}</span> <span class="plain">/&gt;</span>
+  <span class="tagc">&lt;Route</span> <span class="attr">path</span><span class="plain">=</span><span class="str">"/about"</span> <span class="attr">element</span><span class="plain">=</span><span class="brace">{</span><span class="tagc">&lt;About</span> <span class="plain">/&gt;</span><span class="brace">}</span> <span class="plain">/&gt;</span>
+  <span class="tagc">&lt;Route</span> <span class="attr">path</span><span class="plain">=</span><span class="str">"*"</span> <span class="attr">element</span><span class="plain">=</span><span class="brace">{</span><span class="tagc">&lt;NotFound</span> <span class="plain">/&gt;</span><span class="brace">}</span> <span class="plain">/&gt;</span>
+<span class="tagc">&lt;/Routes&gt;</span></pre>
+    </div>
+  </section>
+
+  <!-- 11 -->
+  <section class="concept" id="s11">
+    <span class="tag-num">11</span>
+    <h2>Protected routes — gatekeeping a page</h2>
+    <p class="lead">Wrap a route's element in a small guard component. It checks a condition, then either shows the page or redirects with <code style="color:var(--tag)">&lt;Navigate /&gt;</code>.</p>
+    <div class="code">
+      <span class="filename">src/components/ProtectedRoute.jsx</span>
+      <pre><span class="kw">import</span> <span class="brace">{</span> <span class="plain">Navigate</span> <span class="brace">}</span> <span class="kw">from</span> <span class="str">"react-router-dom"</span><span class="plain">;</span>
+
+<span class="kw">function</span> <span class="plain">ProtectedRoute(</span><span class="brace">{</span> <span class="plain">children</span> <span class="brace">}</span><span class="paren">)</span> <span class="brace">{</span>
+  <span class="kw">const</span> <span class="plain">isLoggedIn = useAuth();</span> <span class="cm">// your own logic</span>
+
+  <span class="kw">if</span> <span class="paren">(</span><span class="plain">!isLoggedIn</span><span class="paren">)</span> <span class="brace">{</span>
+    <span class="kw">return</span> <span class="brace">{</span><span class="tagc">&lt;Navigate</span> <span class="attr">to</span><span class="plain">=</span><span class="str">"/login"</span> <span class="attr">replace</span> <span class="plain">/&gt;</span><span class="brace">}</span><span class="plain">;</span>
+  <span class="brace">}</span>
+
+  <span class="kw">return</span> <span class="plain">children;</span>
+<span class="brace">}</span></pre>
+    </div>
+    <div class="code">
+      <span class="filename">src/App.jsx</span>
+      <pre><span class="tagc">&lt;Route</span>
+  <span class="attr">path</span><span class="plain">=</span><span class="str">"/dashboard"</span>
+  <span class="attr">element</span><span class="plain">=</span><span class="brace">{</span>
+    <span class="tagc">&lt;ProtectedRoute&gt;</span>
+      <span class="tagc">&lt;Dashboard</span> <span class="plain">/&gt;</span>
+    <span class="tagc">&lt;/ProtectedRoute&gt;</span>
+  <span class="brace">}</span>
+<span class="plain">/&gt;</span></pre>
+    </div>
+  </section>
+
+  <!-- 12 -->
+  <section class="concept" id="s12">
+    <span class="tag-num">12</span>
+    <h2>The modern way — Data Routers (v6.4+ / v7)</h2>
+    <p class="lead">Current React Router (v7, the actively maintained line in 2026) favors <code style="color:var(--tag)">createBrowserRouter</code> over writing <code style="color:var(--tag)">&lt;Routes&gt;</code> by hand. Routes become a plain JS array of objects, and each route can fetch its own data via a <code style="color:var(--tag)">loader</code> before it even renders.</p>
+    <div class="code">
+      <span class="filename">src/main.jsx</span>
+      <pre><span class="kw">import</span> <span class="brace">{</span> <span class="plain">createBrowserRouter, RouterProvider</span> <span class="brace">}</span> <span class="kw">from</span> <span class="str">"react-router-dom"</span><span class="plain">;</span>
+
+<span class="kw">const</span> <span class="plain">router = createBrowserRouter(</span><span class="bracket">[</span>
+  <span class="brace">{</span>
+    <span class="attr">path:</span> <span class="str">"/"</span><span class="plain">,</span>
+    <span class="attr">element:</span> <span class="brace">{</span><span class="tagc">&lt;Root</span> <span class="plain">/&gt;</span><span class="brace">}</span><span class="plain">,</span>
+    <span class="attr">children:</span> <span class="bracket">[</span>
+      <span class="brace">{</span> <span class="attr">index:</span> <span class="kw">true</span><span class="plain">,</span> <span class="attr">element:</span> <span class="brace">{</span><span class="tagc">&lt;Home</span> <span class="plain">/&gt;</span><span class="brace">}</span> <span class="brace">}</span><span class="plain">,</span>
+      <span class="brace">{</span>
+        <span class="attr">path:</span> <span class="str">"users/:id"</span><span class="plain">,</span>
+        <span class="attr">element:</span> <span class="brace">{</span><span class="tagc">&lt;UserProfile</span> <span class="plain">/&gt;</span><span class="brace">}</span><span class="plain">,</span>
+        <span class="attr">loader:</span> <span class="paren">(</span><span class="brace">{</span> <span class="plain">params</span> <span class="brace">}</span><span class="paren">)</span> <span class="plain">=&gt;</span> <span class="plain">fetchUser(params.id)</span><span class="plain">,</span>
+      <span class="brace">}</span><span class="plain">,</span>
+    <span class="bracket">]</span><span class="plain">,</span>
+  <span class="brace">}</span><span class="plain">,</span>
+<span class="bracket">]</span><span class="paren">)</span><span class="plain">;</span>
+
+<span class="plain">ReactDOM.createRoot(document.getElementById(</span><span class="str">"root"</span><span class="plain">)).render(</span>
+  <span class="brace">{</span><span class="tagc">&lt;RouterProvider</span> <span class="attr">router</span><span class="plain">=</span><span class="brace">{</span><span class="plain">router</span><span class="brace">}</span> <span class="plain">/&gt;</span><span class="brace">}</span>
+<span class="paren">)</span><span class="plain">;</span></pre>
+    </div>
+    <div class="callout"><span>💡</span><div>Note the shift in brackets: routes are now a JS <b>array of objects</b> <code style="color:var(--bracket)">[ { }, { } ]</code>, not JSX tags. Keys like <code>path:</code> and <code>element:</code> use a <b>colon</b>, not <code>=</code>, because this is plain JavaScript object syntax, not JSX props.</div></div>
+    <div class="callout warn"><span>⚠️</span><div><b>Naming note:</b> Newer React Router releases (v7+) consolidated the package as <code style="color:var(--tag)">react-router</code>, with <code style="color:var(--tag)">react-router-dom</code> kept only for backward compatibility with existing v6 imports. If you start a brand-new project today, check the current docs at <code style="color:var(--tag)">reactrouter.com</code> for which package name is recommended — the syntax above works either way.</div></div>
+  </section>
+
+  <div class="callout" style="margin-top:40px">
+    <span>📋</span>
+    <div><b>Full syntax cheat-sheet</b>
+      <table class="cheat" style="margin-top:10px">
+        <tr><th>Hook / Component</th><th>Returns</th><th>Typical use</th></tr>
+        <tr><td><code>useParams()</code></td><td>object <code>{'{ }'}</code></td><td>Read <code>:dynamic</code> segments</td></tr>
+        <tr><td><code>useNavigate()</code></td><td>function</td><td>Navigate after logic runs</td></tr>
+        <tr><td><code>useSearchParams()</code></td><td>array <code>[ , ]</code></td><td>Read/write <code>?query=strings</code></td></tr>
+        <tr><td><code>useLocation()</code></td><td>object <code>{'{ }'}</code></td><td>Current path, search, state</td></tr>
+        <tr><td><code>&lt;Link to="..."&gt;</code></td><td>—</td><td>Clickable navigation, no reload</td></tr>
+        <tr><td><code>&lt;NavLink&gt;</code></td><td>—</td><td>Link that knows if it's active</td></tr>
+        <tr><td><code>&lt;Navigate to="..." /&gt;</code></td><td>—</td><td>Redirect while rendering</td></tr>
+        <tr><td><code>&lt;Outlet /&gt;</code></td><td>—</td><td>Placeholder for a matched child route</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- QUIZ -->
+  <div class="quiz-wrap" id="quiz">
+    <div class="quiz-head">
+      <span class="tag-num">FINAL CHECK</span>
+      <h2>🎯 Test yourself — 8 questions</h2>
+      <p class="lead">Pick an answer. You'll see instantly whether you're right, with a quick reason why.</p>
+    </div>
+    <div id="quiz-progress"></div>
+    <div id="quiz-container"></div>
+    <div id="quiz-result">
+      <div class="score" id="score-text"></div>
+      <h3 id="score-msg"></h3>
+      <p id="score-detail" style="color:var(--muted)"></p>
+      <button class="retry" onclick="restartQuiz()">Try again</button>
+    </div>
+  </div>
+
+  <footer>Built for hands-on learners who'd rather see the brackets than guess them. Good luck out there. 🧭</footer>
+</div>
+
+<script>
+// ---------- Syntax anatomy interactivity ----------
+document.querySelectorAll('#anatomy span[data-x]').forEach(el=>{
+  el.addEventListener('click', ()=>{
+    document.getElementById('anatomy-explain').innerHTML = '<b>' + el.textContent.trim() + '</b> — ' + el.getAttribute('data-x');
+  });
+});
+
+// ---------- scroll progress ----------
+window.addEventListener('scroll', ()=>{
+  const h = document.documentElement;
+  const pct = (h.scrollTop) / (h.scrollHeight - h.clientHeight) * 100;
+  document.getElementById('rail').style.width = pct + '%';
+});
+
+// ---------- Quiz data ----------
+const QUIZ = [
+  {
+    q: "Which is the correct way to render a component into a Route's element prop?",
+    code: `<Route path="/home" element=___ />`,
+    options: [
+      { t: `="<Home />"`, correct:false },
+      { t: `={<Home />}`, correct:true },
+      { t: `=(<Home />)`, correct:false },
+      { t: `=[<Home />]`, correct:false }
+    ],
+    why: "A component is a JS expression, so it needs curly braces { }, not quotes, parentheses, or brackets."
+  },
+  {
+    q: "How do you mark a route segment as dynamic (a param) in the path?",
+    code: `<Route path="/users/___" element={<User />} />`,
+    options: [
+      { t: `{id}`, correct:false },
+      { t: `[id]`, correct:false },
+      { t: `:id`, correct:true },
+      { t: `(id)`, correct:false }
+    ],
+    why: "A leading colon inside the path string, like :id, marks a dynamic segment you can later read with useParams()."
+  },
+  {
+    q: "What does useParams() return?",
+    code: `const ___ = useParams();`,
+    options: [
+      { t: `{ id }  (an object, destructured)`, correct:true },
+      { t: `[ id ]  (an array)`, correct:false },
+      { t: `( id )  (a function call result)`, correct:false },
+      { t: `"id"  (a string)`, correct:false }
+    ],
+    why: "useParams returns a plain object of key/value pairs, so you destructure it with curly braces { }."
+  },
+  {
+    q: "Which hook gives you a `[value, setValue]` pair — a dead giveaway from the square brackets?",
+    code: `const [searchParams, setSearchParams] = ___();`,
+    options: [
+      { t: `useLocation`, correct:false },
+      { t: `useParams`, correct:false },
+      { t: `useNavigate`, correct:false },
+      { t: `useSearchParams`, correct:true }
+    ],
+    why: "useSearchParams mirrors useState's array-destructuring pattern: a getter and a setter."
+  },
+  {
+    q: "Where must the catch-all 404 route sit in the list of <Routes>?",
+    code: `<Routes> ... <Route path="*" element={<NotFound />} /> ___`,
+    options: [
+      { t: "Anywhere, order doesn't matter", correct:false },
+      { t: "First, before all other routes", correct:false },
+      { t: "Last, after all other routes", correct:true },
+      { t: "It must be outside <Routes>", correct:false }
+    ],
+    why: "React Router matches top to bottom and stops at the first match — \"*\" matches everything, so it has to be last."
+  },
+  {
+    q: "Inside a nested child route, why does the path usually have no leading slash, like path=\"stats\" instead of path=\"/stats\"?",
+    code: `<Route path="/dashboard" element={<Layout />}>\n  <Route path="stats" element={<Stats />} />\n</Route>`,
+    options: [
+      { t: "It's just a style preference", correct:false },
+      { t: "Child paths are appended to the parent's path automatically", correct:true },
+      { t: "Leading slashes are not allowed anywhere in React Router", correct:false },
+      { t: "It disables the Outlet", correct:false }
+    ],
+    why: "Nested routes are relative to their parent, so \"stats\" becomes /dashboard/stats without you writing the full path."
+  },
+  {
+    q: "What must render inside a layout component for its nested child routes to actually appear?",
+    code: `function DashboardLayout() {\n  return (<div><Sidebar />  ___  </div>);\n}`,
+    options: [
+      { t: `<Routes />`, correct:false },
+      { t: `<Outlet />`, correct:true },
+      { t: `<Link />`, correct:false },
+      { t: `{children}`, correct:false }
+    ],
+    why: "<Outlet /> is the placeholder where React Router injects whichever nested child route currently matches."
+  },
+  {
+    q: "In a data-router route object like { path: \"/\", element: <Root />, children: [...] }, why is `children` wrapped in square brackets?",
+    code: `const router = createBrowserRouter([ { path: "/", children: ___ } ]);`,
+    options: [
+      { t: "Because it must be an array of route objects", correct:true },
+      { t: "Because JSX requires it", correct:false },
+      { t: "Square brackets mean it's optional", correct:false },
+      { t: "It's a typo-safe alternative to curly braces", correct:false }
+    ],
+    why: "createBrowserRouter takes plain JS objects; a route can have multiple children, so children is an array [ ]."
+  }
+];
+
+let current = 0;
+let score = 0;
+let answered = false;
+
+function renderQuiz(){
+  const container = document.getElementById('quiz-container');
+  const item = QUIZ[current];
+  document.getElementById('quiz-progress').textContent = `Question ${current+1} of ${QUIZ.length} · Score: ${score}`;
+  answered = false;
+
+  let optsHtml = item.options.map((o,i)=>
+    `<button class="opt" data-i="${i}" onclick="selectAnswer(${i})">${o.t}</button>`
+  ).join('');
+
+  container.innerHTML = `
+    <div class="qcard">
+      <span class="qnum">Q${current+1}</span>
+      <div class="qtext">${item.q}</div>
+      <div class="code qcode"><pre>${item.code.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</pre></div>
+      <div class="options">${optsHtml}</div>
+      <div class="explain" id="explain-box"></div>
+    </div>
+  `;
+}
+
+function selectAnswer(i){
+  if(answered) return;
+  answered = true;
+  const item = QUIZ[current];
+  const buttons = document.querySelectorAll('.opt');
+  buttons.forEach((b,idx)=>{
+    b.disabled = true;
+    if(item.options[idx].correct) b.classList.add('correct');
+    else if(idx===i) b.classList.add('wrong');
+  });
+  if(item.options[i].correct) score++;
+  const box = document.getElementById('explain-box');
+  box.classList.add('show');
+  box.innerHTML = (item.options[i].correct ? "✅ Correct — " : "❌ Not quite — ") + item.why;
+
+  setTimeout(()=>{
+    if(current < QUIZ.length - 1){
+      current++;
+      renderQuiz();
+    } else {
+      showResult();
+    }
+  }, 1600);
+}
+
+function showResult(){
+  document.getElementById('quiz-container').innerHTML = '';
+  document.getElementById('quiz-progress').textContent = '';
+  const result = document.getElementById('quiz-result');
+  result.style.display = 'block';
+  document.getElementById('score-text').textContent = score + ' / ' + QUIZ.length;
+  let msg, detail;
+  if(score === QUIZ.length){ msg = "Router mastered. 🧭"; detail = "You've got the bracket instincts down — go build something."; }
+  else if(score >= QUIZ.length - 2){ msg = "Really solid grasp."; detail = "Skim the missed explanations above, then you're set."; }
+  else if(score >= QUIZ.length/2){ msg = "Good foundation."; detail = "Re-read the Syntax Anatomy section — that's where most slips happen."; }
+  else { msg = "Worth another pass."; detail = "Start again from Section 2 (Syntax Anatomy) — it unlocks everything after it."; }
+  document.getElementById('score-msg').textContent = msg;
+  document.getElementById('score-detail').textContent = detail;
+}
+
+function restartQuiz(){
+  current = 0; score = 0;
+  document.getElementById('quiz-result').style.display = 'none';
+  renderQuiz();
+}
+
+renderQuiz();
+</script>
+</body>
+</html>
