@@ -71,7 +71,7 @@ const Navbar = () => {
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: idx * 0.1 }}
                                 key={item}
-                                href="#" >{item}</motion.a>
+                                href={`#${item.toLowerCase()}`} >{item}</motion.a>
                         )
                     })}
                 </div>

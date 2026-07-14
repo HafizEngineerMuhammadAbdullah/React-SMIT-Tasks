@@ -12,6 +12,7 @@ const Hero = () => {
             <motion.div className={styles.content}
                 variants={fadeInUp}
             >
+                {/* Badge Animation */}
                 <motion.div className={styles.badge}
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
@@ -48,7 +49,7 @@ const Hero = () => {
                     Full-stack developer · UI/UX enthusiast · React specialist
                 </motion.p>
 
-                {/* Typing Animation */}
+                {/* Typing Text Animation */}
                 <motion.p className={styles.subtitle}>
                 <TypeAnimation
                     sequence={[
@@ -60,11 +61,11 @@ const Hero = () => {
                         2000,
                         'Interested in Gaming Development',
                         2000,
-                        'Aspring Full-Stack Development', // Types 'One'
+                        'Aspring Full-Stack Development', // Types 'Aspring Full-Stack Development'
                         1000, // Waits 1s
-                        'UI/UX Enthusiast', // Deletes 'One' and types 'Two'
+                        'UI/UX Enthusiast', // Deletes 'Aspring Full-Stack Development' and types 'UI/UX Enthusiast'
                         2000, // Waits 2s
-                        'ReactJs Specialist', // Types 'Three' without deleting 'Two'
+                        'ReactJs Specialist', // Types 'UI/UX Enthusiast' and deletes it, then types 'ReactJs Specialist'
                         2000,
                         () => {
                             console.log('Sequence completed');
