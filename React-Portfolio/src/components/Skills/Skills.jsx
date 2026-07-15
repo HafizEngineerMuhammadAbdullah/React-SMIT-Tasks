@@ -10,6 +10,7 @@ import { fadeInUp, staggerContainer, scaleOnHover } from '../../animation/varian
 
 
 const Skills = () => {
+    // Skills Array of Objects with Icons, Names, and Colors
     const skills = [
         { icon: FaReact, name: 'React', color: '#61dafb' },
         { icon: SiTypescript, name: 'TypeScript', color: '#3178c6' },
@@ -30,6 +31,7 @@ const Skills = () => {
     return (
         // Skills Section
         <section id="skills" className={styles.skills}>
+            {/* for Skills Container */}
             <motion.div
                 className={styles.container}
                 variants={staggerContainer}
@@ -39,12 +41,15 @@ const Skills = () => {
             >
                 {/* Skills Heading */}
                 <motion.h2 variants={fadeInUp} className={styles.heading}>
+                    {/* for Skill Heading Gradient Text */}
                     <span className={styles.gradientText}>My Skills</span>
                 </motion.h2>
+                {/* for Skills Subheading */}
                 <motion.p variants={fadeInUp} className={styles.subheading}>
                     Technologies I work with regularly
                 </motion.p>
 
+                {/* for Skills Grid Section */}
                 <motion.div className={styles.grid}>
                     {/* MySkills */}
                     {skills.map((skill, index) => (
@@ -64,6 +69,7 @@ const Skills = () => {
                                 className={styles.skillIcon}
                                 style={{ color: skill.color }}
                             />
+                            {/* for Skill Name */}
                             <span className={styles.skillName}>{skill.name}</span>
                         </motion.div>
                     ))}

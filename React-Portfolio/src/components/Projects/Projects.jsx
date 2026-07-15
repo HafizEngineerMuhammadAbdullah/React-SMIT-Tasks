@@ -6,7 +6,7 @@ import { fadeInUp, staggerContainer, scaleOnHover } from '../../animation/varian
 
 const Projects = () => {
 
-  // Projects Array of Object
+  // Projects Array of Objects with Title, Description, Tech Stack, GitHub Link, Live Link, and Gradient Background
   const projects = [
     {
       title: 'EcoTrack',

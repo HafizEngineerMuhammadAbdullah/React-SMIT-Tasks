@@ -1,3 +1,4 @@
+/* Skills Section */
 .skills {
   padding: 5rem 2rem;
   background: #0f0f0f;
@@ -17,6 +18,7 @@
   margin-bottom: 0.5rem;
 }
 
+/* for Gradient Text */
 .gradientText {
   background: linear-gradient(135deg, #6c63ff, #a855f7);
   -webkit-background-clip: text;
@@ -24,6 +26,7 @@
   background-clip: text;
 }
 
+/* for Skills Subheading */
 .subheading {
   text-align: center;
   color: #94a3b8;
@@ -31,6 +34,7 @@
   margin-bottom: 3rem;
 }
 
+/* For Skills Grid Section */
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
@@ -38,7 +42,7 @@
   justify-items: center;
 }
 
-/* for Skill Card */
+/* for Skills Card */
 .skillCard {
   background: #1a1a1a;
   padding: 1.5rem;
