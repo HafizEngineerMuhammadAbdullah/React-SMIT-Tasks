@@ -1,0 +1,127 @@
+/* for Contact Section */
+.contact {
+  padding: 5rem 2rem;
+  background: #0f0f0f;
+}
+
+/* for Container */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* for Contact heading */
+.heading {
+  text-align: center;
+  font-size: 2.8rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+/* for Gradient Text */
+.gradientText {
+  background: linear-gradient(135deg, #6c63ff, #a855f7);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* for SubHeading */
+.subheading {
+  text-align: center;
+  color: #94a3b8;
+  font-size: 1.1rem;
+  margin-bottom: 3rem;
+}
+
+/* for Main Content */
+.content {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 4rem;
+  align-items: start;
+}
+
+/* for Info */
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* for Info Items */
+.infoItem {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+/* for Info Icons */
+.infoIcon {
+  font-size: 1.8rem;
+  color: #6c63ff;
+  min-width: 40px;
+}
+
+.infoItem h4 {
+  color: #e2e8f0;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.infoItem p {
+  color: #94a3b8;
+  font-size: 0.95rem;
+}
+
+/* for Form */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+/* for input & textarea */
+.input,
+.textarea {
+  background: #1a1a1a;
+  border: 2px solid rgba(255, 255, 255, 0.05);
+  padding: 1rem 1.2rem;
+  border-radius: 0.8rem;
+  color: #e2e8f0;
+  font-size: 1rem;
+  transition: all 0.3s;
+  font-family: inherit;
+}
+
+.input:focus,
+.textarea:focus {
+  outline: none;
+  border-color: #6c63ff;
+  box-shadow: 0 0 20px rgba(108, 99, 255, 0.1);
+}
+
+.textarea {
+  resize: vertical;
+}
+
+/* for Submit Button */
+.submitBtn {
+  background: linear-gradient(135deg, #6c63ff, #a855f7);
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 0.8rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 0 4px 15px rgba(108, 99, 255, 0.3);
+}
+
+@media (max-width: 768px) {
+  .content {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
