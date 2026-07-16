@@ -16,7 +16,7 @@ const Footer = () => {
             <div className={styles.container}>
                 {/* for Text */}
                 <p className={styles.text}>
-                    © 2026 DevPortfolio · Built with{' '}
+                    © {newDate().getFullYear()} DevPortfolio · Built with{' '}
                     <motion.span
                         animate={{ scale: [1, 1.2, 1] }}
                         transition={{ duration: 1.5, repeat: Infinity }}
