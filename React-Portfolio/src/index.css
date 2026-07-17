@@ -4,3 +4,151 @@
   box-sizing: border-box;
 }
 
+body {
+  cursor: none;
+}
+
+/* for Dark Theme */
+:root {
+  /* Background */
+  --bg-primary: #071a1a;
+  --bg-secondary: #0f2a2a;
+  --card-bg: #143535;
+
+  /* Text */
+  --text-primary: #f8fafc;
+  --text-secondary: #b7d6d6;
+
+  /* Accent */
+  --accent: #00d4aa;
+  --accent-hover: #2af5c5;
+
+  /* Border */
+  --border: #295959;
+
+  /* Extra */
+  --shadow-color: rgba(0, 212, 170, 0.25);
+}
+/* :root {
+
+--bg-primary:#08090D;
+
+--bg-secondary:#12141C;
+
+--card-bg:#181C26;
+
+--text-primary:#F4F7FF;
+
+--text-secondary:#BFC5D6;
+
+--accent:#00F5FF;
+
+--accent-hover:#6BFFFF;
+
+--border:#2B3242;
+
+--shadow-color:rgba(0,245,255,.25);
+
+}
+
+:root{
+
+--bg-primary:#18110F;
+
+--bg-secondary:#241815;
+
+--card-bg:#2F211D;
+
+--text-primary:#FFF8F5;
+
+--text-secondary:#D7C0B5;
+
+--accent:#FF7A00;
+
+--accent-hover:#FFA552;
+
+--border:#533D35;
+
+--shadow-color:rgba(255,122,0,.25);
+
+}
+:root{
+
+--bg-primary:#111111;
+
+--bg-secondary:#1B1B1B;
+
+--card-bg:#252525;
+
+--text-primary:#FFFDF8;
+
+--text-secondary:#CFC8B3;
+
+--accent:#D4AF37;
+
+--accent-hover:#F1C84C;
+
+--border:#403B29;
+
+--shadow-color:rgba(212,175,55,.25);
+
+} */
+
+[data-theme="light"] {
+  --bg-primary: #f7fffd;
+  --bg-secondary: #ffffff;
+  --card-bg: #ecfffa;
+
+  --text-primary: #113333;
+  --text-secondary: #4b6b6b;
+
+  --accent: #00b894;
+  --accent-hover: #00d4aa;
+
+  --border: #cbe9e2;
+
+  --shadow-color: rgba(0, 184, 148, 0.25);
+}
+
+/* [data-theme="light"] {
+
+--bg-primary:#FFFFFF;
+
+--bg-secondary:#F7F8FC;
+
+--card-bg:#EEF2FF;
+
+--text-primary:#101828;
+
+--text-secondary:#667085;
+
+--accent:#00A6C7;
+
+--accent-hover:#00C4E8;
+
+--border:#D7DCE8;
+
+--shadow-color:rgba(0,166,199,.25);
+
+}
+[data-theme="light"]{
+
+--bg-primary:#FFF9F5;
+
+--bg-secondary:#FFFFFF;
+
+--card-bg:#FFF2EA;
+
+--text-primary:#402518;
+
+--text-secondary:#7A5A4E;
+
+--accent:#F97316;
+
+--accent-hover:#FB923C;
+
+--border:#F1D7C8;
+
+--shadow-color:rgba(249,115,22,.25);
+
+} */

@@ -1,13 +1,25 @@
 import React, { useState } from 'react';
 import styles from './Navbar.module.css';
 import { motion } from "motion/react";
-import { FaBars, FaTimes } from 'react-icons/fa';
+import { FaBars, FaTimes, FaRegMoon, FaRegSun } from 'react-icons/fa';
 
-const Navbar = () => {
+const Navbar = ({ theme, setTheme }) => {
 
     const [isOpen, setIsOpen] = useState(false)
 
     const links = ["Home", "Skills", "Projects", "Contact"];
+
+    // function to Toggle Theme(either light or dark)
+    const toggleTheme = () => {
+
+        setTheme(
+            theme === "dark"
+                ? "light"
+
+                : "dark"
+        );
+
+    }
 
     return (
         // for Header
@@ -74,6 +86,10 @@ const Navbar = () => {
                                 href={`#${item.toLowerCase()}`} >{item}</motion.a>
                         )
                     })}
+                    {/* Toggle Theme */}
+                    <button className={styles.toggleBtn} onClick={toggleTheme}>
+                        {theme === "dark" ? < FaRegMoon color='grey' /> : <FaRegSun color='white' />}
+                    </button>
                 </div>
 
                 {/* Mobile Menu Toggle */}

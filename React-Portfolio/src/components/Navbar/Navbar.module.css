@@ -72,9 +72,28 @@
   transition: width 0.2s ease-in;
 }
 
-/* when the hover being performed n navLinks,change in after element(fake element) */
+/* when the hover being performed on navLinks,change the after element(fake element) */
 .navLinks:hover::after {
   width: 100%;
+}
+
+.toggleBtn {
+  background: linear-gradient(to right, #d85e95, #d0f775);
+  border: 3px solid rgb(178, 214,179);
+  border-radius: 12px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  color: black;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0.2rem 0.8rem;
+  transition: all 0.3s;
+}
+
+.toggleBtn:hover{
+   transform: scale(1.1);
+   border-color: rgb(102, 241, 22);
 }
 
 /* for menu toggle button */
