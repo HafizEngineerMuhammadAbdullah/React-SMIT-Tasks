@@ -57,70 +57,52 @@ body {
   --shadow-color: rgba(0, 212, 170, 0.25);
   --font-inter: "Inter", sans-serif;
 }
-/* :root {
 
---bg-primary:#08090D;
 
---bg-secondary:#12141C;
+/*
+  Extra dark themes — swap the top of App.jsx's useState("dark") for one of
+  these strings (e.g. useState("ocean")) to try a different look, or wire the
+  Navbar toggle up to cycle through all of them later.
+*/
 
---card-bg:#181C26;
-
---text-primary:#F4F7FF;
-
---text-secondary:#BFC5D6;
-
---accent:#00F5FF;
-
---accent-hover:#6BFFFF;
-
---border:#2B3242;
-
---shadow-color:rgba(0,245,255,.25);
-
+/* Deep-space cyan */
+[data-theme="ocean"] {
+  --bg-primary: #08090d;
+  --bg-secondary: #12141c;
+  --card-bg: #181c26;
+  --text-primary: #f4f7ff;
+  --text-secondary: #bfc5d6;
+  --accent: #00f5ff;
+  --accent-hover: #6bffff;
+  --border: #2b3242;
+  --shadow-color: rgba(0, 245, 255, 0.25);
 }
 
-:root{
-
---bg-primary:#18110F;
-
---bg-secondary:#241815;
-
---card-bg:#2F211D;
-
---text-primary:#FFF8F5;
-
---text-secondary:#D7C0B5;
-
---accent:#FF7A00;
-
---accent-hover:#FFA552;
-
---border:#533D35;
-
---shadow-color:rgba(255,122,0,.25);
-
+/* Warm ember / sunset */
+[data-theme="sunset"] {
+  --bg-primary: #18110f;
+  --bg-secondary: #241815;
+  --card-bg: #2f211d;
+  --text-primary: #fff8f5;
+  --text-secondary: #d7c0b5;
+  --accent: #ff7a00;
+  --accent-hover: #ffa552;
+  --border: #533d35;
+  --shadow-color: rgba(255, 122, 0, 0.25);
 }
-:root{
 
---bg-primary:#111111;
-
---bg-secondary:#1B1B1B;
-
---card-bg:#252525;
-
---text-primary:#FFFDF8;
-
---text-secondary:#CFC8B3;
-
---accent:#D4AF37;
-
---accent-hover:#F1C84C;
-
---border:#403B29;
-
---shadow-color:rgba(212,175,55,.25);
-
-} */
+/* Charcoal & gold */
+[data-theme="gold"] {
+  --bg-primary: #111111;
+  --bg-secondary: #1b1b1b;
+  --card-bg: #252525;
+  --text-primary: #fffdf8;
+  --text-secondary: #cfc8b3;
+  --accent: #d4af37;
+  --accent-hover: #f1c84c;
+  --border: #403b29;
+  --shadow-color: rgba(212, 175, 55, 0.25);
+}
 
 [data-theme="light"] {
   --bg-primary: #f7fffd;
@@ -138,48 +120,30 @@ body {
   --shadow-color: rgba(0, 184, 148, 0.25);
 }
 
-/* [data-theme="light"] {
-
---bg-primary:#FFFFFF;
-
---bg-secondary:#F7F8FC;
-
---card-bg:#EEF2FF;
-
---text-primary:#101828;
-
---text-secondary:#667085;
-
---accent:#00A6C7;
-
---accent-hover:#00C4E8;
-
---border:#D7DCE8;
-
---shadow-color:rgba(0,166,199,.25);
-
+/* Light-mode variants, same idea: data-theme="ocean-light" / "sunset-light" */
+[data-theme="ocean-light"] {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f7f8fc;
+  --card-bg: #eef2ff;
+  --text-primary: #101828;
+  --text-secondary: #667085;
+  --accent: #00a6c7;
+  --accent-hover: #00c4e8;
+  --border: #d7dce8;
+  --shadow-color: rgba(0, 166, 199, 0.25);
 }
-[data-theme="light"]{
 
---bg-primary:#FFF9F5;
-
---bg-secondary:#FFFFFF;
-
---card-bg:#FFF2EA;
-
---text-primary:#402518;
-
---text-secondary:#7A5A4E;
-
---accent:#F97316;
-
---accent-hover:#FB923C;
-
---border:#F1D7C8;
-
---shadow-color:rgba(249,115,22,.25);
-
-} */
+[data-theme="sunset-light"] {
+  --bg-primary: #fff9f5;
+  --bg-secondary: #ffffff;
+  --card-bg: #fff2ea;
+  --text-primary: #402518;
+  --text-secondary: #7a5a4e;
+  --accent: #f97316;
+  --accent-hover: #fb923c;
+  --border: #f1d7c8;
+  --shadow-color: rgba(249, 115, 22, 0.25);
+}
 
 /* Hide custom cursor on touch / mobile */
 @media (pointer: coarse) {

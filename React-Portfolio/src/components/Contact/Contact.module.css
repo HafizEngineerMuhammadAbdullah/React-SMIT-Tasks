@@ -1,7 +1,8 @@
 /* for Contact Section */
 .contact {
   padding: 5rem 2rem;
-  background: #0f0f0f;
+  /* background: rgba(15, 15, 15, 0.86); */
+  background:  #0a0a0a;
 }
 
 /* for Container */

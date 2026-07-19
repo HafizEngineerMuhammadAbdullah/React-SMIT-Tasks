@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa';
 import styles from './Projects.module.css';
 import { fadeInUp, staggerContainer, scaleOnHover } from '../../animation/variants';

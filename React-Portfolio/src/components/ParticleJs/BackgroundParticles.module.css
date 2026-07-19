@@ -1,0 +1,23 @@
+/*
+  This was the real bug: a `position: fixed` layer with no z-index context
+  around it paints ABOVE normal in-flow content (Hero, Skills, Projects...),
+  not behind it — so it was sitting on top of your whole page, invisible only
+  because it's mostly transparent, but still eating clicks.
+
+  z-index: -1 drops it into the stacking layer that sits behind ordinary
+  content, and pointer-events: none makes sure it never intercepts clicks
+  on buttons, links, or the contact form.
+*/
+/*
+  No z-index here on purpose: this keeps the particle layer in the default
+  stacking position, which paints ABOVE normal section content instead of
+  being buried behind it. pointer-events: none means it still never blocks
+  clicks on buttons, links, or the contact form — it's purely visual.
+*/
+.particles {
+  position: fixed;
+  inset: 0;
+  /* z-index: -1; */
+  z-index: 0;
+  pointer-events: none;
+}
