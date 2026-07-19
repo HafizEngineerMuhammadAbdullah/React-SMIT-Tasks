@@ -5,10 +5,18 @@
   left: 0;
   right: 0;
   z-index: 1;
-  background-color: rgba(10, 10, 10, 0.85);
+  /* background-color: rgba(10, 10, 10, 0.288); */
+  background-color: rgb(77, 76, 76, 0.288);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
   padding: 0.8rem 0;
+  font-family: monospace;
+}
+
+.header:hover {
+  background-color: rgba(10, 10, 10, 0.5);
+  backdrop-filter: blur(12px);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.05);
 }
 
 /* for Navbar */
@@ -78,8 +86,8 @@
 }
 
 .toggleBtn {
-  background: linear-gradient(to right, #d85e95, #d0f775);
-  border: 3px solid rgb(178, 214,179);
+  background: linear-gradient(135deg, #6c63ff, #a855f7, #6c63ff);
+  border: 3px solid #6c63ff;
   border-radius: 12px;
   text-align: center;
   display: flex;
@@ -93,7 +101,6 @@
 
 .toggleBtn:hover{
    transform: scale(1.1);
-   border-color: rgb(102, 241, 22);
 }
 
 /* for menu toggle button */

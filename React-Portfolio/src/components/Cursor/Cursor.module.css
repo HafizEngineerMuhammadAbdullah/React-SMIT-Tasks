@@ -1,17 +1,48 @@
+/* for Cursor */
 .cursor {
+  /* stay attached with the browser window */
+  position: fixed;
+  top: 0;
+  left: 0;
+  /* clickable */
+  pointer-events: none;
+  /* always stays on the top */
+  z-index: 9999;
+}
 
-    position: fixed;
+/* for Outer Cursor */
+.cursorOuter {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  border: 1.5px solid #3e2c6d;
+  border-radius: 50%;
+  box-sizing: border-box;
+  transform: translate(-50%, -50%);
+  transition:
+    transform 0.1s ease,
+    opacity 0.2s ease;
+  box-shadow:
+    0 0 10px rgba(85, 6, 212, 0.6),
+    0 0 20px rgba(88, 10, 214, 0.3);
+  /* mix-blend-mode: difference; */
+  mix-blend-mode: exclusion;
+}
 
-    width: 20px;
-
-    height: 20px;
-
-    border-radius: 50%;
-
-    background: var(--accent);
-
-    pointer-events: none;
-
-    z-index: 9999;
-
+/* for Inner Cursor */
+.cursorInner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  background: #00d4ff;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  /* transition:
+    transform 0.1s ease,
+    opacity 0.2s ease; */
+  box-shadow:
+    0 0 10px rgba(6, 182, 212, 0.6),
+    0 0 20px rgba(6, 182, 212, 0.3);
 }

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import Cursor from './components/Cursor/Cursor';
 import Navbar from './components/Navbar/Navbar';
 import Hero from './components/Hero/Hero';
@@ -13,9 +13,10 @@ const App = () => {
   const [theme, setTheme] = useState("dark");
   return (
     <div data-theme={theme}>
+      {/* Cursor is first, So it works everywhere. */}
       <Cursor />
       {/* passing props */}
-      < Navbar  theme={theme} setTheme={setTheme}/>
+      < Navbar theme={theme} setTheme={setTheme} />
       < Hero />
       < Skills />
       < Projects />

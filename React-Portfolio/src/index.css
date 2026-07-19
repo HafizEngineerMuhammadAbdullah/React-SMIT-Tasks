@@ -1,11 +1,38 @@
+/* Reset Default Space */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
-  cursor: none;
+  font-family: var(--font-inter), system-ui, sans-serif;
+  /* Browser cursor disappears. */
+  /* Only custom cursor remains. */
+  cursor: none !important;
+}
+
+
+/* ===== Custom Scrollbar ===== */
+::-webkit-scrollbar {
+  width: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0a0a0f;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #8b5cf6;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a855f7;
 }
 
 /* for Dark Theme */
@@ -28,6 +55,7 @@ body {
 
   /* Extra */
   --shadow-color: rgba(0, 212, 170, 0.25);
+  --font-inter: "Inter", sans-serif;
 }
 /* :root {
 
@@ -152,3 +180,8 @@ body {
 --shadow-color:rgba(249,115,22,.25);
 
 } */
+
+/* Hide custom cursor on touch / mobile */
+@media (pointer: coarse) {
+  body { cursor: auto !important; }
+}

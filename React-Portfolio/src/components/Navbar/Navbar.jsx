@@ -68,7 +68,7 @@ const Navbar = ({ theme, setTheme }) => {
                         }}
                         className={styles.logoIcon}>🚀</motion.span>
                     {/* for Logo Text */}
-                    <span className={styles.logoText}>DevPortfolio</span>
+                    <span className={styles.logoText}>{"<"}Abdullah{" />"}</span>
                 </motion.div>
 
                 {/* Navlinks at desktop screen */}
