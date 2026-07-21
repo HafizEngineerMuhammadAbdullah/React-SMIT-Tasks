@@ -4,6 +4,7 @@ import { motion } from "motion/react";
 import { TypeAnimation } from 'react-type-animation'
 import { fadeInUp, scaleOnHover } from '../../animation/variants';
 import { FaGithub, FaLinkedin, FaTwitter } from 'react-icons/fa';
+import AvailabilityBadge from '../Badge/AvailabilityBadge';
 
 const Hero = () => {
     return (
@@ -19,6 +20,11 @@ const Hero = () => {
                     transition={{ delay: 0.3, type: 'spring', stiffness: 200 }}>
                     ✨ Open to opportunities
                 </motion.div>
+
+                <div>
+                    {/* Availability Badge */}
+                    < AvailabilityBadge />
+                </div>
 
                 {/* My Title */}
                 <motion.h1 className={styles.title}
@@ -51,31 +57,31 @@ const Hero = () => {
 
                 {/* Typing Text Animation */}
                 <motion.p className={styles.subtitle}>
-                <TypeAnimation
-                    sequence={[
-                        'Frontend Developer',
-                        2000,
-                        'AI/ML Enthusiast',
-                        2000,
-                        'DSA & Leetcode Enthusiast',
-                        2000,
-                        'Interested in Gaming Development',
-                        2000,
-                        'Aspring Full-Stack Development', // Types 'Aspring Full-Stack Development'
-                        1000, // Waits 1s
-                        'UI/UX Enthusiast', // Deletes 'Aspring Full-Stack Development' and types 'UI/UX Enthusiast'
-                        2000, // Waits 2s
-                        'ReactJs Specialist', // Types 'UI/UX Enthusiast' and deletes it, then types 'ReactJs Specialist'
-                        2000,
-                        () => {
-                            console.log('Sequence completed');
-                        },
-                    ]}
-                    wrapper="span"
-                    cursor={true}
-                    repeat={Infinity}
-                    style={{ fontSize: '2em', display: 'inline-block' }}
-                />
+                    <TypeAnimation
+                        sequence={[
+                            'Frontend Developer',
+                            2000,
+                            'AI/ML Enthusiast',
+                            2000,
+                            'DSA & Leetcode Enthusiast',
+                            2000,
+                            'Interested in Gaming Development',
+                            2000,
+                            'Aspring Full-Stack Development', // Types 'Aspring Full-Stack Development'
+                            1000, // Waits 1s
+                            'UI/UX Enthusiast', // Deletes 'Aspring Full-Stack Development' and types 'UI/UX Enthusiast'
+                            2000, // Waits 2s
+                            'ReactJs Specialist', // Types 'UI/UX Enthusiast' and deletes it, then types 'ReactJs Specialist'
+                            2000,
+                            () => {
+                                console.log('Sequence completed');
+                            },
+                        ]}
+                        wrapper="span"
+                        cursor={true}
+                        repeat={Infinity}
+                        style={{ fontSize: '2em', display: 'inline-block' }}
+                    />
                 </motion.p>
 
                 {/* Description Section */}
