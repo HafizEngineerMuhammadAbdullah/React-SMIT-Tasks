@@ -7,6 +7,22 @@ import { FaGithub, FaLinkedin, FaTwitter } from 'react-icons/fa';
 import AvailabilityBadge from '../Badge/AvailabilityBadge';
 
 const Hero = () => {
+
+    const socialLinks = [
+        {
+            linkName: FaGithub,
+            link: "https://github.com/HafizEngineerMuhammadAbdullah"
+        },
+        {
+            linkName: FaLinkedin,
+            link: "https://www.linkedin.com/in/muhammad-abdullah-360a87384"
+        },
+        {
+            linkName: FaTwitter,
+            link: "#"
+        }  
+    ];
+
     return (
         <section id="home" className={styles.hero}>
             {/* Content Box */}
@@ -131,10 +147,12 @@ const Hero = () => {
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.8, duration: 0.6 }}>
                     {/* Social Platform Links */}
-                    {[FaGithub, FaLinkedin, FaTwitter].map((Icon, index) => (
+                    {socialLinks.map((Icon, index) => (
                         <motion.a
                             key={index}
-                            href="#"
+                            href={Icon.link}
+                            target='_blank'
+                            rel='noopener noreferrer'
                             className={styles.socialLink}
                             whileHover={{
                                 scale: 1.2,
@@ -144,9 +162,9 @@ const Hero = () => {
                             whileTap={{ scale: 0.9 }}
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.9 + index * 0.1 }}
+                            transition={{ delay: 0.2 }}
                         >
-                            <Icon />
+                            <Icon.linkName />
                         </motion.a>
                     ))}
                 </motion.div>
