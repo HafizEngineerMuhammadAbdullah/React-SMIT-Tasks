@@ -20,12 +20,12 @@ const Hero = () => {
         {
             linkName: FaTwitter,
             link: "#"
-        }  
+        }
     ];
 
     return (
         <section id="home" className={styles.hero}>
-            {/* Content Box */}
+            {/* Left Part : Content Box */}
             <motion.div className={styles.content}
                 variants={fadeInUp}
             >
@@ -131,6 +131,7 @@ const Hero = () => {
                     >
                         View Projects
                     </motion.button>
+
                     {/* Secondary Button */}
                     <motion.button
                         className={styles.secondaryBtn}
@@ -170,7 +171,8 @@ const Hero = () => {
                 </motion.div>
             </motion.div>
 
-            {/* Images Section */}
+            {/* Right Part : Image Box */}
+            {/* Image Section */}
             <motion.div
                 className={styles.heroImage}
                 initial={{ opacity: 0, scale: 0.8, rotate: -10 }}
@@ -182,7 +184,8 @@ const Hero = () => {
                     <div className={styles.floatingOrb2}></div>
                     <div className={styles.floatingOrb3}></div>
                     <div className={styles.profilePlaceholder}>
-                        <span>👨‍💻</span>
+                        {/* <span>👨‍💻</span> */}
+                        <img className={styles.portfolioImage} src="/assets/my-face.png" alt="Portfolio-Image" />
                     </div>
                 </div>
             </motion.div>
