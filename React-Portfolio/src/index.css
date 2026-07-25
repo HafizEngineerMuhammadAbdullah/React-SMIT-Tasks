@@ -5,12 +5,25 @@
   box-sizing: border-box;
 }
 
+@font-face {
+    font-family: 'Space_Grotesk';
+    src: url('../public/fonts/Space-Grotesk/SpaceGrotesk-VariableFont_wght.ttf') format('woff2'),
+         url('../public/fonts/Space-Grotesk/SpaceGrotesk-VariableFont_wght.ttf') format('woff');
+}
+
+@font-face {
+    font-family: 'Inter';
+    src: url('../public/fonts/Inter/Inter-Italic-VariableFont_opsz\,wght.ttf') format('woff2'),
+         url('../public/fonts/Inter/Inter-Italic-VariableFont_opsz\,wght.ttf') format('woff');
+}
 html {
   scroll-behavior: smooth;
 }
 
 body {
-  font-family: var(--font-inter), system-ui, sans-serif;
+  font-family: 'Space_Grotesk', sans-serif;
+  /* font-family: 'Courier New', Courier, monospace; */
+  /* font-family: var(--font-inter), system-ui, sans-serif; */
   /* Browser cursor disappears. */
   /* Only custom cursor remains. */
   cursor: none !important;
