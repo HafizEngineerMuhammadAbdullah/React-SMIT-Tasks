@@ -6,7 +6,7 @@ import { fadeInUp, staggerContainer, scaleOnHover } from '../../animation/varian
 
 const Contact = () => {
     // formData Object that contains all the form fields info
-    const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+    const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
 
     // function that handles the change occur in the form field 
     const handleChange = (e) => {
@@ -39,18 +39,22 @@ const Contact = () => {
                     Have a project in mind? Let's talk.
                 </motion.p>
 
-                {/* Main Content */}
+                {/* Left Main Content */}
                 <div className={styles.content}>
                     <motion.div
                         className={styles.info}
                         variants={fadeInUp}
                     >
+                        {/* for Contact Info Heading */}
+                        <div className={styles.infoItem} style={{ color: "#fff" }}>
+                            <h1>Contact Info</h1>
+                        </div>
                         {/* for Email Info */}
                         <div className={styles.infoItem}>
                             <FaEnvelope className={styles.infoIcon} />
                             <div>
                                 <h4>Email</h4>
-                                <p>alex@devportfolio.com</p>
+                                <p>abdullahkhalid2k25@gmail.com</p>
                             </div>
                         </div>
                         {/* for Phone Info */}
@@ -58,7 +62,7 @@ const Contact = () => {
                             <FaPhone className={styles.infoIcon} />
                             <div>
                                 <h4>Phone</h4>
-                                <p>+1 (555) 123-4567</p>
+                                <p>+92 (315) 899-3071</p>
                             </div>
                         </div>
                         {/* for Location Info */}
@@ -66,47 +70,75 @@ const Contact = () => {
                             <FaMapMarkerAlt className={styles.infoIcon} />
                             <div>
                                 <h4>Location</h4>
-                                <p>San Francisco, CA</p>
+                                <p>North Karachi, KHI</p>
                             </div>
                         </div>
                     </motion.div>
-                   
-                   {/* for Form */}
+
+                    {/* for Right Form */}
                     <motion.form
                         className={styles.form}
                         variants={fadeInUp}
                         onSubmit={handleSubmit}
                     >
-                        {/* For Name */}
-                        <input
-                            type="text"
-                            name="name"
-                            placeholder="Your Name"
-                            className={styles.input}
-                            value={formData.name}
-                            onChange={handleChange}
-                            required
-                        />
-                        {/* for Email */}
-                        <input
-                            type="email"
-                            name="email"
-                            placeholder="Your Email"
-                            className={styles.input}
-                            value={formData.email}
-                            onChange={handleChange}
-                            required
-                        />
-                        {/* for Message */}
-                        <textarea
-                            name="message"
-                            placeholder="Your Message"
-                            className={styles.textarea}
-                            rows="5"
-                            value={formData.message}
-                            onChange={handleChange}
-                            required
-                        />
+                        <div className={styles.formGrid}>
+                            {/* For Name */}
+                            <div className={styles.userName}>
+                                <label htmlFor="user-name">Name</label>
+                                <input
+                                    type="text"
+                                    name="name"
+                                    id='user-name'
+                                    placeholder="Thomas John"
+                                    className={styles.input}
+                                    value={formData.name}
+                                    onChange={handleChange}
+                                    required
+                                />
+                            </div>
+                            {/* for Email */}
+                            <div className={styles.userEmail}>
+                                <label htmlFor="user-email">Email</label>
+                                <input
+                                    type="email"
+                                    name="email"
+                                    id='user-email'
+                                    placeholder="thomasjohan@example.com"
+                                    className={styles.input}
+                                    value={formData.email}
+                                    onChange={handleChange}
+                                    required
+                                />
+                            </div>
+                        </div>
+                        {/* for Subject */}
+                        <div className={styles.userSubject}>
+                            <label htmlFor="user-subject">Subject</label>
+                            <input
+                                type="text"
+                                name="subject"
+                                id='user-subject'
+                                placeholder="Project discussion"
+                                className={styles.input}
+                                value={formData.subject}
+                                onChange={handleChange}
+                                required
+                            />
+                        </div>
+                        {/* for Text Message */}
+                        <div className={styles.textMsg}>
+                            <label htmlFor="user-msg">Message</label>
+                            <textarea
+                                name="message"
+                                id='user-msg'
+                                placeholder="Tell me about your project..."
+                                className={styles.textarea}
+                                rows="5"
+                                value={formData.message}
+                                onChange={handleChange}
+                                required
+                            />
+                        </div>
                         {/* for Submit button */}
                         <motion.button
                             type="submit"

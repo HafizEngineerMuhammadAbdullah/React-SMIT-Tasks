@@ -46,7 +46,7 @@ const Skills = () => {
                 </motion.h2>
                 {/* for Skills Subheading */}
                 <motion.p variants={fadeInUp} className={styles.subheading}>
-                    Technologies I work with regularly
+                    Technologies I work with regularly to build scalable applications
                 </motion.p>
 
                 {/* for Skills Grid Section */}

@@ -72,7 +72,7 @@ const Hero = () => {
                 </motion.p>
 
                 {/* Typing Text Animation */}
-                <motion.p className={styles.subtitle}>
+                <motion.p>
                     <TypeAnimation
                         sequence={[
                             'Frontend Developer',
@@ -96,7 +96,7 @@ const Hero = () => {
                         wrapper="span"
                         cursor={true}
                         repeat={Infinity}
-                        style={{ fontSize: '2em', display: 'inline-block' }}
+                        style={{ fontSize: '2em', display: 'inline-block',  color: '#416597' }}
                     />
                 </motion.p>
 

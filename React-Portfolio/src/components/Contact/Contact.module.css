@@ -2,7 +2,7 @@
 .contact {
   padding: 5rem 2rem;
   /* background: rgba(15, 15, 15, 0.86); */
-  background:  #0a0a0a;
+  background: #0a0a0a;
 }
 
 /* for Container */
@@ -80,6 +80,38 @@
   display: flex;
   flex-direction: column;
   gap: 1.2rem;
+  background: hsla(0, 0%, 100%, 0.04);
+  border: 1px solid hsla(0, 0%, 100%, 0.08);
+  border-radius: 1rem;
+  padding: 2rem;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  transition: all 0.3s ease;
+}
+
+/* when hover is being performed on form */
+.form:hover {
+  background: hsla(0, 0%, 100%, 0.07);
+  border-color: rgba(139, 92, 246, 0.3);
+  transform: translateY(-4px) !important;
+  box-shadow:
+    0 20px 40px rgba(0, 0, 0, 0.3),
+    0 0 30px rgba(139, 92, 246, 0.1);
+}
+
+/* for Form Grid */
+.formGrid{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+/* For Different Input boxes */
+.userName,.userEmail,.userSubject ,.textMsg {
+  display: flex;
+  flex-flow: column wrap;
+  row-gap: 0.5em;
+  color: #9ca3af;
 }
 
 /* for input & textarea */
@@ -124,5 +156,10 @@
   .content {
     grid-template-columns: 1fr;
     gap: 2rem;
+  }
+
+  .formGrid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
   }
 }

@@ -16,14 +16,14 @@ const Footer = () => {
             <div className={styles.container}>
                 {/* for Text */}
                 <p className={styles.text}>
-                    © {new Date().getFullYear()} DevPortfolio · Built with{' '}
+                    © {new Date().getFullYear()} Muhammad Abdullah Portfolio· Built with{' '}
                     <motion.span
                         animate={{ scale: [1, 1.2, 1] }}
                         transition={{ duration: 1.5, repeat: Infinity }}
                     >
                         ❤️
                     </motion.span>
-                    {' '}for students
+                    {' '}for Partner
                 </p>
                 {/* for Subtext */}
                 <p className={styles.subtext}>
