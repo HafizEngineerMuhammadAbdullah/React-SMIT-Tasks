@@ -16,6 +16,7 @@
     src: url('../public/fonts/Inter/Inter-Italic-VariableFont_opsz\,wght.ttf') format('woff2'),
          url('../public/fonts/Inter/Inter-Italic-VariableFont_opsz\,wght.ttf') format('woff');
 }
+
 html {
   scroll-behavior: smooth;
 }

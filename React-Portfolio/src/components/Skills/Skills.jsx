@@ -4,7 +4,10 @@ import {
     FaReact, FaNodeJs, FaPython, FaDocker,
     FaAws, FaGitAlt, FaFigma, FaHtml5
 } from 'react-icons/fa';
-import { SiTypescript, SiTailwindcss, SiMongodb, SiPostgresql } from 'react-icons/si';
+import { FaJava,FaGithub,FaCss3Alt } from "react-icons/fa6";
+import { GrMysql } from "react-icons/gr";
+import { TbBrandJavascript,TbBrandFramerMotion,TbBrandSupabase,TbBrandNextjs } from "react-icons/tb";
+import { SiCplusplus,SiC, SiTypescript, SiTailwindcss, SiMongodb, SiPostgresql,SiFirebase,SiGsap  } from 'react-icons/si';
 import styles from './Skills.module.css';
 import { fadeInUp, staggerContainer, scaleOnHover } from '../../animation/variants';
 
@@ -13,17 +16,29 @@ const Skills = () => {
     // Skills Array of Objects with Icons, Names, and Colors
     const skills = [
         { icon: FaReact, name: 'React', color: '#61dafb' },
+        { icon: TbBrandNextjs, name: 'Nextjs', color: '#0070F3' },
         { icon: SiTypescript, name: 'TypeScript', color: '#3178c6' },
         { icon: FaNodeJs, name: 'Node.js', color: '#68a063' },
         { icon: SiTailwindcss, name: 'Tailwind', color: '#38b2ac' },
         { icon: FaPython, name: 'Python', color: '#3776ab' },
         { icon: SiMongodb, name: 'MongoDB', color: '#4ea94b' },
         { icon: SiPostgresql, name: 'PostgreSQL', color: '#336791' },
+        { icon: GrMysql, name: 'MySQL', color: '#336791' },
         { icon: FaDocker, name: 'Docker', color: '#2496ed' },
         { icon: FaAws, name: 'AWS', color: '#ff9900' },
         { icon: FaGitAlt, name: 'Git', color: '#f05032' },
+        { icon: FaGithub, name: 'Github', color: '#e6e6e6' },
         { icon: FaFigma, name: 'Figma', color: '#a259ff' },
+        { icon: TbBrandFramerMotion, name: 'FramerMotion', color: '#0099FF' },
+        { icon: SiGsap, name: 'Gsap', color: '#88ce02' },
+        { icon: SiFirebase, name: 'Firebase', color: '  #F57C00' },
+        { icon: TbBrandSupabase, name: 'Supabase', color: '  #3FCF8E' },
         { icon: FaHtml5, name: 'HTML5', color: '#e34f26' },
+        { icon: FaCss3Alt, name: 'CSS3', color: '#264de4' },
+        { icon: TbBrandJavascript, name: 'Javascript', color: '#f7df1e' },
+        { icon: FaJava, name: 'Java', color: '#5382a1' },
+        { icon: SiCplusplus, name: 'C++', color: '#00589C' },
+        { icon: SiC, name: 'C', color: '#A8B9CC' },
     ];
 
 
