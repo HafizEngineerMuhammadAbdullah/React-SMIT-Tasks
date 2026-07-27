@@ -4,9 +4,9 @@ import {
     FaReact, FaNodeJs, FaPython, FaDocker,
     FaAws, FaGitAlt, FaFigma, FaHtml5
 } from 'react-icons/fa';
-import { FaJava,FaGithub,FaCss3Alt } from "react-icons/fa6";
+import { FaJava,FaGithub,FaCss3Alt,FaBootstrap } from "react-icons/fa6";
 import { GrMysql } from "react-icons/gr";
-import { TbBrandJavascript,TbBrandFramerMotion,TbBrandSupabase,TbBrandNextjs } from "react-icons/tb";
+import { TbBrandJavascript,TbBrandFramerMotion,TbBrandSupabase,TbBrandNextjs,TbBrandThreejs } from "react-icons/tb";
 import { SiCplusplus,SiC, SiTypescript, SiTailwindcss, SiMongodb, SiPostgresql,SiFirebase,SiGsap  } from 'react-icons/si';
 import styles from './Skills.module.css';
 import { fadeInUp, staggerContainer, scaleOnHover } from '../../animation/variants';
@@ -20,6 +20,7 @@ const Skills = () => {
         { icon: SiTypescript, name: 'TypeScript', color: '#3178c6' },
         { icon: FaNodeJs, name: 'Node.js', color: '#68a063' },
         { icon: SiTailwindcss, name: 'Tailwind', color: '#38b2ac' },
+        { icon: FaBootstrap, name: 'Bootstrap', color: ' #7952b3' },
         { icon: FaPython, name: 'Python', color: '#3776ab' },
         { icon: SiMongodb, name: 'MongoDB', color: '#4ea94b' },
         { icon: SiPostgresql, name: 'PostgreSQL', color: '#336791' },
@@ -31,6 +32,7 @@ const Skills = () => {
         { icon: FaFigma, name: 'Figma', color: '#a259ff' },
         { icon: TbBrandFramerMotion, name: 'FramerMotion', color: '#0099FF' },
         { icon: SiGsap, name: 'Gsap', color: '#88ce02' },
+        { icon: TbBrandThreejs, name: 'Threejs', color: '#F7DF1E' },
         { icon: SiFirebase, name: 'Firebase', color: '  #F57C00' },
         { icon: TbBrandSupabase, name: 'Supabase', color: '  #3FCF8E' },
         { icon: FaHtml5, name: 'HTML5', color: '#e34f26' },
