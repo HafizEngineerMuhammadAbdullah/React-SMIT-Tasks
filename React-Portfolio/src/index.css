@@ -5,6 +5,10 @@
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 @font-face {
     font-family: 'Space_Grotesk';
     src: url('../public/fonts/Space-Grotesk/SpaceGrotesk-VariableFont_wght.ttf') format('woff2'),
@@ -17,14 +21,9 @@
          url('../public/fonts/Inter/Inter-Italic-VariableFont_opsz\,wght.ttf') format('woff');
 }
 
-html {
-  scroll-behavior: smooth;
-}
-
 body {
-  font-family: 'Space_Grotesk', sans-serif;
-  /* font-family: 'Courier New', Courier, monospace; */
-  /* font-family: var(--font-inter), system-ui, sans-serif; */
+  font-family: var(--font-inter), system-ui, sans-serif;
+  background: var(--bg-primary);
   /* Browser cursor disappears. */
   /* Only custom cursor remains. */
   cursor: none !important;
@@ -49,30 +48,28 @@ body {
   background: #a855f7;
 }
 
-/* for Dark Theme */
+/* for Dark Theme — matches the near-black/violet palette your components already use */
 :root {
   /* Background */
-  --bg-primary: #071a1a;
-  --bg-secondary: #0f2a2a;
-  --card-bg: #143535;
+  --bg-primary: #0a0a0a;
+  --bg-secondary: #0f0f0f;
+  --card-bg: #1a1a1a;
 
   /* Text */
-  --text-primary: #f8fafc;
-  --text-secondary: #b7d6d6;
+  --text-primary: #ffffff;
+  --text-secondary: #94a3b8;
 
   /* Accent */
-  --accent: #00d4aa;
-  --accent-hover: #2af5c5;
+  --accent: #6c63ff;
+  --accent-hover: #a855f7;
 
   /* Border */
-  --border: #295959;
+  --border: rgba(255, 255, 255, 0.05);
 
   /* Extra */
-  --shadow-color: rgba(0, 212, 170, 0.25);
+  --shadow-color: rgba(108, 99, 255, 0.3);
   --font-inter: "Inter", sans-serif;
 }
-
-
 /*
   Extra dark themes — swap the top of App.jsx's useState("dark") for one of
   these strings (e.g. useState("ocean")) to try a different look, or wire the
@@ -119,19 +116,19 @@ body {
 }
 
 [data-theme="light"] {
-  --bg-primary: #f7fffd;
-  --bg-secondary: #ffffff;
-  --card-bg: #ecfffa;
+  --bg-primary: #ffffff;
+  --bg-secondary: #f7f8fc;
+  --card-bg: #f3f1ff;
 
-  --text-primary: #113333;
-  --text-secondary: #4b6b6b;
+  --text-primary: #16161d;
+  --text-secondary: #52525b;
 
-  --accent: #00b894;
-  --accent-hover: #00d4aa;
+  --accent: #6c63ff;
+  --accent-hover: #8b5cf6;
 
-  --border: #cbe9e2;
+  --border: rgba(0, 0, 0, 0.08);
 
-  --shadow-color: rgba(0, 184, 148, 0.25);
+  --shadow-color: rgba(108, 99, 255, 0.2);
 }
 
 /* Light-mode variants, same idea: data-theme="ocean-light" / "sunset-light" */

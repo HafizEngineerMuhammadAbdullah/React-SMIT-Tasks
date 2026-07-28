@@ -1,9 +1,8 @@
 /* for Footer Section */
 .footer {
-  /* background: rgba(10, 10, 10, 0.86); */
-  background:  #0a0a0a;;
+  background: var(--bg-primary);
   padding: 3rem 2rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  border-top: 1px solid var(--border);
 }
 
 /* for Container */
@@ -16,7 +15,7 @@
 /* for Text */
 .text {
   font-size: 1rem;
-  color: #94a3b8;
+  color: var(--text-secondary);
   margin-bottom: 0.5rem;
 }
 
@@ -27,13 +26,13 @@
 /* for Subtext */
 .subtext {
   font-size: 0.85rem;
-  color: #64748b;
+  color: var(--text-secondary);
   margin-bottom: 1.5rem;
 }
 
 
 .subtext code {
-  background: #1a1a1a;
+  background: var(--card-bg);
   padding: 0.2rem 0.6rem;
   border-radius: 6px;
   font-size: 0.75rem;
@@ -49,11 +48,11 @@
 }
 
 .techBadges span {
-  background: #1a1a1a;
+  background: var(--card-bg);
   padding: 0.3rem 1rem;
   border-radius: 20px;
   font-size: 0.75rem;
-  color: #94a3b8;
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
 }
 

@@ -1,8 +1,7 @@
 /* for Contact Section */
 .contact {
   padding: 5rem 2rem;
-  /* background: rgba(15, 15, 15, 0.86); */
-  background: #0a0a0a;
+  background: var(--bg-secondary);
 }
 
 /* for Container */
@@ -13,6 +12,7 @@
 
 /* for Contact heading */
 .heading {
+  font-family: "Space_Grotesk", cursive;
   text-align: center;
   font-size: 2.8rem;
   font-weight: 700;
@@ -30,7 +30,7 @@
 /* for SubHeading */
 .subheading {
   text-align: center;
-  color: #94a3b8;
+  color: var(--text-secondary);
   font-size: 1.1rem;
   margin-bottom: 3rem;
 }
@@ -65,13 +65,13 @@
 }
 
 .infoItem h4 {
-  color: #e2e8f0;
+  color: var(--text-primary);
   font-size: 1rem;
   font-weight: 600;
 }
 
 .infoItem p {
-  color: #94a3b8;
+  color: var(--text-secondary);
   font-size: 0.95rem;
 }
 
@@ -100,14 +100,17 @@
 }
 
 /* for Form Grid */
-.formGrid{
+.formGrid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1rem;
 }
 
 /* For Different Input boxes */
-.userName,.userEmail,.userSubject ,.textMsg {
+.userName,
+.userEmail,
+.userSubject,
+.textMsg {
   display: flex;
   flex-flow: column wrap;
   row-gap: 0.5em;
@@ -117,11 +120,11 @@
 /* for input & textarea */
 .input,
 .textarea {
-  background: #1a1a1a;
-  border: 2px solid rgba(255, 255, 255, 0.05);
+  background: var(--card-bg);
+  border: 2px solid var(--border);
   padding: 1rem 1.2rem;
   border-radius: 0.8rem;
-  color: #e2e8f0;
+  color: var(--text-primary);
   font-size: 1rem;
   transition: all 0.3s;
   font-family: inherit;

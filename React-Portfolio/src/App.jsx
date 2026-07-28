@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { ParticlesProvider } from '@tsparticles/react';
 import { loadSlim } from '@tsparticles/slim';
+import { ThemeProvider, useTheme } from './context/ThemeContext';
 import Cursor from './components/Cursor/Cursor';
 import Navbar from './components/Navbar/Navbar';
 import Hero from './components/Hero/Hero';
@@ -11,23 +12,24 @@ import Footer from './components/Footer/Footer';
 import BackgroundParticles from './components/ParticleJs/BackgroundParticles';
 
 // Loads the tsParticles engine ONCE for the whole app's lifetime.
-// ParticlesProvider must sit at the root and must never unmount/remount.
 const engineInit = async (engine) => {
   await loadSlim(engine);
 };
 
-const App = () => {
+// This lives INSIDE <ThemeProvider> (see App below), which is why it's
+// allowed to call useTheme() — a component can only consume a context if
+// it's rendered as a descendant of that context's Provider.
+const AppContent = () => {
+  const { theme } = useTheme();
 
-  const [theme, setTheme] = useState("dark");
   return (
     <ParticlesProvider init={engineInit}>
-      <div data-theme={theme}>
+      <div>
         {/* Background Particles */}
         <BackgroundParticles theme={theme} />
         {/* Cursor is first, So it works everywhere. */}
         <Cursor />
-        {/* passing props */}
-        < Navbar theme={theme} setTheme={setTheme} />
+        < Navbar />
         < Hero />
         < Skills />
         < Projects />
@@ -35,7 +37,15 @@ const App = () => {
         < Footer />
       </div>
     </ParticlesProvider>
-  )
-}
+  );
+};
+
+const App = () => {
+  return (
+    <ThemeProvider>
+      <AppContent />
+    </ThemeProvider>
+  );
+};
 
 export default App

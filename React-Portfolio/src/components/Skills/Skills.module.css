@@ -1,8 +1,7 @@
 /* Skills Section */
 .skills {
   padding: 5rem 2rem;
-  /* background: rgba(15, 15, 15, 0.86); */
-  background:  #0a0a0a;
+  background: var(--bg-secondary);
 }
 
 /* for Skill Container */
@@ -13,6 +12,7 @@
 
 /* for Skill Heading */
 .heading {
+  font-family: "Space_Grotesk", cursive;
   text-align: center;
   font-size: 2.8rem;
   font-weight: 700;
@@ -30,7 +30,7 @@
 /* for Skills Subheading */
 .subheading {
   text-align: center;
-  color: #94a3b8;
+  color: var(--text-secondary);
   font-size: 1.1rem;
   margin-bottom: 3rem;
 }
@@ -45,7 +45,7 @@
 
 /* for Skills Card */
 .skillCard {
-  background: #1a1a1a;
+  background: var(--card-bg);
   padding: 1.5rem;
   border-radius: 1rem;
   text-align: center;
@@ -67,5 +67,5 @@
   display: block;
   font-size: 0.85rem;
   font-weight: 500;
-  color: #e2e8f0;
+  color: var(--text-primary);
 }

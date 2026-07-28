@@ -1,8 +1,7 @@
 /* for Project Section */
 .projects {
   padding: 5rem 2rem;
-  /* background: rgba(10, 10, 10, 0.86); */
-  background:  #0a0a0a;
+  background: var(--bg-primary);
 }
 
 /* for container */
@@ -21,6 +20,7 @@
 
 /* for Gradient Text */
 .gradientText {
+  font-family: "Space_Grotesk", cursive;
   background: linear-gradient(135deg, #6c63ff, #a855f7);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -30,7 +30,7 @@
 /* for Project Subheading */
 .subheading {
   text-align: center;
-  color: #94a3b8;
+  color: var(--text-secondary);
   font-size: 1.1rem;
   margin-bottom: 3rem;
 }
@@ -43,11 +43,11 @@
 
 /* for Project Card */
 .projectCard {
-  background: #1a1a1a;
+  background: var(--card-bg);
   border-radius: 1.2rem;
   overflow: hidden;
   transition: all 0.3s;
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border);
 }
 
 /* for Project Header */
@@ -62,7 +62,7 @@
 /* for Card Icon */
 .cardIcon {
   font-size: 3.5rem;
-  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
 }
 
 /* for Card Body */
@@ -74,13 +74,13 @@
 .projectTitle {
   font-size: 1.4rem;
   font-weight: 600;
-  color: #ffffff;
+  color: var(--text-primary);
   margin-bottom: 0.5rem;
 }
 
 /* for Project Description */
 .projectDesc {
-  color: #94a3b8;
+  color: var(--text-secondary);
   font-size: 0.95rem;
   line-height: 1.6;
   margin-bottom: 1.2rem;
@@ -114,13 +114,13 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  color: #e2e8f0;
+  color: var(--text-primary);
   text-decoration: none;
   font-size: 0.9rem;
   font-weight: 500;
   padding: 0.5rem 1rem;
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--border);
   transition: all 0.2s;
 }
 

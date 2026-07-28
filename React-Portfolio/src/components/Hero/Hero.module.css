@@ -18,8 +18,7 @@
       rgba(168, 85, 247, 0.08),
       transparent 60%
     ),
-    /* rgba(10, 10, 10, 0.86); */
-     #0a0a0a;
+    var(--bg-primary);
 }
 
 .content {
@@ -41,15 +40,17 @@
 }
 
 .title {
+  font-family: "Space_Grotesk", cursive;
   font-size: 3.5rem;
   font-weight: 800;
   line-height: 1.1;
-  color: #ffffff;
+  color: var(--text-primary);
 }
 
 .gradientText {
   /* background: linear-gradient(135deg, #6c63ff, #a855f7, #6c63ff); */
-  background: linear-gradient(45deg, #63fff2, #f755f7, #1612cf);
+  background: linear-gradient(135deg, #63fff2, #f755f7, #1612cf);
+  /* font-size: 74px; */
   background-size: 200% 200%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -58,13 +59,13 @@
 
 .subtitle {
   font-size: 1.3rem;
-  color: #94a3b8;
+  color: var(--text-secondary);
   font-weight: 500;
 }
 
 .description {
   font-size: 1.05rem;
-  color: #cbd5e1;
+  color: var(--text-secondary);
   max-width: 500px;
   line-height: 1.7;
 }
@@ -92,8 +93,8 @@
 
 .secondaryBtn {
   background: transparent;
-  color: white;
-  border: 2px solid rgba(255, 255, 255, 0.2);
+  color: var(--text-primary);
+  border: 2px solid var(--border);
   padding: 0.9rem 2.2rem;
   border-radius: 50px;
   font-size: 1rem;
@@ -114,18 +115,16 @@
 }
 
 .socialLink {
-  color: #94a3b8;
+  color: var(--text-secondary);
   font-size: 1.5rem;
   transition: all 0.2s;
 }
-
 
 .heroImage {
   display: flex;
   justify-content: center;
   align-items: center;
 }
-
 
 .imageWrapper {
   position: relative;
@@ -135,7 +134,6 @@
   justify-content: center;
   align-items: center;
 }
-
 
 .profilePlaceholder {
   width: 380px;
