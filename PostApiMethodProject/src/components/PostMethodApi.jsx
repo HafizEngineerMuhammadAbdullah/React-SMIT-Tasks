@@ -49,7 +49,7 @@ const PostMethodApi = () => {
                 loop={true}
                 style={{ width: 300, height: 300 }}
             />
-                />}
+                }
 
             {message && <p className="text-center text-xl text-green-900">{message}</p>}
             <button className='border-2 border-[#112255] py-4 px-3 rounded-2xl cursor-pointer hover:scale-[1.1] hover:bg-blue-900' onClick={() => {
