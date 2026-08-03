@@ -1,0 +1,186 @@
+/* Container - Now looks like a modern white card with a soft shadow */
+.container {
+    max-width: 400px;
+    width: 90%;
+    margin: 2rem auto;
+    padding: 2.5rem 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    background: #ffffff;
+    border: 1px solid #f1f5f9;
+    border-radius: 24px;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+    font-family: system-ui, -apple-system, sans-serif;
+}
+
+.textContent {
+    text-align: center;
+}
+
+/* Updated gradient to match the indigo button */
+.heading {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.5rem;
+    background: linear-gradient(to right, #4f46e5, #7c3aed);
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+    font-weight: 700;
+}
+
+.subtitle {
+    margin: 0;
+    color: #64748b;
+    font-size: 0.95rem;
+}
+
+/* Your button styles were great, just tweaked hover behavior slightly */
+.btn {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    background-color: #4f46e5;
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 0.85rem 1rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.2), 0 2px 4px -1px rgba(79, 70, 229, 0.06);
+    transition: all 0.2s ease-in-out;
+    border: none;
+    cursor: pointer;
+}
+
+/* Added :not(:disabled) so hover effects don't trigger when loading */
+.btn:hover:not(:disabled) {
+    background-color: #4338ca;
+    box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.3), 0 4px 6px -2px rgba(79, 70, 229, 0.05);
+    transform: translateY(-2px);
+}
+
+.btn:active:not(:disabled) {
+    transform: scale(0.96);
+}
+
+.btn:disabled {
+    opacity: 0.75;
+    cursor: not-allowed;
+}
+
+/* Fixed the text-white bug in the CSS */
+.btnLoader {
+    height: 20px;
+    width: 20px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-top: 3px solid #ffffff; 
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* 
+.container{
+   height: 450px;
+   width: 350px;
+   display: flex;
+   flex-direction: column;
+   justify-content: space-evenly;
+   align-items: center;
+   border: 3.5px solid rgb(150, 98, 56);
+   border-radius: 16px;
+}
+.heading{
+   background: linear-gradient(to right, #d1b61a,#917833,#5e3c09);
+   color: transparent;
+   -webkit-background-clip: text;
+   background-clip: text;
+}
+ */
+
+/* .btn{
+   padding: 1rem 2rem;
+   border: none;
+   background-color: transparent;
+   border: 2px solid rgb(90, 53, 4) ;
+   border-radius: 16px;
+   cursor: pointer;
+   transition: all 0.3s;   
+   color: black;
+   font-weight: bolder;   
+}
+
+.btn:hover{
+   transform: scale(1.1);
+} */
+
+/* .btn {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background-color: #4f46e5;
+  color: #ffffff;
+  font-weight: 600;
+  padding: 0.75rem 1rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.2), 0 2px 4px -1px rgba(79, 70, 229, 0.06);
+  transition: all 0.2s ease-in-out;
+  border: none;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background-color: #4338ca;
+  box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.3), 0 4px 6px -2px rgba(79, 70, 229, 0.05);
+}
+
+.btn:active {
+  transform: scale(0.95);
+}
+
+.btn:disabled {
+  opacity: 0.8;
+  cursor: not-allowed;
+} */
+
+
+.btn-loader {
+  height: 20px; /* Much smaller to fit inline with text */
+  width: 20px;
+  border: 3px solid rgba(255, 255, 255, 0.3); /* Faded white background ring */
+  border-top: 3px solid text-white; /* Solid white spinning part */
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+
+.loader{
+   /* border: 5px solid black; */
+   border: 5px solid rgb(90, 53, 4);
+   height: 50px;
+   width: 50px;
+   border-radius: 50%;
+   border-top: 5px solid blueviolet;
+   animation: spin 1s ease-in-out infinite;
+   /* transition: all 0.2s; */
+}
+
+@keyframes spin {
+   0%{
+      transform: rotate(0deg);
+   }
+
+   100%{
+      transform: rotate(360deg);
+   }
+}
