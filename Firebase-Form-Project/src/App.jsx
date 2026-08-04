@@ -1,8 +1,10 @@
-import React from 'react'
+import React from 'react';
+import SignupForm from "./components/authentication/SignupForm"
 
 const App = () => {
   return (
-    <div>
+    <div className='w-full h-screen flex justify-center items-center bg-[#0F3460]'>
+      < SignupForm />
     </div>
   )
 }
