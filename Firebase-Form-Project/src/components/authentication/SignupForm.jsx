@@ -34,7 +34,11 @@ const SignupForm = () => {
 
   return (
     <div className={`${styles.container}`}>
-      <div className={`${styles.leftPanel} flex flex-col justify-between w-[90%] bg-[#1A1A2E] p-9`}>
+
+      {/* LEFT PANEL */}
+      <div className={`${styles.leftPanel} flex flex-col justify-between bg-[#1A1A2E] p-9`}>
+
+        {/* for Left Upper Panel */}
         <div className={`${styles.upperLeftPanel}`}>
           <div className='h-10 w-10 flex justify-center items-center rounded-xl bg-[#534AB7] '>
             < TbBolt color='white' size={22} />
@@ -42,22 +46,35 @@ const SignupForm = () => {
           <h1 className='font-medium text-2xl text-white text-wrap my-3'>Built something great today</h1>
           <p className='text-[#9595B6] text-sm'>Join thousands of developers shipping faster with our platform.</p>
         </div>
+
+        {/* for Left Lower Panel */}
         <div className={`${styles.lowerLeftPanel}`}>
           {options.map((item, idx) => {
             return (
               <div key={idx} className={`${styles.options} h-10 flex gap-3 items-center`}>
-                <div className={`${styles.icon} h-7 w-7 flex justify-center items-center rounded-full bg-[${item.backgroundColor}] text-[${item.color}] border border-[${item.borderColor}]`}>
+
+                {/* Icon(if any) */}
+                <div className={`${styles.icon} h-7 w-7 flex justify-center items-center rounded-full border`} style={{
+                  backgroundColor: item.backgroundColor,
+                  color: item.color,
+                  borderColor: item.borderColor
+                }}>
                   {
-                    item.icon ? < item.icon /> : (idx + 1)
+                    // Remove space after the opening bracket of the ternary operator to fix the error
+                    item.icon ? <item.icon /> : (idx + 1)
                   }
                 </div>
-                <div className={`${styles.textContent} text-[${item.contentColor}]`}>{item.content}</div>
+
+                {/* Textual Content */}
+                <div className={`${styles.textContent} text-md font-medium`} style={{ color: item.contentColor }} >{item.content}</div>
               </div>
             )
           })}
         </div>
       </div>
-      <div className={styles.rightPanel}>
+
+       {/* RIGHT PANEL */}
+      <div className={`${styles.rightPanel} flex flex-col justify-between bg-[#2C2C2A] p-9`}>
 
       </div>
     </div>

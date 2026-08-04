@@ -3,7 +3,7 @@ import SignupForm from "./components/authentication/SignupForm"
 
 const App = () => {
   return (
-    <div className='w-full h-screen flex justify-center items-center bg-[#0F3460]'>
+    <div className='w-full h-screen flex justify-center items-center bg-[#2373d6]'>
       < SignupForm />
     </div>
   )
