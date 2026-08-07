@@ -10,7 +10,7 @@ import styles from './SignupForm.module.css';
 // Cleaner RightPanel
 const InputField = ({ label, name, value, type, id, placeholder, changeHandler, myClass, autoComplete, pattern, title, }) => {
     return (
-        <div className='flex flex-col gap-y-1.5'>
+        <div className='w-full flex flex-col gap-y-1.5'>
             <label htmlFor="firstname" className='text-[#9595B6] text-sm'>{label}</label>
             <input
                 type={type}

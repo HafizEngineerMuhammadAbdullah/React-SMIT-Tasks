@@ -28,6 +28,90 @@ const RightPanel = () => {
         setIsPasswordVisible((prev) => (!prev))
     }
 
+    const checks = {
+        length: formData.password.length >= 8,
+        uppercase: /[A-Z]/.test(formData.password),
+        lowercase: /[a-z]/.test(formData.password),
+        number: /\d/.test(formData.password),
+        special: /[^A-Za-z0-9]/.test(formData.password),
+    };
+
+
+    // Derived State: Password Strength
+    // This is the preferred React approach.
+    // function to calculate password strength based on certain criteria
+    const getPasswordStrength = (password) => {
+        let score = 0;
+
+        if (password.length >= 8) score++;
+
+        if (/[A-Z]/.test(password)) score++;
+
+        if (/[a-z]/.test(password)) score++;
+
+        if (/[0-9]/.test(password)) score++;
+
+        if (/[^A-Za-z0-9]/.test(password)) score++;
+
+        return score;
+    };
+
+    // get Password Strength in terms of score value
+    const passwordStrength = getPasswordStrength(formData.password);
+
+
+    // get the color of Password Strength Bar
+    const getStrengthColor = (score) => {
+
+        switch (score) {
+
+            case 1:
+                return "#ef4444";
+
+            case 2:
+                return "#f97316";
+
+            case 3:
+                return "#eab308";
+
+            case 4:
+                return "#22c55e";
+
+            case 5:
+                return "#15803d";
+
+            default:
+                return "#6b7280";
+        }
+
+    };
+
+    // convert score(Password Strength) into words
+    const getStrengthText = (score) => {
+        switch (score) {
+            case 0:
+                return "";
+
+            case 1:
+                return "Very Weak";
+
+            case 2:
+                return "Weak";
+
+            case 3:
+                return "Medium";
+
+            case 4:
+                return "Strong";
+
+            case 5:
+                return "Very Strong";
+
+            default:
+                return "";
+        }
+    };
+
 
     // function that handle changes when changes occur in input field while typing...
     const changeHandler = (e) => {
@@ -82,7 +166,7 @@ const RightPanel = () => {
 
         try {
 
-            await push(ref(database,"usersData", formData));
+            await push(ref(database, "usersData", formData));
 
             validateFormData() &&
                 alert(`Form submitted with data: ${JSON.stringify(formData)}`);
@@ -104,6 +188,8 @@ const RightPanel = () => {
     }
 
 
+
+
     return (
         <>
             {/* RIGHT PANEL */}
@@ -112,14 +198,14 @@ const RightPanel = () => {
                 initial={{ opacity: 0, x: 1500 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.9 }}
-                className={`${styles.rightPanel} flex flex-col gap-y-5 bg-[#2C2C2A] px-9 py-4`}>
+                className={`${styles.rightPanel} flex flex-col gap-y-5 bg-[#2C2C2A] py-4 px-4 sm:px-6 md:px-8 lg:px-9`}>
 
                 {/* for Heading */}
                 <div>
                     <h1 className='font-medium text-2xl text-white text-wrap my-3'>Create your account</h1>
                     <p className='text-[#9595B6] text-sm'>Step 1 of 3 — takes less than 2 minutes</p>
                     {/* Progress Bar */}
-                    <div className="h-2 bg-gray-700">
+                    <div className="mt-1.5 h-2 bg-gray-700">
                         <div
                             style={{
                                 width: "33%"
@@ -133,7 +219,7 @@ const RightPanel = () => {
                 <form className={`${styles.formGrid}`} onSubmit={submitHandler}>
 
                     {/* Row-1 */}
-                    <div className='flex gap-x-3 items-center'>
+                    <div className='flex flex-col md:flex-row gap-3 items-center'>
                         {/* for First Name */}
                         < InputField
                             label="First name"
@@ -183,7 +269,7 @@ const RightPanel = () => {
 
                     {/* Row-3 */}
                     {/* for Password */}
-                    <div className='relative'>
+                    <div>
                         <InputField
                             label="Password"
                             type={isPasswordVisible ? "text" : "password"}
@@ -191,21 +277,48 @@ const RightPanel = () => {
                             name='password'
                             value={formData.password}
                             changeHandler={changeHandler}
-                            myClass={`${styles.input}`}
+                            myClass={`${styles.input} relative`}
                             autoComplete="new-password"
                             pattern="[A-Za-z0-9]{7,15}"
                             title="Letters & Numbers allowed"
                             required />
-                        <button onClick={togglePasswordVisibility} type='button' className='absolute right-3 top-9 text-[#9595B6] cursor-pointer'>
+                        <button onClick={togglePasswordVisibility} type='button' className='absolute flex items-center text-[#9595B6] cursor-pointer'>
                             {
                                 isPasswordVisible ? <TbEyeClosed size={20} /> : <TbEye size={20} />
                             }</button>
+                        {/* Password Strength in words */}
+                        {/* <p className='text-center font-medium font-mono text-sm text-white mt-1'>
+                            {getStrengthText(passwordStrength)}
+                        </p> */}
+
+                        {/* Password Strength in Progress Bar */}
+                        {/* <div className="w-full h-2 bg-gray-700 rounded mt-1.5">
+                            <div
+                                className="h-2 rounded transition-all duration-300"
+                                style={{
+                                    width: `${passwordStrength * 20}%`,
+                                    backgroundColor: getStrengthColor(passwordStrength)
+                                }}
+                            ></div>
+                        </div> */}
+
+
+
+                        {/* <ul className="flex flex-wrap justify-between mt-2 text-sm space-y-1">
+                            <li>{checks.length ? "✅" : "❌"} At least 8 characters</li>
+                            <li>{checks.uppercase ? "✅" : "❌"} One uppercase letter</li>
+                            <li>{checks.lowercase ? "✅" : "❌"} One lowercase letter</li>
+                            <li>{checks.number ? "✅" : "❌"} One number</li>
+                            <li>{checks.special ? "✅" : "❌"} One special character</li>
+                        </ul> */}
+
+
                     </div>
 
 
                     {/* Row-4 */}
                     {/* for Terms & Conditions */}
-                    <div className='flex gap-x-3 items-center my-1.5'>
+                    <div className='flex gap-3 items-center my-1.5'>
                         <input
                             type="checkbox"
                             className='bg-[#2c2c2a] border border-[rgba(108, 99, 255, 0.1)] accent-[#534AB7]' />
@@ -221,45 +334,47 @@ const RightPanel = () => {
 
                     {/* Row-5 */}
                     {/* Create Account */}
-                    <div className='relative'
-                        whileHover={{ scale: 1.1 }}
+                    <motion.div
+                        whileHover={{ scale: 1.03 }}
                         whileTap={{ scale: 0.97 }}>
                         <button
                             type='submit'
-                            className={`${styles.input} ${styles.account} w-full text-white text-2xl font-mono font-medium cursor-pointer`}
+                            className={`${styles.input} ${styles.account} w-full flex justify-center items-center gap-2 text-white text-2xl font-mono font-medium cursor-pointer`}
                         >
+                            <TbArrowRight size={20} />
                             {loading ? "Creating..." : "Create Account"}
                         </button>
-                        <TbArrowRight className='absolute left-26 top-2 text-white' size={20} />
-                    </div>
+                    </motion.div>
 
                     {/* Row-6 */}
                     {/* More Options for Signup */}
                     <div className='flex gap-x-3 items-center my-2'>
-                        <div className='h-[1px] w-full bg-[#9595B6]'></div>
+                        <div className='h-px w-full bg-[#9595B6]'></div>
                         <p className='text-[#9595B6] text-sm w-full cursor-pointer'>or sign up with</p>
-                        <div className='h-[1px] w-full bg-[#9595B6]'></div>
+                        <div className='h-px w-full bg-[#9595B6]'></div>
                     </div>
 
                     {/* Row-7 */}
                     {/* Signup with Google Or Github */}
-                    <div className='flex gap-x-3 items-center'>
-                        <button
+                    <div className='flex sm:justify-center gap-3 items-center flex-col sm:flex-row'>
+                        <motion.button
                             type='button'
                             whileHover={{ scale: 1.03 }}
                             whileTap={{ scale: 0.97 }}
                             className={`${styles.input} flex justify-center items-center gap-x-2 cursor-pointer`}>
+                            {/* <div className='h-7 w-7 rounded-full border-2 border-white flex justify-center items-center'>< TbBrandGoogle size={20} /></div> */}
                             < TbBrandGoogle size={20} />
                             <span className='text-white'>Sign up with Google</span>
-                        </button>
-                        <button
+                        </motion.button>
+                        <motion.button
                             type='button'
                             whileHover={{ scale: 1.03 }}
                             whileTap={{ scale: 0.97 }}
                             className={`${styles.input} flex justify-center items-center gap-x-2 cursor-pointer`}>
+                            {/* <div className='h-7 w-7 rounded-full border-2 border-white flex justify-center items-center'>< TbBrandGithub size={20} /></div> */}
                             < TbBrandGithub size={20} />
                             <span className='text-white'>Sign up with Github</span>
-                        </button>
+                        </motion.button>
                     </div>
 
                     {/* Row-8 */}
