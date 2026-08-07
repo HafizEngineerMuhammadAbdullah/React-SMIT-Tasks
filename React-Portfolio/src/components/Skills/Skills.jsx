@@ -4,10 +4,10 @@ import {
     FaReact, FaNodeJs, FaPython, FaDocker,
     FaAws, FaGitAlt, FaFigma, FaHtml5
 } from 'react-icons/fa';
-import { FaJava,FaGithub,FaCss3Alt,FaBootstrap } from "react-icons/fa6";
+import { FaJava, FaGithub, FaCss3Alt, FaBootstrap } from "react-icons/fa6";
 import { GrMysql } from "react-icons/gr";
-import { TbBrandJavascript,TbBrandFramerMotion,TbBrandSupabase,TbBrandNextjs,TbBrandThreejs } from "react-icons/tb";
-import { SiCplusplus,SiC, SiTypescript, SiTailwindcss, SiMongodb, SiPostgresql,SiFirebase,SiGsap  } from 'react-icons/si';
+import { TbBrandJavascript, TbBrandFramerMotion, TbBrandSupabase, TbBrandNextjs, TbBrandThreejs } from "react-icons/tb";
+import { SiCplusplus, SiC, SiTypescript, SiTailwindcss, SiMongodb, SiPostgresql, SiFirebase, SiGsap, SiRedux } from 'react-icons/si';
 import styles from './Skills.module.css';
 import { fadeInUp, staggerContainer, scaleOnHover } from '../../animation/variants';
 
@@ -33,6 +33,7 @@ const Skills = () => {
         { icon: TbBrandFramerMotion, name: 'FramerMotion', color: '#0099FF' },
         { icon: SiGsap, name: 'Gsap', color: '#88ce02' },
         { icon: TbBrandThreejs, name: 'Threejs', color: '#F7DF1E' },
+        { icon: SiRedux, name: 'Redux', color: '#764abc' },
         { icon: SiFirebase, name: 'Firebase', color: '  #F57C00' },
         { icon: TbBrandSupabase, name: 'Supabase', color: '  #3FCF8E' },
         { icon: FaHtml5, name: 'HTML5', color: '#e34f26' },
