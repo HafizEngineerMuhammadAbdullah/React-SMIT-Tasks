@@ -5,6 +5,7 @@ import { motion } from 'motion/react';
 import InputField from './InputField';
 import { ref, push } from "firebase/database";
 import { database } from "../../../configuration/firebase";
+import { ToastContainer, toast } from "react-toastify";
 
 
 const RightPanel = () => {
@@ -163,19 +164,37 @@ const RightPanel = () => {
         // resist reloading the page(prevent the browser default behaviour i.e. reload the webpage when submit btn is pressed)
         e.preventDefault();
 
+        if (!validateFormData()) return;
 
         try {
 
-            await push(ref(database, "usersData", formData));
+            // Creates a reference to a folder named 'formSubmissions'
+            const dbRef = ref(database, 'formSubmissions');
 
-            validateFormData() &&
-                alert(`Form submitted with data: ${JSON.stringify(formData)}`);
+            // push() generates a unique ID for every form entry automatically
+            await push(dbRef, {
+                name: formData.name,
+                email: formData.email,
+                message: formData.message,
+                timestamp: Date.now()
+            });
+            await push(ref(database, "usersData"), formData);
 
-            validateFormData() &&
-                alert(`Sign Up Successfull`);
+            toast('Form data sent successfully!', {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: false,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+                // transition: Bounce,
+            });
 
+            alert(`Form submitted with data: ${JSON.stringify(formData)}`);
 
-            validateFormData() && setFormData({
+            setFormData({
                 firstName: '',
                 lastName: '',
                 email: '',
@@ -183,7 +202,18 @@ const RightPanel = () => {
             });
         } catch (error) {
             console.error(error);
-            alert("Error saving data");
+            // console.error("Error sending data:", error.message);
+            toast.error('Error Submitting Form.Please try again!', {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: false,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+                // transition: Bounce,
+            });
         }
     }
 
@@ -198,7 +228,7 @@ const RightPanel = () => {
                 initial={{ opacity: 0, x: 1500 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.9 }}
-                className={`${styles.rightPanel} flex flex-col gap-y-5 bg-[#2C2C2A] py-4 px-4 sm:px-6 md:px-8 lg:px-9`}>
+                className={`${styles.rightPanel}  flex flex-col gap-y-5 bg-[#2C2C2A] py-4 px-4 sm:px-6 md:px-8 lg:px-9`}>
 
                 {/* for Heading */}
                 <div>
@@ -263,7 +293,7 @@ const RightPanel = () => {
                         changeHandler={changeHandler}
                         myClass={`${styles.input}`}
                         autoComplete="email"
-                        pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$"
+                        pattern="^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$"
                         title="Letters & Numbers allowed"
                         required />
 
@@ -290,19 +320,19 @@ const RightPanel = () => {
                     </div>
                     {/* Password Strength in words */}
                     <p className='text-center font-medium font-mono text-sm text-white mt-1'>
-                            {getStrengthText(passwordStrength)}
-                        </p>
+                        {getStrengthText(passwordStrength)}
+                    </p>
 
                     {/* Password Strength in Progress Bar */}
                     <div className="w-full h-2 bg-gray-700 rounded mt-1.5">
-                            <div
-                                className="h-2 rounded transition-all duration-300"
-                                style={{
-                                    width: `${passwordStrength * 20}%`,
-                                    backgroundColor: getStrengthColor(passwordStrength)
-                                }}
-                            ></div>
-                        </div>
+                        <div
+                            className="h-2 rounded transition-all duration-300"
+                            style={{
+                                width: `${passwordStrength * 20}%`,
+                                backgroundColor: getStrengthColor(passwordStrength)
+                            }}
+                        ></div>
+                    </div>
 
 
 
@@ -315,75 +345,77 @@ const RightPanel = () => {
                         </ul> */}
 
 
-                {/* Row-4 */}
-                {/* for Terms & Conditions */}
-                <div className='flex gap-3 items-center my-1.5'>
-                    <input
-                        type="checkbox"
-                        className='bg-[#2c2c2a] border border-[rgba(108, 99, 255, 0.1)] accent-[#534AB7]' />
-                    <p className='text-[#9595B6] text-sm flex gap-x-2'>
-                        I agree to the
-                        <span className='text-[#534AB7]'>
-                            <a href="#"> Terms of Service</a>
-                        </span>
-                        and
-                        <span className='text-[#534AB7]'>Privacy Policy</span>
-                    </p>
-                </div>
+                    {/* Row-4 */}
+                    {/* for Terms & Conditions */}
+                    <div className='flex gap-3 items-center my-1.5'>
+                        <input
+                            type="checkbox"
+                            className='bg-[#2c2c2a] border border-[rgba(108, 99, 255, 0.1)] accent-[#534AB7]' />
+                        <p className='text-[#9595B6] text-sm flex gap-x-2'>
+                            I agree to the
+                            <span className='text-[#534AB7]'>
+                                <a href="#"> Terms of Service</a>
+                            </span>
+                            and
+                            <span className='text-[#534AB7]'>Privacy Policy</span>
+                        </p>
+                    </div>
 
-                {/* Row-5 */}
-                {/* Create Account */}
-                <motion.div
-                    whileHover={{ scale: 1.03 }}
-                    whileTap={{ scale: 0.97 }}>
-                    <button
-                        type='submit'
-                        className={`${styles.input} ${styles.account} w-full flex justify-center items-center gap-2 text-white text-2xl font-mono font-medium cursor-pointer`}
-                    >
-                        <TbArrowRight size={20} />
-                        {loading ? "Creating..." : "Create Account"}
-                    </button>
-                </motion.div>
-
-                {/* Row-6 */}
-                {/* More Options for Signup */}
-                <div className='flex gap-x-2 items-center my-2'>
-                    <div className='h-px w-full bg-[#9595B6]'></div>
-                    <p className='text-[#9595B6] text-sm text-center w-full cursor-pointer'>or sign up with</p>
-                    <div className='h-px w-full bg-[#9595B6]'></div>
-                </div>
-
-                {/* Row-7 */}
-                {/* Signup with Google Or Github */}
-                <div className='flex sm:justify-center gap-3 items-center flex-col sm:flex-row'>
-                    <motion.button
-                        type='button'
+                    {/* Row-5 */}
+                    {/* Create Account */}
+                    <motion.div
                         whileHover={{ scale: 1.03 }}
-                        whileTap={{ scale: 0.97 }}
-                        className={`${styles.input} flex justify-center items-center gap-x-2 cursor-pointer`}>
-                        {/* <div className='h-7 w-7 rounded-full border-2 border-white flex justify-center items-center'>< TbBrandGoogle size={20} /></div> */}
-                        < TbBrandGoogle size={20} />
-                        <span className='text-white'>Sign up with Google</span>
-                    </motion.button>
-                    <motion.button
-                        type='button'
-                        whileHover={{ scale: 1.03 }}
-                        whileTap={{ scale: 0.97 }}
-                        className={`${styles.input} flex justify-center items-center gap-x-2 cursor-pointer`}>
-                        {/* <div className='h-7 w-7 rounded-full border-2 border-white flex justify-center items-center'>< TbBrandGithub size={20} /></div> */}
-                        < TbBrandGithub size={20} />
-                        <span className='text-white'>Sign up with Github</span>
-                    </motion.button>
-                </div>
+                        whileTap={{ scale: 0.97 }}>
+                        <button
+                            type='submit'
+                            className={`${styles.input} ${styles.account} w-full flex justify-center items-center gap-2 text-white text-2xl font-mono font-medium cursor-pointer`}
+                        >
+                            <TbArrowRight size={20} />
+                            {loading ? "Creating..." : "Create Account"}
+                        </button>
+                    </motion.div>
 
-                {/* Row-8 */}
-                {/* Signin Option */}
-                <div className='mt-2'>
-                    <p className='text-[#9595B6] text-sm text-center'>Already have an account? <span className='text-[#534AB7] cursor-pointer'>Sign in</span></p>
-                </div>
+                    {/* Row-6 */}
+                    {/* More Options for Signup */}
+                    <div className='flex gap-x-2 items-center my-2'>
+                        <div className='h-px w-full bg-[#9595B6]'></div>
+                        <p className='text-[#9595B6] text-sm text-center w-full cursor-pointer'>or sign up with</p>
+                        <div className='h-px w-full bg-[#9595B6]'></div>
+                    </div>
 
-            </form>
-        </motion.div >
+                    {/* Row-7 */}
+                    {/* Signup with Google Or Github */}
+                    <div className='flex sm:justify-center gap-3 items-center flex-col sm:flex-row'>
+                        <motion.button
+                            type='button'
+                            whileHover={{ scale: 1.03 }}
+                            whileTap={{ scale: 0.97 }}
+                            className={`${styles.input} flex-1 flex justify-center items-center gap-x-2 cursor-pointer`}>
+                            {/* <div className='h-7 w-7 rounded-full border-2 border-white flex justify-center items-center'>< TbBrandGoogle size={20} /></div> */}
+                            < TbBrandGoogle size={20} />
+                            <span className='text-white'>Sign up with Google</span>
+                        </motion.button>
+                        <motion.button
+                            type='button'
+                            whileHover={{ scale: 1.03 }}
+                            whileTap={{ scale: 0.97 }}
+                            className={`${styles.input} flex-1 flex justify-center items-center gap-x-2 cursor-pointer`}>
+                            {/* <div className='h-7 w-7 rounded-full border-2 border-white flex justify-center items-center'>< TbBrandGithub size={20} /></div> */}
+                            < TbBrandGithub size={20} />
+                            <span className='text-white'>Sign up with Github</span>
+                        </motion.button>
+                    </div>
+
+                    {/* Row-8 */}
+                    {/* Signin Option */}
+                    <div className='mt-2'>
+                        <p className='text-[#9595B6] text-sm text-center'>Already have an account? <span className='text-[#534AB7] cursor-pointer'>Sign in</span></p>
+                    </div>
+
+                    {/* Toast Container */}
+                    <ToastContainer></ToastContainer>
+                </form>
+            </motion.div >
         </>
     )
 }

@@ -1,6 +1,8 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getDatabase } from "firebase/database";
+
+
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -8,6 +10,8 @@ import { getDatabase } from "firebase/database";
 const firebaseConfig = {
   apiKey: "AIzaSyBpBs8-uatX-18pOe7Q3a7GoAOCm0YEW5w",
   authDomain: "my-first-firebase-miniproject.firebaseapp.com",
+  // 👇 ADD YOUR DATABASE URL HERE
+  databaseURL: "https://my-first-firebase-miniproject-default-rtdb.firebaseio.com/",
   projectId: "my-first-firebase-miniproject",
   storageBucket: "my-first-firebase-miniproject.firebasestorage.app",
   messagingSenderId: "588031888773",

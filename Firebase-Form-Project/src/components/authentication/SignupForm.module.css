@@ -1,3 +1,4 @@
+/* for Container */
 .container {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -13,6 +14,7 @@
   overflow: hidden;
 }
 
+/* when hover is being performed on container */
 .container:hover {
   border-color: rgba(139, 92, 246, 0.3);
   transform: translateY(-4px) !important;
@@ -27,6 +29,39 @@
   }
 }
 
+/* for Left Panel */
+.leftPanel::before {
+    content: '';
+    position: absolute;
+    width: 260px;
+    height: 260px;
+    border-radius: 50%;
+    background: #534AB7;
+    opacity: 0.18;
+    top: -60px;
+    left: -60px;
+    z-index: 1;
+}
+
+.leftPanel::after {
+    content: '  ';
+    position: absolute;
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    background: #1D9E75;
+    opacity: 0.15;
+    bottom: -40px;
+    right: -40px;
+    z-index: 1;
+}
+
+/* for Right Panel */
+.rightPanel{
+  z-index: 2;
+}
+
+/* for Form Grid */
 .formGrid {
   display: grid;
   grid-template-columns: 1fr;
@@ -34,6 +69,7 @@
   row-gap: 10px;
 }
 
+/* for Input Field */
 .input {
   padding: 9px 12px;
   border-radius: 8px;
@@ -45,12 +81,13 @@
   transition:
     border-color 0.15s,
     box-shadow 0.15s,
-    background 0.15s;
+    background-color 0.15s;
 }
 
 /* when the hover is being performed on input field */
 .input:hover {
   border-color: #534ab7;
+  background-color: #1A1A19;
 }
 
 .input:focus {
