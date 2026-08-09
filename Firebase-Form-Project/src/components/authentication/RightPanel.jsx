@@ -173,12 +173,15 @@ const RightPanel = () => {
 
             // push() generates a unique ID for every form entry automatically
             await push(dbRef, {
-                name: formData.name,
+                firstName: formData.firstName,
+                lastName: formData.lastName,
                 email: formData.email,
-                message: formData.message,
+                message: "Form has been submitted successfully!",
+                password: formData.password,
                 timestamp: Date.now()
             });
-            await push(ref(database, "usersData"), formData);
+
+            // await push(ref(database, "usersData"), formData);
 
             toast('Form data sent successfully!', {
                 position: "top-center",
