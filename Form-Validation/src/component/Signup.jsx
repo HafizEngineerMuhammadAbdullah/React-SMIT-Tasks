@@ -26,7 +26,7 @@ const Signup = () => {
 
 
     // function to handle input field changes and update the formData state
-    const handleChange = (e) => {   
+    const handleChange = (e) => {
         const { name, value } = e.target;
 
         // setFormData({
@@ -45,12 +45,22 @@ const Signup = () => {
         // Validate Form:-
 
         // Validate Age
-        if(formData.age < 0 || formData.age > 100){
+        // 1. Convert input to a base-10 integer
+        const age = parseInt(formData.age, 10);
+
+        // 2. Check if it is a real integer and fits human limits
+        if (!Number.isInteger(age)) {
+            setError("Age must be an integer value!")
+            return; // Invalid age
+        }
+
+        if (age < 0 || age > 100) {
             setError("Age must be between 0 and 100!");
             return;
         }
 
-        if(formData.age === ""){
+
+        if (age === "") {
             setError("Age is required!");
             return;
         }
@@ -61,7 +71,7 @@ const Signup = () => {
             setError("Please enter a valid email address!");
             return;
         }
-        
+
         // Validate Gender
         if (formData.gender === "") {
             setError("Please select a gender!");
@@ -99,10 +109,21 @@ const Signup = () => {
         // ]);
 
 
-         // Save data to Firebase Realtime Database
+        // Save data to Firebase Realtime Database
         try {
             const dbRef = ref(database, "users");
-            await push(dbRef, formData);
+            await push(dbRef,
+                {
+                    fullName: formData.fullName,
+                    age: formData.age,
+                    gender: formData.gender,
+                    email: formData.email,
+                    password: formData.password,
+                    confirmPassword: formData.confirmPassword,
+                    message: "Data saved successfully!",
+                    timestamp: new Date().toISOString()
+                }
+            );
             console.log("Data saved to Firebase Realtime Database");
         } catch (error) {
             console.error("Error saving data to Firebase:", error);
@@ -154,6 +175,7 @@ const Signup = () => {
         <div className="min-h-screen flex justify-center items-center bg-gray-100 px-4 overflow-auto">
             <div className="bg-white rounded-xl shadow-lg p-5 w-full max-w-md">
 
+                {/* Form */}
                 <form
                     onSubmit={submitHandler}
                     className="flex flex-col items-center gap-4 border border-gray-200 rounded-xl p-4"
@@ -166,6 +188,7 @@ const Signup = () => {
                     {/* <label htmlFor="name" className="text-sm font-medium">
             Full Name :
           </label> */}
+                    {/* for Full Name */}
                     <input
                         // className="w-full border-2 border-[#7e7373af] px-3 py-1 text-xl rounded-lg"
                         className={inputStyle}
@@ -180,7 +203,7 @@ const Signup = () => {
                         autoComplete="given-name"
                     />
 
-
+                    {/* for Age */}
                     <input
                         // className="w-full border-2 border-[#7e7373af] px-3 py-1 text-xl rounded-lg"
                         className={inputStyle}
@@ -197,6 +220,7 @@ const Signup = () => {
                     {/* <label htmlFor="email" className="text-sm font-medium">
             Email No :
           </label> */}
+                    {/* for Email */}
                     <input
                         // className="w-full border-2 border-[#7e7373af] px-3 py-1 text-xl rounded-lg"
                         className={inputStyle}
@@ -211,7 +235,7 @@ const Signup = () => {
                         autoComplete="email"
                     />
 
-
+                    {/* for Gender */}
                     <select
                         className={`${inputStyle}`}
                         name="gender"
@@ -225,9 +249,11 @@ const Signup = () => {
                         <option value="female">Female</option>
                         <option value="other">Other</option>
                     </select>
+
                     {/* <label htmlFor="password" className="text-sm font-medium">
             Full Name
           </label> */}
+                    {/* for Password */}
                     <input
                         // className="w-full border-2 border-[#7e7373af] px-3 py-1 text-xl rounded-lg"
                         className={inputStyle}
@@ -244,6 +270,7 @@ const Signup = () => {
                     {/* <label htmlFor="confirm-password" className="text-sm font-medium">
             Confirm Password :
           </label> */}
+                    {/* for Confirm Password */}
                     <input
                         className={inputStyle}
                         // className="w-full border-2 border-[#7e7373af] focus:border-none focus:outline-2 outline-[#5518c7] px-3 py-1 text-xl rounded-lg"
@@ -255,7 +282,7 @@ const Signup = () => {
                         required={true}
                         placeholder="Confirm Password"
                     />
- 
+
 
                     {/* Display error */}
                     {error && (

@@ -178,7 +178,7 @@ const RightPanel = () => {
                 email: formData.email,
                 message: "Form has been submitted successfully!",
                 password: formData.password,
-                timestamp: Date.now()
+                timestamp: Date.toISOString()
             });
 
             // await push(ref(database, "usersData"), formData);
