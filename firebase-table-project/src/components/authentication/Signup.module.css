@@ -1,0 +1,184 @@
+/* .container{
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.h1{
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+  color: rgb(143, 59, 4);
+}
+.input{
+    padding: 7px 13px 7px 13px;
+    border-radius: 10px;
+    width: 80%;
+    border: 1px solid rgb(247, 221, 106);
+    margin-bottom: 15px;
+    background-color: rgb(24, 24, 24);
+    color: wheat;
+    border-radius: 8px;
+}
+.form{
+
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+    align-items: center;
+    border: 2px solid rgb(175, 105, 0);
+    border-radius: 10px;
+
+}
+.btn{ 
+    width: 86%;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    border: 1px solid rgb(175, 105, 0) ;
+    padding: 10px 17px 10px 17px;
+    cursor: pointer;
+    background-color: rgb(143, 59, 4);;
+} */
+
+/* for Form Card */
+.formCard {
+  background: rgba(30, 41, 59, 0.7);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 2.5rem;
+  /* height: 100vh; */
+  width: 100%;
+  max-width: 520px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+  color: #f8fafc;
+}
+
+/* for header */
+.header h2 {
+  margin: 0;
+  font-size: 1.75rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #818cf8 0%, #c084fc 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.header p {
+  margin: 0.5rem 0 1.5rem 0;
+  color: #94a3b8;
+  font-size: 0.9rem;
+}
+
+/* for Form Grid */
+.formGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+/* for Input Fields */
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+/* for Label */
+.inputGroup label {
+  font-size: 0.825rem;
+  font-weight: 600;
+  color: #cbd5e1;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* for input,select fields */
+.input,
+.select {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background-color: #0f172a;
+  border: 1px solid #334155;
+  border-radius: 10px;
+  color: #f8fafc;
+  font-size: 0.95rem;
+  outline: none;
+  transition: all 0.2s ease-in-out;
+}
+
+.input:focus,
+.select:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+}
+
+/* for Submit button */
+.submitBtn {
+  margin-top: 0.5rem;
+  width: 100%;
+  padding: 0.85rem;
+  background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+  color: white;
+  font-weight: 600;
+  font-size: 1rem;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.submitBtn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(99, 102, 241, 0.3);
+}
+
+.submitBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.alert {
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  margin-bottom: 1rem;
+}
+
+.alert.success {
+  background-color: rgba(16, 185, 129, 0.15);
+  border: 1px solid #10b981;
+  color: #34d399;
+}
+
+.alert.error {
+  background-color: rgba(239, 68, 68, 0.15);
+  border: 1px solid #ef4444;
+  color: #f87171;
+}
+
+/* for button spinner */
+.buttonSpinner {
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
