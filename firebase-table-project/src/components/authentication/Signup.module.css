@@ -78,10 +78,11 @@
   gap: 1.2rem;
 }
 
+/* for Age & Gender Row */
 .row {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 1rem;
+  gap: 3rem;
 }
 
 /* for Input Fields */
