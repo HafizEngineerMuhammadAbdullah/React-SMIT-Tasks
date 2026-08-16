@@ -1,0 +1,69 @@
+/* ── Page layout ──────────────────────────────────────── */
+.main {
+    min-height: 100vh;
+    width: 100%;
+    background-color: #060b18;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 1.25rem;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    position: relative;
+    overflow: hidden;
+}
+
+/* ── Ambient blobs ────────────────────────────────────── */
+.blob1, .blob2, .blob3 {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(80px);
+    pointer-events: none;
+    z-index: 0;
+    animation: drift 12s ease-in-out infinite alternate;
+}
+
+.blob1 {
+    width: 420px;
+    height: 420px;
+    background: rgba(99, 102, 241, 0.12);
+    top: -120px;
+    right: -100px;
+    animation-duration: 14s;
+}
+
+.blob2 {
+    width: 320px;
+    height: 320px;
+    background: rgba(168, 85, 247, 0.1);
+    bottom: -80px;
+    left: -80px;
+    animation-duration: 10s;
+    animation-delay: -4s;
+}
+
+.blob3 {
+    width: 260px;
+    height: 260px;
+    background: rgba(20, 184, 166, 0.07);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation-duration: 18s;
+    animation-delay: -2s;
+}
+
+@keyframes drift {
+    from { transform: translate(0, 0) scale(1); }
+    to   { transform: translate(30px, 20px) scale(1.06); }
+}
+
+/* ── Content stack ────────────────────────────────────── */
+.content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2.5rem;
+    width: 100%;
+}

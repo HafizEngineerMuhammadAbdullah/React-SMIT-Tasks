@@ -122,15 +122,27 @@ const UserData = () => {
     }, []);
 
     /* Delete User Handler */
-    const handleDelete = async (id) => {
-        if (window.confirm("Are you sure you want to delete this user?")) {
-            try {
-                await remove(ref(database, `users/${id}`));
-            } catch (error) {
-                console.error("Error deleting user:", error);
-            }
-        }
-    };
+    const handleDelete = async (id,idx) => {
+        // if (window.confirm("Are you sure you want to delete this user?")) {
+        //     try {
+        //         await remove(ref(database, `users/${id}`));
+        //     } catch (error) {
+        //         console.error("Error deleting user:", error);
+        //     }
+        // }
+
+        // remove the element at a particular index
+        // users.splice(idx,1);
+        // copy the users array after deleting user data & update the state
+        // setUsers([...users]);
+
+    // Filter out the user whose ID matches the one we want to delete.
+    // .filter() automatically creates a brand new array!
+    const updatedUsers = users.filter((user) => user.id !== id);
+    
+    // Update the state
+    setUsers(updatedUsers);
+};
 
     return (
         // for Table Card
@@ -163,7 +175,7 @@ const UserData = () => {
                         </thead>
 
                         <tbody>
-                            {users.map((item) => (
+                            {users.map((item,idx) => (
                                 <tr key={item.id}>
                                     <td className={styles.fontMedium}>{item.username}</td>
                                     <td>{item.email}</td>
@@ -177,7 +189,7 @@ const UserData = () => {
                                     </td>
                                     <td>
                                         <button
-                                            onClick={() => handleDelete(item.id)}
+                                            onClick={() => handleDelete(item.id,idx)}
                                             className={styles.deleteBtn}
                                             title="Delete User"
                                         >

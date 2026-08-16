@@ -120,7 +120,7 @@ function Signup() {
             await push(ref(database, "users"), formData);
 
             setStatusMessage({ type: 'success', text: 'Account created successfully!' });
-            // Empty form after Submission
+            // set the form to Empty after Submission
             setFormData(INITIAL_FORM_STATE);
         } catch (error) {
             console.error("Firebase submit error:", error);
