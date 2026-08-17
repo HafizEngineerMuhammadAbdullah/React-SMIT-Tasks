@@ -1,0 +1,37 @@
+.leftSideBar{
+    height: 100%;
+}
+.heading {
+    font-size: 30px;
+    font-weight: bold;
+    background: linear-gradient(to left, #4e4376, #00c6ff, #96c93d);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+
+/* for Input Field */
+.input {
+    width: 100%;
+    border: 1px solid rgba(43, 41, 41, 0.192);
+    padding: 9px 22px;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #494343;
+    outline: none;
+    transition: all 0.15s;
+}
+
+/* when the hover is being performed on input field */
+.input:hover {
+    border-color: #322e33;
+    box-shadow: 0 0 2px rgba(69, 69, 71, 0.1);
+}
+
+.input:focus {
+    border-radius: 6px;
+    outline: none;
+    border-color: #322e33;
+    box-shadow: 0 0 20px rgba(69, 69, 71, 0.1);
+}
