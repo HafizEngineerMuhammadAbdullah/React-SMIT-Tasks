@@ -14,6 +14,15 @@ const Signup = () => {
                 <label htmlFor="">Message</label>
                 <textarea name="" id="" cols="30" rows="10"></textarea>
             </form>
+
+
+             {/* <form className='w-full p-10 flex flex-col items-center justify-evenly'>
+                <p className='self-start'>Log into Instagram</p>
+                <input type="text" className={`${inputStyle}`} placeholder='Mobile number,username or email' />
+                <input type="text" placeholder='Password' />
+                <button>login</button>
+                <button>Forgot Password?</button>
+            </form> */}
         </main>
     )
 }
