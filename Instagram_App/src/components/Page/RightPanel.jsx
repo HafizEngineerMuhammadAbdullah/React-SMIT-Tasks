@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 
 const RightPanel = () => {
 
@@ -14,8 +15,8 @@ const RightPanel = () => {
             {/* Instagram Button */}
             <button className='w-[80%] p-3 text-lg bg-blue-600 rounded-lg text-white cursor-pointer hover:bg-[#1471db]'>Open Instagram</button>
             {/* Instagram Page */}
-            <p><span className='text-blue-600 text-lg cursor-pointer'>Log in</span> {" "} or {" "} <span className='text-blue-600 text-lg cursor-pointer'>
-                Sign up</span></p>
+            <p><Link to='/login' className='text-blue-600 text-lg cursor-pointer'>Log in</Link> {" "} or {" "} <Link to='/signup' className='text-blue-600 text-lg cursor-pointer'>
+                Sign up</Link></p>
         </div>
     )
 }

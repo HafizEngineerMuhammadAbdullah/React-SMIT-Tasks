@@ -1,12 +1,12 @@
 @font-face {
     font-family: 'Insta';
-    src: url('../public/fonts/-pkMfchyeAZ.woff2');
+    src: url('/fonts/-pkMfchyeAZ.woff2');
 }
 
 
 @font-face {
     font-family: 'Insta2';
-    src: url('../public/fonts/1GOXakOP6QP.woff2');
+    src: url('/fonts/1GOXakOP6QP.woff2');
 }
 
 body{
