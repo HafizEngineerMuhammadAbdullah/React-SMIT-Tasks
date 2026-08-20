@@ -252,7 +252,8 @@ const RightPanel = () => {
                 <form className={`${styles.formGrid}`} onSubmit={submitHandler}>
 
                     {/* Row-1 */}
-                    <div className='flex flex-col md:flex-row gap-3 items-center'>
+                    {/* <div className='flex flex-col md:flex-row gap-3 items-center'> */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         {/* for First Name */}
                         < InputField
                             label="First name"
