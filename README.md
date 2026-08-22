@@ -68,6 +68,7 @@ This repository contains two separate applications:
 *   💻 **Project Form 01**: [Live Link to Project 4](https://form-handling-drab.vercel.app/)
 *   💻 **Counter App**: [Live Link to Project 5](https://my-counter-app-one.vercel.app/)
 *   🔥 **Sign Up Page**: [Live Link to Project 6](https://signup-page-five-nu.vercel.app/)
+*   ✅ **Instagram App**: [Live Link to Project 7](https://my-instagram-app-tan.vercel.app/signup)
 
 ## 🚀 Getting Started
 
