@@ -1,11 +1,16 @@
-import React,{useState} from 'react'
-
+import React, { useState } from 'react'
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../../../configuration/firebase";
+import { toast, ToastContainer } from "react-toastify";
+import { LuEye } from "react-icons/lu";
+import { LuEyeClosed } from "react-icons/lu";
 const Signup = () => {
-
 
 
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
     const [loading, setLoading] = useState(false);
+    const [error, setError] = useState('')
+
 
     //  Form Data :-
     const [formData, setFormData] = useState({
@@ -43,18 +48,28 @@ const Signup = () => {
 
     // function to validate the form data before submission
     const validateFormData = () => {
-        const { firstName, lastName, email, password } = formData;
+        const { username, phone, email, password } = formData;
 
         // Validate first name and last name (only letters allowed)
         const nameRegex = /^[A-Za-z]{3,20}$/;
-        if (!nameRegex.test(firstName) || !nameRegex.test(lastName)) {
-            alert("First name and Last name should contain only letters (3-20 characters).");
+        const phoneRegex = /^[0-9]{11}/
+        if (!nameRegex.test(username)) {
+            setError("name should contain only letters (3-20 characters).");
+            alert("name should contain only letters (3-20 characters).");
             return false;
         }
+
+        if (!phoneRegex.test(phone)) {
+            setError("Phone No. should contain only letters(Numbers) (11 characters).");
+            alert("Phone No. should contain only letters(Numbers) (11 characters).");
+            return false;
+        }
+
 
         // Validate email format
         const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
         if (!emailRegex.test(email)) {
+            setError("Please enter a valid email address.");
             alert("Please enter a valid email address.");
             return false;
         }
@@ -62,6 +77,7 @@ const Signup = () => {
         // Validate password (only letters and numbers allowed)
         const passwordRegex = /^[A-Za-z0-9]{7,15}$/;
         if (!passwordRegex.test(password)) {
+            setError("Password should contain only letters and numbers (7-15 characters).");
             alert("Password should contain only letters and numbers (7-15 characters).");
             return false;
         }
@@ -78,20 +94,8 @@ const Signup = () => {
 
         try {
 
-            // Creates a reference to a folder named 'formSubmissions'
-            const dbRef = ref(database, 'formSubmissions');
-
-            // push() generates a unique ID for every form entry automatically
-            await push(dbRef, {
-                firstName: formData.firstName,
-                lastName: formData.lastName,
-                email: formData.email,
-                message: "Form has been submitted successfully!",
-                password: formData.password,
-                timestamp: Date.toISOString()
-            });
-
-            // await push(ref(database, "usersData"), formData);
+            // push the userData to Firebase
+            await createUserWithEmailAndPassword(auth, formData.email, formData.password);
 
             toast('Form data sent successfully!', {
                 position: "top-center",
@@ -109,6 +113,7 @@ const Signup = () => {
 
             setFormData({
                 username: '',
+                phone: '',
                 email: '',
                 password: '',
             });
@@ -217,21 +222,30 @@ const Signup = () => {
 
 
                 {/* for Password */}
-                <div className="md:col-span-2">
+                <div className="md:col-span-2 relative">
                     <label className="block text-sm font-medium text-gray-900 dark:text-white" htmlFor="password">
                         Password
                     </label>
 
                     <input
-                        className={inputStyle}
+                        className={`${inputStyle}`}
                         id="password"
                         name='password'
                         value={formData.password}
                         onChange={changeHandler}
-                        type="password"
+                        type={isPasswordVisible ? "text" : "password"}
                         placeholder="Your Password..."
                         required
                     />
+
+                    <button 
+                    type="button" onClick={togglePasswordVisibility} 
+                    className='absolute right-3 top-9 cursor-pointer text-gray-500'>
+                        {
+                            isPasswordVisible ? <LuEyeClosed size={20} /> : <LuEye size={20} />
+                        }
+                    </button>
+
                 </div>
                 {/* <div class="md:col-span-2">
                     <label class="block text-sm font-medium text-gray-900 dark:text-white" for="message">
@@ -247,6 +261,11 @@ const Signup = () => {
                 </div> */}
 
                 {/* SignUp Button */}
+                <div className='md:col-span-2'>
+                    {error ?
+                        <p className='text-red-500 text-center font-medium font-mono'>{error}</p> : ""
+                    }
+                </div>
                 <div className="md:col-span-2">
                     <button
                         className="block w-full rounded-lg border border-indigo-600 bg-indigo-600 px-12 py-3 text-sm font-medium text-white transition-colors hover:bg-transparent hover:text-indigo-600 dark:hover:bg-indigo-700 dark:hover:text-white
@@ -258,6 +277,11 @@ const Signup = () => {
                 </div>
 
             </form>
+
+            {/* Toast Container */}
+            <div>
+                <ToastContainer></ToastContainer>
+            </div>
         </main>
     )
 }
