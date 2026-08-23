@@ -4,6 +4,14 @@ import { auth } from "../../../../configuration/firebase";
 import { toast, ToastContainer } from "react-toastify";
 import { LuEye } from "react-icons/lu";
 import { LuEyeClosed } from "react-icons/lu";
+import { Link } from 'react-router-dom';
+
+const INITAL_FORM_STATE = {
+    username: '',
+    phone: '',
+    email: '',
+    password: '',
+};
 const Signup = () => {
 
 
@@ -13,12 +21,7 @@ const Signup = () => {
 
 
     //  Form Data :-
-    const [formData, setFormData] = useState({
-        username: '',
-        phone: '',
-        email: '',
-        password: '',
-    })
+    const [formData, setFormData] = useState(INITAL_FORM_STATE);
 
 
 
@@ -54,8 +57,8 @@ const Signup = () => {
         const nameRegex = /^[A-Za-z]{3,20}$/;
         const phoneRegex = /^[0-9]{11}/
         if (!nameRegex.test(username)) {
-            setError("name should contain only letters (3-20 characters).");
-            alert("name should contain only letters (3-20 characters).");
+            setError("Name should contain only letters (3-20 characters).");
+            alert("name should contain only letters also not contain whitespace character(3-20 characters).");
             return false;
         }
 
@@ -110,13 +113,21 @@ const Signup = () => {
             });
 
             alert(`Form submitted with data: ${JSON.stringify(formData)}`);
-
-            setFormData({
-                username: '',
-                phone: '',
-                email: '',
-                password: '',
+            console.log("Sign up with:", {
+                username: formData.username,
+                phone: formData.phone,
+                email: formData.email,
+                password: formData.password,
+                date: new Date().toLocaleDateString('en-GB'),
+                time_stamp: new Date().toLocaleTimeString('en-US', {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    hour12: true
+                })
             });
+
+            setError("");
+            setFormData(INITAL_FORM_STATE);
         } catch (error) {
             console.error(error);
             // console.error("Error sending data:", error.message);
@@ -238,9 +249,9 @@ const Signup = () => {
                         required
                     />
 
-                    <button 
-                    type="button" onClick={togglePasswordVisibility} 
-                    className='absolute right-3 top-9 cursor-pointer text-gray-500'>
+                    <button
+                        type="button" onClick={togglePasswordVisibility}
+                        className='absolute right-3 top-9 cursor-pointer text-gray-500'>
                         {
                             isPasswordVisible ? <LuEyeClosed size={20} /> : <LuEye size={20} />
                         }
@@ -274,6 +285,8 @@ const Signup = () => {
                     >
                         Signup
                     </button>
+
+                    <p className='text-blue-600 font-medium text-center mt-2'>Already have an account? Please <b className='font-bold text-cyan-800'><Link to="/login">Login</Link></b></p>
                 </div>
 
             </form>

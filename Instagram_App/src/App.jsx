@@ -8,11 +8,11 @@ import { Route, Routes } from 'react-router-dom';
 const App = () => {
   return (
     <div>
-     {/* Routes container handles path matching */}
+      {/* Routes container handles path matching */}
       <Routes>
-          <Route path='/' element={<InstagramPage />}/>
-          <Route path='/signup' element={<Signup />}/>
-          <Route path='/login' element={<Login />} />
+        <Route path='/' element={<InstagramPage />} />
+        <Route path='/signup' element={<Signup />} />
+        <Route path='/login' element={<Login />} />
       </Routes>
     </div>
   )

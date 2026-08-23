@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 
 
 const INITAL_FORM_STATE = {
-    username: "",
+    email: "",
     password: ""
 };
 
@@ -36,7 +36,7 @@ const Login = () => {
 
 
         // Throw Warning iff any one of the input fields is empty
-        if (!formData.username || !formData.password) {
+        if (!formData.email || !formData.password) {
 
             Swal.fire({
                 title: "Warning!",
@@ -50,7 +50,7 @@ const Login = () => {
             // wait for sometime until username,email and password becomes verified
             await signInWithEmailAndPassword(
                 auth,
-                formData.username,
+                formData.email,
                 formData.password
             )
 
@@ -60,8 +60,18 @@ const Login = () => {
                 text: "Login Successful!",
                 icon: "success"
             });
-
-            console.log("Logged in with:", formData);
+            console.log("Logged in with:",
+                {
+                    email: formData.email,
+                    password: formData.password,
+                    date: new Date().toDateString(),
+                    time_stamp: new Date().toLocaleTimeString('en-US', {
+                        hour: '2-digit',
+                        minute: '2-digit',
+                        hour12: true
+                    })
+                }
+            );
         } catch (error) {
             Swal.fire({
                 icon: "error",
@@ -73,7 +83,6 @@ const Login = () => {
             // Empty FormData
             setFormData(INITAL_FORM_STATE);
         }
-
 
     };
 
@@ -112,7 +121,7 @@ const Login = () => {
     const inputStyle = `p-3 bg-transparent rounded-xl text-[#97A2AB] text-[#f2f4f6] border border-[#363639] outline-none hover:border-[#AAAFB5] focus:border-[#AAAFB5] transition-colors`;
 
     // Dynamic validation: Check if both fields have text
-    const isFormValid = formData.username.trim() !== "" && formData.password.trim() !== "";
+    const isFormValid = formData.email.trim() !== "" && formData.password.trim() !== "";
 
     return (
         <div className='h-screen w-full bg-[#1F1F22] flex flex-col items-center justify-center'>
@@ -124,9 +133,9 @@ const Login = () => {
                 <div className='flex flex-col gap-y-4 mt-2'>
                     {/* Username field */}
                     <input
-                        type="text"
-                        name='username'
-                        value={formData.username}
+                        type="email"
+                        name='email'
+                        value={formData.email}
                         placeholder='Mobile number,username or email'
                         className={`${inputStyle}`}
                         onChange={changeHandler}
