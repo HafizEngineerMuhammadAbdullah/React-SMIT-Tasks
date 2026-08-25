@@ -23,7 +23,7 @@ const RightPanel = () => {
             {/* Instagram Logo */}
             <img className="h-20" src="/assets/insta-logo.png" alt="" />
             {/* Instagram Heading */}
-            <h1 className='text-5xl font-medium leading-20 text-center'>
+            <h1 className='text-3xl font-medium leading-20 text-center'>
                 {/* Get the full experience with the tablet app */}
                 <TypeAnimation
                     sequence={[
@@ -51,7 +51,11 @@ const RightPanel = () => {
             </h1>
             {/* Instagram Button */}
             <button className='w-[80%] p-3 text-lg bg-blue-600 rounded-lg text-white shadow-md shadow-cyan-800 cursor-pointer hover:bg-[#467fc0] hover:scale-[1.01] transition-all'>
-                <Link to="https://www.instagram.com/?hl=en">Open Instagram</Link>
+                <a
+                    href="https://www.instagram.com/?hl=en"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >Open Instagram</a>
             </button>
             {/* Instagram Page */}
             <p><Link to='/login' className='text-blue-600 hover:text-cyan-900 text-lg cursor-pointer'>Log in</Link> {" "} or {" "} <Link to='/signup' className='text-blue-600 hover:text-cyan-900 text-lg cursor-pointer'>

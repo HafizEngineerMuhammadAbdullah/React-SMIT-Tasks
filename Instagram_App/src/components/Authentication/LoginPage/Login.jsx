@@ -52,10 +52,10 @@ const Login = () => {
         if (!formData.email || !formData.password) {
 
             Swal.fire({
-                title: "Warning!",
-                text: "Missing fields!",
-                icon: "Please enter email and password."
-            })
+                title: "Missing Fields!",
+                text: "Please enter both email and password.",
+                icon: "warning"
+            });
             return;
         }
 

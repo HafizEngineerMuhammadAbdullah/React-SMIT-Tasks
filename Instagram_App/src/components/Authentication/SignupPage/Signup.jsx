@@ -57,8 +57,11 @@ const Signup = () => {
         const { username, phone, email, password } = formData;
 
         // Validate first name and last name (only letters allowed)
-        const nameRegex = /^[A-Za-z]{3,20}$/;
-        const phoneRegex = /^[0-9]{11}/
+        // Allows spaces for full names
+        const nameRegex = /^[A-Za-z\s]{3,20}$/;
+        // end anchor => $
+        // Enforces exactly 11 digits
+        const phoneRegex = /^[0-9]{11}$/
         if (!nameRegex.test(username)) {
             setError("Name should contain only letters (3-20 characters).");
             alert("name should contain only letters also not contain whitespace character(3-20 characters).");

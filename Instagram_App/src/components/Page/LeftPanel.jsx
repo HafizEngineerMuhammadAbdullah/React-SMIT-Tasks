@@ -23,6 +23,7 @@ const LeftPanel = () => {
         const interval = setInterval(() => {
             // Using the functional state updater correctly ensures you always get the latest index
             setCurrImageIdx((prevImageIdx) => (prevImageIdx + 1) % IMAGES.length);
+            // setInterval logs a stale value due to JavaScript closure
             console.log(currImageIdx);
         }, 3000);// Change image every 3 seconds
 

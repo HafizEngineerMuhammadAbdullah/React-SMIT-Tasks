@@ -29,14 +29,14 @@ const SplashScreen = () => {
                 className='bg-black w-28' src="/assets/insta-logo.png" alt="Insta-Logo" /> */}
 
             {/* appears
-                ↓
-               zooms
-                ↓
-               stays
-                ↓
-             shrinks
-                ↓
-             disappears */}
+                  ↓
+                zooms
+                  ↓
+                stays
+                  ↓
+               shrinks
+                  ↓
+              disappears */}
             <motion.img
                 initial={{
                     opacity: 0,
