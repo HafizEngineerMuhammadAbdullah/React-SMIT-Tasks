@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
 import { FaMeta } from "react-icons/fa6";
 import { FaFacebook } from "react-icons/fa";
-import { auth } from "../../../../configuration/firebase"
-import { signInWithPopup, FacebookAuthProvider, signInWithEmailAndPassword } from "firebase/auth";
+import { auth, provider } from "../../../../configuration/firebase"
+import { signInWithPopup, signInWithEmailAndPassword } from "firebase/auth";
 import Swal from "sweetalert2";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 
-const INITAL_FORM_STATE = {
+const INITIAL_FORM_STATE = {
     email: "",
     password: ""
 };
@@ -15,7 +15,10 @@ const INITAL_FORM_STATE = {
 
 const Login = () => {
 
-    const [formData, setFormData] = useState(INITAL_FORM_STATE);
+
+    const navigate = useNavigate();
+
+    const [formData, setFormData] = useState(INITIAL_FORM_STATE);
 
 
     // function that handle changes
@@ -72,6 +75,10 @@ const Login = () => {
                     })
                 }
             );
+
+
+            // trigger navigate('/') upon a successful login
+            navigate('/');
         } catch (error) {
             Swal.fire({
                 icon: "error",
@@ -81,7 +88,7 @@ const Login = () => {
         } finally {//run even iff error occurs or not
 
             // Empty FormData
-            setFormData(INITAL_FORM_STATE);
+            setFormData(INITIAL_FORM_STATE);
         }
 
     };
@@ -89,8 +96,7 @@ const Login = () => {
 
 
 
-    // Initialize the Facebook Provider
-    const provider = new FacebookAuthProvider();
+    
 
     // Function to trigger the Login Popup
     const loginWithFacebook = async () => {
@@ -172,6 +178,7 @@ const Login = () => {
                         Login</button>
                     <button type='button' className='hover:bg-[#363639] cursor-pointer text-[#f2f4f6] p-2.5 rounded-full'>Forgot Password?</button>
                 </div>
+                
 
                 {/* Buttons Group-2*/}
                 <div className='flex flex-col gap-y-3 mt-5'>

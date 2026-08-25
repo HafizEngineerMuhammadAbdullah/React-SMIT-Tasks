@@ -1,6 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
+import { FacebookAuthProvider, getAuth } from "firebase/auth";
+import { getDatabase } from "firebase/database"
 
 
 // TODO: Add SDKs for Firebase products that you want to use
@@ -8,7 +9,7 @@ import { getAuth } from "firebase/auth";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyBpBs8-uatX-18pOe7Q3a7GoAOCm0YEW5w",
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
   authDomain: "my-first-firebase-miniproject.firebaseapp.com",
   // 👇 ADD YOUR DATABASE URL HERE
   databaseURL: "https://my-first-firebase-miniproject-default-rtdb.firebaseio.com/",
@@ -21,7 +22,15 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
+
+// Initialize the Facebook Provider
+export const provider = new FacebookAuthProvider();
+
 // Initialize Realtime Database
+export const database = getDatabase(app);
+
+// Initialize Auth
 export const auth = getAuth(app);
+
 
 export default app;

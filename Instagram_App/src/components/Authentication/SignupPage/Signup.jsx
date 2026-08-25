@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../../../configuration/firebase";
+import { auth, database } from "../../../../configuration/firebase";
+import { ref, set } from "firebase/database";
 import { toast, ToastContainer } from "react-toastify";
 import { LuEye } from "react-icons/lu";
 import { LuEyeClosed } from "react-icons/lu";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
-const INITAL_FORM_STATE = {
+const INITIAL_FORM_STATE = {
     username: '',
     phone: '',
     email: '',
@@ -15,13 +16,15 @@ const INITAL_FORM_STATE = {
 const Signup = () => {
 
 
+
+    const navigate = useNavigate();
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('')
 
 
     //  Form Data :-
-    const [formData, setFormData] = useState(INITAL_FORM_STATE);
+    const [formData, setFormData] = useState(INITIAL_FORM_STATE);
 
 
 
@@ -97,10 +100,23 @@ const Signup = () => {
 
         try {
 
-            // push the userData to Firebase
-            await createUserWithEmailAndPassword(auth, formData.email, formData.password);
+            // // push the userData to Firebase
+            // await createUserWithEmailAndPassword(auth, formData.email, formData.password);
 
-            toast('Form data sent successfully!', {
+
+            // Create the user in Firebase Auth
+            const userCredential = await createUserWithEmailAndPassword(auth, formData.email, formData.password);
+            const user = userCredential.user;
+
+            // Save the extra data to Realtime Database using the user's new UID
+            await set(ref(database, 'users/' + user.uid), {
+                username: formData.username,
+                phone: formData.phone,
+                email: formData.email,
+                createdAt: new Date().toISOString()
+            });
+
+            toast('Account created successfully!', {
                 position: "top-center",
                 autoClose: 5000,
                 hideProgressBar: false,
@@ -112,6 +128,7 @@ const Signup = () => {
                 // transition: Bounce,
             });
 
+            // Browser alerts freeze the main thread and provide a poor user experience.
             alert(`Form submitted with data: ${JSON.stringify(formData)}`);
             console.log("Sign up with:", {
                 username: formData.username,
@@ -127,7 +144,10 @@ const Signup = () => {
             });
 
             setError("");
-            setFormData(INITAL_FORM_STATE);
+            setFormData(INITIAL_FORM_STATE);
+
+            // navigate('/login') after signup.
+            navigate('/login')
         } catch (error) {
             console.error(error);
             // console.error("Error sending data:", error.message);
@@ -173,7 +193,7 @@ const Signup = () => {
 
             <form
                 action="#"
-                className="mx-auto grid max-w-lg grid-cols-1 gap-4 rounded-lg border border-gray-300 bg-gray-100 p-6 sm:grid-cols-2 dark:border-gray-600 dark:bg-gray-800"
+                className="mx-auto grid max-w-lg grid-cols-1 gap-4 rounded-lg border border-gray-300 bg-gray-100 p-6 sm:grid-cols-2 dark:border-gray-600 dark:bg-gray-800 transition-transform hover:-translate-y-1 transition-all"
                 onSubmit={submitHandler}
             >
 
