@@ -53,7 +53,7 @@ const SplashScreen = () => {
                 transition={{
                     duration: 0.6
                 }}
-                className='bg-black w-28' src="/assets/insta-logo.png" alt="Insta-Logo" />
+                className='w-28' src="/assets/insta-logo2.png" alt="Insta-Logo" />
             {/* Loading or Loader */}
             {/* <div className={styles.spinner}>
                 <div className={styles.spinner1}></div>
