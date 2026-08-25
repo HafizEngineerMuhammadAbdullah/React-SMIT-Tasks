@@ -8,7 +8,7 @@ import { getDatabase } from "firebase/database";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyBpBs8-uatX-18pOe7Q3a7GoAOCm0YEW5w",
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
   authDomain: "my-first-firebase-miniproject.firebaseapp.com",
   // 👇 ADD YOUR DATABASE URL HERE
   databaseURL: "https://my-first-firebase-miniproject-default-rtdb.firebaseio.com/",
