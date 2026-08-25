@@ -3,6 +3,8 @@ import { FaMeta } from "react-icons/fa6";
 import { FaFacebook } from "react-icons/fa";
 import { auth, provider } from "../../../../configuration/firebase"
 import { signInWithPopup, signInWithEmailAndPassword } from "firebase/auth";
+import { LuEye } from "react-icons/lu";
+import { LuEyeClosed } from "react-icons/lu";
 import Swal from "sweetalert2";
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -19,6 +21,14 @@ const Login = () => {
     const navigate = useNavigate();
 
     const [formData, setFormData] = useState(INITIAL_FORM_STATE);
+    const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+
+
+    // function to toggle password visibility
+    const togglePasswordVisibility = () => {
+        // setShowPassword((prev) => (!prev))
+        setIsPasswordVisible((prev) => (!prev))
+    }
 
 
     // function that handle changes
@@ -96,7 +106,7 @@ const Login = () => {
 
 
 
-    
+
 
     // Function to trigger the Login Popup
     const loginWithFacebook = async () => {
@@ -124,7 +134,7 @@ const Login = () => {
 
 
 
-    const inputStyle = `p-3 bg-transparent rounded-xl text-[#97A2AB] text-[#f2f4f6] border border-[#363639] outline-none hover:border-[#AAAFB5] focus:border-[#AAAFB5] transition-colors`;
+    const inputStyle = `w-full p-3 bg-transparent rounded-xl text-[#97A2AB] text-[#f2f4f6] border border-[#363639] outline-none hover:border-[#AAAFB5] focus:border-[#AAAFB5] transition-colors`;
 
     // Dynamic validation: Check if both fields have text
     const isFormValid = formData.email.trim() !== "" && formData.password.trim() !== "";
@@ -138,26 +148,39 @@ const Login = () => {
                 {/* Input Fields */}
                 <div className='flex flex-col gap-y-4 mt-2'>
                     {/* Username field */}
-                    <input
-                        type="email"
-                        name='email'
-                        value={formData.email}
-                        placeholder='Mobile number,username or email'
-                        className={`${inputStyle}`}
-                        onChange={changeHandler}
-                        required
-                    />
+                    <div>
+                        <input
+                            type="email"
+                            name='email'
+                            value={formData.email}
+                            placeholder='Mobile number,username or email'
+                            className={`${inputStyle}`}
+                            onChange={changeHandler}
+                            required
+                        />
+                    </div>
 
                     {/* Password Field */}
-                    <input
-                        type="password"
-                        name='password'
-                        value={formData.password}
-                        placeholder='Password'
-                        className={`${inputStyle}`}
-                        onChange={changeHandler}
-                        required
-                    />
+                    <div className='relative flex items-center'>
+                        <input
+                            type={isPasswordVisible ? "text" : "password"}
+                            name='password'
+                            value={formData.password}
+                            placeholder='Password'
+                            className={`${inputStyle}`}
+                            onChange={changeHandler}
+                            required
+                        />
+
+                        <button
+                            type="button" onClick={togglePasswordVisibility}
+                            className='absolute right-5 cursor-pointer text-gray-500'>
+                            {
+                                isPasswordVisible ? <LuEyeClosed size={20} /> : <LuEye size={20} />
+                            }
+                        </button>
+                    </div>
+
                 </div>
                 {/* Buttons Group-1 */}
                 <div className='flex flex-col gap-y-3'>
@@ -178,7 +201,7 @@ const Login = () => {
                         Login</button>
                     <button type='button' className='hover:bg-[#363639] cursor-pointer text-[#f2f4f6] p-2.5 rounded-full'>Forgot Password?</button>
                 </div>
-                
+
 
                 {/* Buttons Group-2*/}
                 <div className='flex flex-col gap-y-3 mt-5'>

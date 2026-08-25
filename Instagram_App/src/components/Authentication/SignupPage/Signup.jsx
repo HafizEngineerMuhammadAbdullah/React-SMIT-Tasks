@@ -51,7 +51,7 @@ const Signup = () => {
     }
 
 
-
+    
     // function to validate the form data before submission
     const validateFormData = () => {
         const { username, phone, email, password } = formData;
@@ -170,26 +170,6 @@ const Signup = () => {
 
     return (
         <main className='min-h-screen flex justify-center items-center'>
-            {/* <form className='h-[70vh] p-10 border border-gray-700 flex flex-col items-center justify-evenly shadow shadow-gray-600'>
-                <h1>Welcome to TailwindCSS Land</h1>
-                <label htmlFor="">Name</label>
-                <input type="text" className={`${inputStyle}`}/>
-                <label htmlFor="">Email</label>
-                <input type="email" className={`${inputStyle}`} />
-                <label htmlFor="">Message</label>
-                <textarea name="" id="" cols="30" rows="10"></textarea>
-            </form> */}
-
-
-            {/* <form className='w-full p-10 flex flex-col items-center justify-evenly'>
-                <p className='self-start'>Log into Instagram</p>
-                <input type="text" className={`${inputStyle}`} placeholder='Mobile number,username or email' />
-                <input type="text" placeholder='Password' />
-                <button>login</button>
-                <button>Forgot Password?</button>
-            </form> */}
-
-
 
             <form
                 action="#"

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import styles from "./InstagramPage.module.css"
+import styles from "./InstagramPage.module.css";
+import { motion } from "motion/react"
 
 
 
@@ -31,14 +32,24 @@ const LeftPanel = () => {
 
     return (
         // Instagram Left Side Bar/ Left Panel
-        <div className='h-screen flex flex-col justify-center items-center flex-1 border-r-2 border-gray-300'>
+        // Left Slides from Left
+        <motion.div
+            initial={{
+                opacity: 0,
+                x: -100
+            }}
+            animate={{
+                opacity: 1,
+                x: 0
+            }}
+            className='h-screen flex flex-col justify-center items-center flex-1 border-r-2 border-gray-300'>
             {/* Instagram Left Side Heading */}
             <h1 className='font-medium leading-20 text-5xl text-center'>See everyday moments from your <span className={`${styles.heading} bg-linear-to-r from-[#fcb045] via-[#f31414]  to-[#eb0ea9] bg-clip-text text-transparent`}>close friends
             </span></h1>
             {/* Instagram Left Side Image */}
             {/* Displaying the image dynamically based on the current state index */}
             <img className='h-80' src={IMAGES[currImageIdx]} alt="Insta Image" />
-        </div>
+        </motion.div>
     )
 }
 
