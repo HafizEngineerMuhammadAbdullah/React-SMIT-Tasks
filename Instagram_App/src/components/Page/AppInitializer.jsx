@@ -5,7 +5,10 @@ import Signup from "../Authentication/SignupPage/Signup"
 import { Route, Routes } from 'react-router-dom';
 import SplashScreen from './SplashScreen';
 import { AnimatePresence } from "motion/react";
+import ProtectedRoute from './ProtectedRoute';
 
+
+// Right now if a logged-in user refreshes the page, they get kicked back to the splash screen and then the home page — but there's no auth guard. Anyone can visit / without logging in.
 const AppInitializer = () => {
 
     const [loading, setLoading] = useState(true);
@@ -32,14 +35,11 @@ const AppInitializer = () => {
                 {/* Now Splash fades out...
         Home fades in...
         Looks MUCH smoother. */}
-                <Route path='/' element={<AnimatePresence mode="wait">
-                    {loading ? (
-                        <SplashScreen key="splash" />
-                    ) : (
-                        <InstagramPage key="home" />
-                    )}
-
-                </AnimatePresence>} />
+                <Route path='/' element={<ProtectedRoute>
+                    <AnimatePresence mode="wait">
+                        {loading ? <SplashScreen key="splash" /> : <InstagramPage key="home" />}
+                    </AnimatePresence>
+                </ProtectedRoute>} />
                 <Route path='/signup' element={<Signup />} />
                 <Route path='/login' element={<Login />} />
             </Routes>

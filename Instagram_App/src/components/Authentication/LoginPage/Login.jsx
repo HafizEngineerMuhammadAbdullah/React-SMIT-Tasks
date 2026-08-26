@@ -121,6 +121,9 @@ const Login = () => {
                 icon: "success"
             });
 
+            // trigger navigate('/') upon a successful login
+            navigate('/');
+
         } catch (error) {
             console.error("Authentication Error:", error.message);
             // Show Error Alert

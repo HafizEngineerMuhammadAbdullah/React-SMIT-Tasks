@@ -50,17 +50,20 @@ const RightPanel = () => {
                 />
             </h1>
             {/* Instagram Button */}
-            <button className='w-[80%] p-3 text-lg bg-blue-600 rounded-lg text-white shadow-md shadow-cyan-800 cursor-pointer hover:bg-[#467fc0] hover:scale-[1.01] transition-all'>
-                <a
-                    href="https://www.instagram.com/?hl=en"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >Open Instagram</a>
-            </button>
+
+            <a
+                href="https://www.instagram.com/?hl=en"
+                target="_blank"
+                rel="noopener noreferrer"
+                className='block w-[80%] p-3 text-lg bg-blue-600 rounded-lg text-white text-center shadow-md cursor-pointer hover:bg-[#467fc0] hover:scale-[1.01] transition-all'
+            >
+                Open Instagram
+            </a>
+
             {/* Instagram Page */}
             <p><Link to='/login' className='text-blue-600 hover:text-cyan-900 text-lg cursor-pointer'>Log in</Link> {" "} or {" "} <Link to='/signup' className='text-blue-600 hover:text-cyan-900 text-lg cursor-pointer'>
                 Sign up</Link></p>
-        </motion.div>
+        </motion.div >
     )
 }
 

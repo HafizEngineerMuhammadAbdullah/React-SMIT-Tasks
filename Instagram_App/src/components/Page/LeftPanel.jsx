@@ -22,9 +22,14 @@ const LeftPanel = () => {
 
         const interval = setInterval(() => {
             // Using the functional state updater correctly ensures you always get the latest index
-            setCurrImageIdx((prevImageIdx) => (prevImageIdx + 1) % IMAGES.length);
+            setCurrImageIdx((prevImageIdx) => {
+                const next = (prevImageIdx + 1) % IMAGES.length;
+                console.log('Next image index:', next); // ✅ logs correct value
+                return next;
+            });
+            // ❌ This always logs the OLD (stale) value due to JS closure
             // setInterval logs a stale value due to JavaScript closure
-            console.log(currImageIdx);
+            console.log(currImageIdx); // always logs the captured stale value
         }, 3000);// Change image every 3 seconds
 
         // This prevents a memory leak. When the component unmounts, React removes the interval, otherwise it would continue running in the background

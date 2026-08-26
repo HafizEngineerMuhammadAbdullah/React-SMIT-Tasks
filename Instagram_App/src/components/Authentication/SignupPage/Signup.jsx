@@ -6,6 +6,7 @@ import { toast, ToastContainer } from "react-toastify";
 import { LuEye } from "react-icons/lu";
 import { LuEyeClosed } from "react-icons/lu";
 import { Link, useNavigate } from 'react-router-dom';
+import Swal from "sweetalert2";
 
 const INITIAL_FORM_STATE = {
     username: '',
@@ -44,14 +45,16 @@ const Signup = () => {
         // Even though we could overwrite the form values by updating the values,but the issue is React doesn't  update state when the same object referencing(have same address) to same memory location it had
         // React updates object state only when the reference(address) pointing to that particular object in memory changes
         // React schedules the update(not immediately updates the state) 
+        // This is called "functional state update" — always use this when new state depends on old state
         setFormData((prevFormData) => ({
             ...prevFormData,// copy the existing form data
             [name]: value // update the name and value as key value pair
+            //  never do setFormData({...formData, [name]: value}) in async contexts
         }));
     }
 
 
-    
+
     // function to validate the form data before submission
     const validateFormData = () => {
         const { username, phone, email, password } = formData;
@@ -65,6 +68,8 @@ const Signup = () => {
         if (!nameRegex.test(username)) {
             setError("Name should contain only letters (3-20 characters).");
             alert("name should contain only letters also not contain whitespace character(3-20 characters).");
+            // Then replace every alert() with:
+            Swal.fire({ icon: "warning", title: "Invalid Input", text: "Name should contain only letters (3-20 characters)." });
             return false;
         }
 
