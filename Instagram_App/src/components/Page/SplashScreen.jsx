@@ -90,9 +90,11 @@ const SplashScreen = () => {
                 transition={{
                     delay: 1.8
                 }}
+                className='text-gray-700 font-medium text-lg absolute bottom-20'
             >
                 from
             </motion.p>
+
             {/* Meta Tag */}
             <motion.div
                 initial={{
