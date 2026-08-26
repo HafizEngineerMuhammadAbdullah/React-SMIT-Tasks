@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import InstagramPage from './InstagramPage';
-import Login from "../Authentication/LoginPage/Login"
-import Signup from "../Authentication/SignupPage/Signup"
+import Login from "../components/authentication/LoginPage/Login"
+import Signup from "../components/authentication/SignupPage/Signup"
 import { Route, Routes } from 'react-router-dom';
 import SplashScreen from './SplashScreen';
 import { AnimatePresence } from "motion/react";
