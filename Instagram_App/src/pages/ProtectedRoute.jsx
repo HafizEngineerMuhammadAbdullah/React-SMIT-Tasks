@@ -1,6 +1,6 @@
 // This is a new concept — Protected Routes
 import { useEffect, useState } from 'react';
-import { auth } from '../../../configuration/firebase';
+import { auth } from '../../configuration/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 import { Navigate } from 'react-router-dom';
 import { motion } from "motion/react"

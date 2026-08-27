@@ -7,7 +7,7 @@ const SplashScreen = () => {
     return (
         // <div className='relative h-screen w-full flex flex-col justify-center items-center bg-[#0C1014] '>
         <motion.div
-            className="inset-0 relative h-screen w-full flex flex-col justify-center items-center bg-[#0C1014]"
+            className="inset-0 relative h-screen w-full flex flex-col justify-center items-center bg-[#0C1014] overflow-hidden"
             animate={{
                 backgroundPosition: [
                     "0% 50%",
@@ -53,7 +53,7 @@ const SplashScreen = () => {
                 transition={{
                     duration: 0.6
                 }}
-                className='w-28' src="/assets/insta-logo2.png" alt="Insta-Logo" />
+                className='w-24' src="/assets/insta-logo2.png" alt="Insta-Logo" />
             {/* Loading or Loader */}
             {/* <div className={styles.spinner}>
                 <div className={styles.spinner1}></div>
@@ -61,7 +61,7 @@ const SplashScreen = () => {
 
             {/* <div className='flex items-center justify-center mt-10'> */}
             <motion.div
-                className='flex items-center justify-center mt-5'
+                className='flex items-center justify-center mt-4'
                 initial={{
                     opacity: 0,
                     scale: 0

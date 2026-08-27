@@ -1,10 +1,9 @@
-import React from 'react'
-import AppInitializer from './components/Page/AppInitializer'
+import AppInitializer from "./Pages/AppInitializer"
 
 const App = () => {
   return (
     <>
-    <AppInitializer />
+      <AppInitializer />
     </>
   )
 }
