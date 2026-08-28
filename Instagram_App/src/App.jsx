@@ -1,4 +1,5 @@
-import AppInitializer from "./Pages/AppInitializer"
+import React from "react";
+import AppInitializer from "./Pages/AppInitializer";
 
 const App = () => {
   return (
@@ -8,4 +9,4 @@ const App = () => {
   )
 }
 
-export default App
+export default App;
