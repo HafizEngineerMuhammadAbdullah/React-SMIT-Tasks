@@ -1,5 +1,5 @@
 import React from "react";
-import AppInitializer from "./Pages/AppInitializer";
+import AppInitializer from "./pages/AppInitializer";
 
 const App = () => {
   return (

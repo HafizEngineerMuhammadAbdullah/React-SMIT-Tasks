@@ -4,7 +4,7 @@ import Login from "../components/authentication/LoginPage/Login"
 import Signup from "../components/authentication/SignupPage/Signup"
 // import { lazy, Suspense, useEffect, useState } from "react";
 import { Route, Routes } from 'react-router-dom';
-import SplashScreen from './SplashScreen';
+import SplashScreen from "./SplashScreen";
 import { AnimatePresence } from "motion/react";
 import ProtectedRoute from './ProtectedRoute';
 import styles from './InstagramPage.module.css';
