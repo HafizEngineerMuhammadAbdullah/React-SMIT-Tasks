@@ -5,7 +5,9 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { Navigate } from 'react-router-dom';
 import { motion } from "motion/react"
 import styles from "./InstagramPage.module.css"
-// ProtectedRoute.jsx is an authentication guard. Its job is to allow only logged-in users to view protected pages such as the Instagram home page.
+
+// Right now if a logged-in user refreshes the page, they get kicked back to the splash screen and then the home page — but there's no auth guard. Anyone can visit / without logging in.
+// ProtectedRoute.jsx is an authentication guard(Auth Guard). Its job is to allow only logged-in users to view protected pages such as the Instagram home page.
 
 
 

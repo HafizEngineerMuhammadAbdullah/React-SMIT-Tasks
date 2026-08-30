@@ -7,6 +7,7 @@ import { LuEye } from "react-icons/lu";
 import { LuEyeClosed } from "react-icons/lu";
 import Swal from "sweetalert2";
 import { Link, useNavigate } from 'react-router-dom';
+import clsx from 'clsx'
 
 
 const INITIAL_FORM_STATE = {
@@ -138,9 +139,23 @@ const Login = () => {
 
 
     const inputStyle = `w-full p-3 bg-transparent rounded-xl text-[#97A2AB] text-[#f2f4f6] border border-[#363639] outline-none hover:border-[#AAAFB5] focus:border-[#AAAFB5] transition-colors`;
+    // Instead of template literals:
+    const inputClass = clsx(
+        'w-full p-3 bg-transparent rounded-xl border outline-none transition-colors',
+        'text-[#f2f4f6] border-[#363639]',
+        'hover:border-[#AAAFB5] focus:border-[#AAAFB5]'
+    );
+
 
     // Dynamic validation: Check if both fields have text
     const isFormValid = formData.email.trim() !== "" && formData.password.trim() !== "";
+    
+    const btnClass = clsx(
+        'p-2.5 rounded-full font-medium transition-all',
+        isFormValid
+            ? 'bg-[#0064e0] text-white cursor-pointer hover:bg-[#0057c2]'
+            : 'bg-[#133B6E] text-[#6F7176] cursor-not-allowed'
+    );
 
     return (
         <div className='h-screen w-full bg-[#1F1F22] flex flex-col items-center justify-center'>
@@ -157,7 +172,8 @@ const Login = () => {
                             name='email'
                             value={formData.email}
                             placeholder='Mobile number,username or email'
-                            className={`${inputStyle}`}
+                            // className={`${inputStyle}`}
+                            className={inputClass}
                             onChange={changeHandler}
                             required
                         />
@@ -170,13 +186,15 @@ const Login = () => {
                             name='password'
                             value={formData.password}
                             placeholder='Password'
-                            className={`${inputStyle}`}
+                            // className={`${inputStyle}`}
+                            className={inputClass}
                             onChange={changeHandler}
                             required
                         />
 
                         <button
-                            type="button" onClick={togglePasswordVisibility}
+                            type="button"
+                            onClick={togglePasswordVisibility}
                             className='absolute right-5 cursor-pointer text-gray-500'>
                             {
                                 isPasswordVisible ? <LuEyeClosed size={20} /> : <LuEye size={20} />
@@ -186,7 +204,8 @@ const Login = () => {
 
                 </div>
                 {/* Buttons Group-1 */}
-                <div className='flex flex-col gap-y-3'>
+                <div
+                    className='flex flex-col gap-y-3'>
                     {/* <button
                         style={{ cursor: 'not-allowed' }} disabled
                         className='bg-[#133B6E] text-[#6F7176] text-md font-medium p-2.5 rounded-full cursor-pointer'
@@ -195,11 +214,13 @@ const Login = () => {
                     <button
                         type='submit'
                         disabled={!isFormValid}
+                        // className={`text-md font-medium p-2.5 rounded-full transition-all ${isFormValid
+                        //     ? 'bg-[#0064e0] text-white cursor-pointer hover:bg-[#0057c2]'
+                        //     : 'bg-[#133B6E] text-[#6F7176] cursor-not-allowed'
+                        //     }`}
+                        // This becomes very powerful when classes are conditional:
                         // Dynamically change colors based on input status
-                        className={`text-md font-medium p-2.5 rounded-full transition-all ${isFormValid
-                            ? 'bg-[#0064e0] text-white cursor-pointer hover:bg-[#0057c2]'
-                            : 'bg-[#133B6E] text-[#6F7176] cursor-not-allowed'
-                            }`}
+                        className={btnClass}
                     >
                         Login</button>
                     <button type='button' className='hover:bg-[#363639] cursor-pointer text-[#f2f4f6] p-2.5 rounded-full'>Forgot Password?</button>
