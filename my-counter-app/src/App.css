@@ -1,0 +1,97 @@
+/* for App */
+.App {
+  background: linear-gradient(to right, #2c5364, #203a43, #0f2027);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+}
+
+/* for App Header */
+.App-header {
+  width: min(550px, 90vw);
+  aspect-ratio: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 30px;
+  background-color: black;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50%; /* Perfect Circle */
+  background: rgba(255, 255, 255, 0.05); /* Semi-transparent */
+  backdrop-filter: blur(15px); /* Glassmorphism effect */
+  box-shadow:
+    0 0 40px rgba(0, 0, 0, 0.7),
+    inset 0 0 20px rgba(255, 255, 255, 0.05);
+}
+
+/* for header */
+.header {
+  background: linear-gradient(
+    to right,
+    rgb(78, 212, 44),
+    rgb(0, 217, 255),
+    rgb(209, 13, 150),
+    rgb(235, 36, 112)
+  );
+  color: transparent;
+  -webkit-background-clip: text;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.count {
+  font-size: 50px;
+  font-weight: bold;
+  background: linear-gradient(to bottom, #00f2fe, #4facfe);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 10px rgba(79, 172, 254, 0.4));
+}
+
+div#button-group {
+  width: 100%;
+  height: 25%;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  border: 1px solid #00ff88;
+  border-radius: 50%;
+  color: #00ff88;
+  padding: 5px 15px;
+  font-weight: bold;
+  background: #1d1c1c;
+  transition: 0.3s;
+}
+
+/* when button hovers */
+button:hover {
+  color: #665b5b;
+  box-shadow: 0 0 20px #00ff88;
+  background: #4facfe;
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(79, 172, 254, 0.4);
+}
+
+/* for Tablet & Mobile */
+@media screen and (max-width: 768px) {
+  .App {
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(to right, #2c5364, #203a43, #019cdf);
+  }
+}
