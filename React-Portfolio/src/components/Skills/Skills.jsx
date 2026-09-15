@@ -6,6 +6,7 @@ import {
 } from 'react-icons/fa';
 import { FaJava, FaGithub, FaCss3Alt, FaBootstrap } from "react-icons/fa6";
 import { GrMysql } from "react-icons/gr";
+import { VscVscode } from "react-icons/vsc";
 import { TbBrandJavascript, TbBrandFramerMotion, TbBrandSupabase, TbBrandNextjs, TbBrandThreejs } from "react-icons/tb";
 import { SiCplusplus, SiC, SiTypescript, SiTailwindcss, SiMongodb, SiPostgresql, SiFirebase, SiGsap, SiRedux } from 'react-icons/si';
 import styles from './Skills.module.css';
@@ -42,6 +43,7 @@ const Skills = () => {
         { icon: FaJava, name: 'Java', color: '#5382a1' },
         { icon: SiCplusplus, name: 'C++', color: '#00589C' },
         { icon: SiC, name: 'C', color: '#A8B9CC' },
+        { icon: VscVscode, name: 'VS Code', color: '#0078d4' },
     ];
 
 

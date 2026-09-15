@@ -4,6 +4,7 @@ import { motion } from "motion/react";
 import { TypeAnimation } from 'react-type-animation'
 import { fadeInUp, scaleOnHover } from '../../animation/variants';
 import { FaGithub, FaLinkedin, FaTwitter } from 'react-icons/fa';
+import { FaUpwork } from "react-icons/fa6";
 import AvailabilityBadge from '../Badge/AvailabilityBadge';
 
 const Hero = () => {
@@ -11,15 +12,23 @@ const Hero = () => {
     const socialLinks = [
         {
             linkName: FaGithub,
-            link: "https://github.com/HafizEngineerMuhammadAbdullah"
+            link: "https://github.com/HafizEngineerMuhammadAbdullah",
+            color: "#6e5494"
         },
         {
             linkName: FaLinkedin,
-            link: "https://www.linkedin.com/in/muhammad-abdullah-360a87384"
+            link: "https://www.linkedin.com/in/muhammad-abdullah-360a87384",
+            color: "#0077b5"
         },
         {
             linkName: FaTwitter,
-            link: "#"
+            link: "#",
+            color: "#1da1f2"
+        },
+        {
+            linkName: FaUpwork,
+            link: "https://www.upwork.com/freelancers/~01e3f5c7b0d8f1a2b4",
+            color: "#6fda44"
         }
     ];
 
@@ -128,6 +137,7 @@ const Hero = () => {
                             boxShadow: '0 0 30px rgba(108, 99, 255, 0.4)',
                             ...scaleOnHover.whileHover
                         }}
+                        onClick={() => window.location.href = '#projects'}
                     >
                         View Projects
                     </motion.button>
@@ -136,6 +146,7 @@ const Hero = () => {
                     <motion.button
                         className={styles.secondaryBtn}
                         {...scaleOnHover}
+                        onClick={() => window.location.href = '#contact'}
                     >
                         Contact Me
                     </motion.button>
@@ -158,7 +169,7 @@ const Hero = () => {
                             whileHover={{
                                 scale: 1.2,
                                 y: -5,
-                                color: '#6c63ff'
+                                color: Icon.color
                             }}
                             whileTap={{ scale: 0.9 }}
                             initial={{ opacity: 0, y: 20 }}
