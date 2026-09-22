@@ -170,7 +170,7 @@ const Hero = () => {
                     <div className={styles.profilePlaceholder}>
 
                         {/* <span>👨‍💻</span> */}
-                        <img className={styles.portfolioImage} src="/assets/face0.png" alt="Portfolio-Image" />
+                        <img className={styles.portfolioImage} src="/assets/face.png" alt="Portfolio-Image" />
                     </div>
 
 
