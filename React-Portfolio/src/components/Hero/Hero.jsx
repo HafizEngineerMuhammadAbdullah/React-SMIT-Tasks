@@ -1,36 +1,13 @@
 import React from 'react';
 import styles from "./Hero.module.css";
 import { motion } from "motion/react";
-import { TypeAnimation } from 'react-type-animation'
 import { fadeInUp, scaleOnHover } from '../../animation/variants';
-import { FaGithub, FaLinkedin, FaTwitter } from 'react-icons/fa';
-import { FaUpwork } from "react-icons/fa6";
+import { socialLinks } from '../../data/portfolioData';
 import AvailabilityBadge from '../Badge/AvailabilityBadge';
+import TypingAnimation from './TypingAnimation';
+import CircularBadge from './CircularBadge';
 
 const Hero = () => {
-
-    const socialLinks = [
-        {
-            linkName: FaGithub,
-            link: "https://github.com/HafizEngineerMuhammadAbdullah",
-            color: "#6e5494"
-        },
-        {
-            linkName: FaLinkedin,
-            link: "https://www.linkedin.com/in/muhammad-abdullah-360a87384",
-            color: "#0077b5"
-        },
-        {
-            linkName: FaTwitter,
-            link: "#",
-            color: "#1da1f2"
-        },
-        {
-            linkName: FaUpwork,
-            link: "https://www.upwork.com/freelancers/~01e3f5c7b0d8f1a2b4",
-            color: "#6fda44"
-        }
-    ];
 
     return (
         <section id="home" className={styles.hero}>
@@ -82,31 +59,7 @@ const Hero = () => {
 
                 {/* Typing Text Animation */}
                 <motion.p>
-                    <TypeAnimation
-                        sequence={[
-                            'Frontend Developer',
-                            2000,
-                            'AI/ML Enthusiast',
-                            2000,
-                            'DSA & Leetcode Enthusiast',
-                            2000,
-                            'Interested in Gaming Development',
-                            2000,
-                            'Aspring Full-Stack Development', // Types 'Aspring Full-Stack Development'
-                            1000, // Waits 1s
-                            'UI/UX Enthusiast', // Deletes 'Aspring Full-Stack Development' and types 'UI/UX Enthusiast'
-                            2000, // Waits 2s
-                            'ReactJs Specialist', // Types 'UI/UX Enthusiast' and deletes it, then types 'ReactJs Specialist'
-                            2000,
-                            () => {
-                                console.log('Sequence completed');
-                            },
-                        ]}
-                        wrapper="span"
-                        cursor={true}
-                        repeat={Infinity}
-                        style={{ fontSize: '2em', display: 'inline-block',  color: '#416597' }}
-                    />
+                    <TypingAnimation />
                 </motion.p>
 
                 {/* Description Section */}
@@ -180,10 +133,21 @@ const Hero = () => {
                         </motion.a>
                     ))}
                 </motion.div>
+
+                {/* Scroll Indicator */}
+                <div className="w-full flex items-center relative">
+                    <div className="absolute right-0 flex flex-col items-center gap-2 opacity-50 animate-bounce">
+                        <span className="text-xs uppercase tracking-[0.3em] text-gray-500">Scroll</span>
+                        <div className="w-px h-12 bg-gradient-to-b from-white to-transparent"></div>
+                    </div>
+                </div>
+
             </motion.div>
 
+
+
             {/* Right Part : Image Box */}
-            {/* Image Section */}
+            {/* Image Section/Content */}
             <motion.div
                 className={styles.heroImage}
                 initial={{ opacity: 0, scale: 0.8, rotate: -10 }}
@@ -191,14 +155,58 @@ const Hero = () => {
                 transition={{ delay: 0.4, duration: 0.8, type: 'spring' }}
             >
                 <div className={styles.imageWrapper}>
+
+                    {/* Decorative glowing rings */}
+                    {/* <div className="absolute inset-0 w-full h-full max-w-[500px] max-h-[500px] mx-auto z-0">
+                        <div className="absolute inset-0 rounded-full border-[1px] border-cyan/30 animate-[spin_10s_linear_infinite]"></div>
+                        <div className="absolute inset-4 rounded-full border-[1px] border-orange/30 animate-[spin_15s_linear_infinite_reverse]"></div>
+                        <div className="absolute inset-12 rounded-full border-[1px] border-white/10 border-dashed animate-[spin_20s_linear_infinite]"></div>
+                    </div> */}
+
+
                     <div className={styles.floatingOrb}></div>
                     <div className={styles.floatingOrb2}></div>
                     <div className={styles.floatingOrb3}></div>
                     <div className={styles.profilePlaceholder}>
+
                         {/* <span>👨‍💻</span> */}
-                        <img className={styles.portfolioImage} src="/assets/my-face.png" alt="Portfolio-Image" />
+                        <img className={styles.portfolioImage} src="/assets/face0.png" alt="Portfolio-Image" />
                     </div>
+
+
+                    {/* Floating UI Elements */}
+                    <motion.div
+                        animate={{ y: [-15, 15, -15] }}
+                        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                        className="absolute -top-20 right-0 sm:right-10 bg-[#1e1917]/60  border border-white/10 px-6 py-3 rounded-2xl shadow-xl flex items-center gap-3"
+                    >
+                        <div className="w-10 h-10 rounded-full bg-cyan-400/20 flex items-center justify-center text-cyan-400 font-bold text-xl">
+                            1+
+                        </div>
+                        <div className="text-sm">
+                            <p className="text-white font-bold">Years</p>
+                            <p className="text-[#978580]">Experience</p>
+                        </div>
+                    </motion.div>
+
+                    <motion.div
+                        animate={{ y: [15, -15, 15] }}
+                        transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+                        className="absolute -bottom-10 left-0 sm:left-10 bg-[#1e1917]/60  border border-white/10 px-6 py-3 rounded-2xl shadow-xl flex items-center gap-3"
+                    >
+                        <div className="w-10 h-10 rounded-full bg-orange-400/20 flex items-center justify-center text-orange-400 font-bold text-xl">
+                            10+
+                        </div>
+                        <div className="text-sm">
+                            <p className="text-white font-bold">Projects</p>
+                            <p className="text-[#978580]">Completed</p>
+                        </div>
+                    </motion.div>
+
                 </div>
+
+                {/* Circular Badge Component */}
+                <CircularBadge />
             </motion.div>
         </section>
     )

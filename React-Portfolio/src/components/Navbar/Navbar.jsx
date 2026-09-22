@@ -1,16 +1,30 @@
 import React, { useState } from 'react';
 import styles from './Navbar.module.css';
 import { motion } from "motion/react";
-import { FaBars, FaTimes, FaRegMoon} from 'react-icons/fa';
-import { LuMoon,LuSun } from "react-icons/lu";
+import { FaBars, FaTimes, FaRegMoon } from 'react-icons/fa';
+import { LuMoon, LuSun } from "react-icons/lu";
 import { useTheme } from '../../context/ThemeContext';
+import { Link } from 'react-scroll';
+
+
+
+// Wrap the react-scroll Link component using motion.create()
+// const MotionScrollLink = motion.create(ScrollLink);
+// const MotionScrollLink = motion.create(Link);
 
 const Navbar = () => {
 
     const { theme, toggleTheme } = useTheme();
     const [isOpen, setIsOpen] = useState(false)
 
-    const links = ["Home", "Skills", "Projects", "Contact"];
+    // const links = ["Home", "Skills", "Projects", "Contact"];
+
+    const links = [
+        { link: "About Me", section: "about" },
+        { link: "Skills", section: "skills" },
+        { link: "Projects", section: "projects" },
+        { link: "Contact", section: "contact" },
+    ];
 
     return (
         // for Header
@@ -73,17 +87,32 @@ const Navbar = () => {
                                 initial={{ opacity: 0, y: -20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: idx * 0.1 }}
-                                key={item}
-                                href={`#${item.toLowerCase()}`} >{item}</motion.a>
+                                key={item.section}
+                                href={`#${item.section}`} >
+                                {item.link}
+                            </motion.a >
                         )
                     })}
+                    
+
                     {/* Toggle Theme */}
-                   <div>
-                     <button className={styles.toggleBtn} onClick={toggleTheme}>
-                        {theme === "dark" ? < LuMoon color='#ffffff' /> : <LuSun color='#0a0a0a' />}
-                    </button>
-                   </div>
+                    <div>
+                        <button className={styles.toggleBtn} onClick={toggleTheme}>
+                            {theme === "dark" ? < LuMoon color='#ffffff' /> : <LuSun color='#0a0a0a' />}
+                        </button>
+                    </div>
+
+                    {/* Let's Talk Button */}
+                    <div className="hidden lg:block">
+                        <Link to="contact" smooth={true} offset={-100} duration={50}>
+                            <button className="relative px-6 py-2.5 text-sm font-medium text-black p bg-white rounded-full overflow-hidden group cursor-pointer">
+                                <span className="relative z-10 group-hover:text-gray-500 transition-colors duration-300 ease-out">Let's Talk</span>
+                                <div className="absolute inset-0 bg-linear-to-r from-[#15d1e9] via-purple-200 to-[#fb9718] w-0 group-hover:w-full origin-left transition-[width] duration-300 ease-out z-0"></div>
+                            </button>
+                        </Link>
+                    </div>
                 </div>
+
 
                 {/* Mobile Menu Toggle */}
                 <button
@@ -100,15 +129,15 @@ const Navbar = () => {
                     animate={isOpen ? { x: 0, opacity: 1 } : { x: "100%", opacity: 0 }}
                     transition={{ type: 'spring', stiffness: 300, damping: 30 }}
                 >
-                    {links.map((link) => (
+                    {links.map((item) => (
                         <motion.a
-                            key={link}
-                            href={`#${link.toLowerCase()}`}
+                            key={item.section}
+                            href={`#${item.section}`}
                             className={styles.navLinkMobile}
                             onClick={() => setIsOpen(false)}
                             whileHover={{ x: 10, color: '#6c63ff' }}
                         >
-                            {link}
+                            {item.link}
                         </motion.a>
                     ))}
                 </motion.nav>

@@ -59,8 +59,8 @@ const BackgroundParticles = ({ theme = "dark" }) => {
             },
             interactivity: {
                 events: {
-                    onHover: { enable: true, mode: "grab" },
-                    // onHover: { enable: true, mode: "repulse" },
+                    // onHover: { enable: true, mode: "grab" },
+                    onHover: { enable: true, mode: "repulse" },
                     // onHover: { enable: true, mode: "bubble" },
                     onClick: { enable: true, mode: "push" },
                     resize: true,
