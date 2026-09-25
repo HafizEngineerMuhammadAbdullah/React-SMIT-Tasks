@@ -82,30 +82,41 @@ export const socialLinks = [
 
 
 
-  // Projects Array of Objects with Title, Description, Tech Stack, GitHub Link, Live Link, and Gradient Background
-  export const projects = [
+// Projects Array of Objects with Title, Description, Tech Stack, GitHub Link, Live Link, and Gradient Background
+export const projects = [
     {
-      title: 'EcoTrack',
-      description: 'Real-time carbon footprint tracker with interactive dashboards and AI insights.',
-      tech: ['React', 'Node.js', 'MongoDB', 'AI'],
-      github: '#',
-      live: '#',
-      gradient: 'linear-gradient(135deg, #6c63ff, #a855f7)'
+        title: 'EcoTrack',
+        description: 'Real-time carbon footprint tracker with interactive dashboards and AI insights.',
+        tech: ['React', 'Node.js', 'MongoDB', 'AI'],
+        github: '#',
+        live: '#',
+        gradient: 'linear-gradient(135deg, #6c63ff, #a855f7)'
     },
     {
-      title: 'HealthBridge',
-      description: 'Telemedicine platform connecting patients with doctors through secure video calls.',
-      tech: ['Next.js', 'TypeScript', 'WebRTC', 'Tailwind'],
-      github: '#',
-      live: '#',
-      gradient: 'linear-gradient(135deg, #f093fb, #f5576c)'
+        title: 'HealthBridge',
+        description: 'Telemedicine platform connecting patients with doctors through secure video calls.',
+        tech: ['Next.js', 'TypeScript', 'WebRTC', 'Tailwind'],
+        github: '#',
+        live: '#',
+        gradient: 'linear-gradient(135deg, #f093fb, #f5576c)'
     },
     {
-      title: 'FinFlow',
-      description: 'Personal finance manager with real-time stock tracking and portfolio optimization.',
-      tech: ['Python', 'Flask', 'React', 'D3.js'],
-      github: '#',
-      live: '#',
-      gradient: 'linear-gradient(135deg, #4facfe, #00f2fe)'
+        title: 'FinFlow',
+        description: 'Personal finance manager with real-time stock tracking and portfolio optimization.',
+        tech: ['Python', 'Flask', 'React', 'D3.js'],
+        github: '#',
+        live: '#',
+        gradient: 'linear-gradient(135deg, #4facfe, #00f2fe)'
     },
-  ];
+];
+
+
+
+export const links = ['Home', 'About', 'Skills', 'Projects', 'Experience'];
+
+export const details = [
+    { link: "About Me", section: "about" },
+    { link: "Skills", section: "skills" },
+    { link: "Projects", section: "projects" },
+    { link: "Contact", section: "contact" },
+];

@@ -5,6 +5,7 @@ import { FaBars, FaTimes, FaRegMoon } from 'react-icons/fa';
 import { LuMoon, LuSun } from "react-icons/lu";
 import { useTheme } from '../../context/ThemeContext';
 import { Link } from 'react-scroll';
+import { details } from '../../data/portfolioData';
 
 
 
@@ -18,13 +19,6 @@ const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false)
 
     // const links = ["Home", "Skills", "Projects", "Contact"];
-
-    const links = [
-        { link: "About Me", section: "about" },
-        { link: "Skills", section: "skills" },
-        { link: "Projects", section: "projects" },
-        { link: "Contact", section: "contact" },
-    ];
 
     return (
         // for Header
@@ -78,7 +72,7 @@ const Navbar = () => {
 
                 {/* Navlinks at desktop screen */}
                 <div className={styles.navDesktop}>
-                    {links.map((item, idx) => {
+                    {details.map((item, idx) => {
                         return (
                             <motion.a
                                 className={styles.navLinks}
@@ -129,7 +123,7 @@ const Navbar = () => {
                     animate={isOpen ? { x: 0, opacity: 1 } : { x: "100%", opacity: 0 }}
                     transition={{ type: 'spring', stiffness: 300, damping: 30 }}
                 >
-                    {links.map((item) => (
+                    {details.map((item) => (
                         <motion.a
                             key={item.section}
                             href={`#${item.section}`}

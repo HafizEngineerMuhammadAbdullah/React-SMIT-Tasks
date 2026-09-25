@@ -9,6 +9,7 @@ import Skills from './components/Skills/Skills';
 import Projects from './components/Projects/Projects';
 import Contact from './components/Contact/Contact';
 import Footer from './components/Footer/Footer';
+import MainFooter from './components/Footer/MainFooter';
 import BackgroundParticles from './components/ParticleJs/BackgroundParticles';
 
 // Loads the tsParticles engine ONCE for the whole app's lifetime.
@@ -35,6 +36,7 @@ const AppContent = () => {
         < Projects />
         <Contact />
         < Footer />
+        < MainFooter />
       </div>
     </ParticlesProvider>
   );
