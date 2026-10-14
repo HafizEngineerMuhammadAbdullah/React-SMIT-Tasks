@@ -11,6 +11,9 @@ const HandleForm = () => {
     userPassword: "",
   });
 
+  const [isCreatePasswordBtnClicked, setIsCreatePasswordBtnClicked] = useState(false);
+  const [isLoginBtnClicked, setIsLoginBtnClicked] = useState(true);
+
   const [error, setError] = useState("");
 
   // handle State (Use States which is Hook) of input fields
@@ -190,14 +193,24 @@ const HandleForm = () => {
           {/* button-01 */}
           <button
             type="button"
-            className={`${styles.btn} bg-[#ffffff] text-[#0a0a0a] w-1/2 rounded`}
+            className={`${styles.btn} w-1/2 rounded ${isCreatePasswordBtnClicked ? `text-[#737373] bg-[#F5F5F5]` : `bg-[#ffffff] text-[#0a0a0a]`}`}
+            onClick={() => {
+              setIsLoginBtnClicked(true);
+              setIsCreatePasswordBtnClicked(false);
+            }}
           >
             Login
           </button>
           {/* button-02 */}
           <button
             type="button"
-            className={`${styles.btn} text-[#737373] w-1/2`}
+            className={`${styles.btn} w-1/2 rounded ${isCreatePasswordBtnClicked ? `bg-[#ffffff] text-[#0a0a0a]` : 'text-[#737373] bg-[#F5F5F5]'}`}
+            onClick={() => {
+              setIsCreatePasswordBtnClicked(true);
+              setIsLoginBtnClicked(false);
+            }
+            }
+          // onClick={className=`${styles.btn} text-[#737373] w-1/2 rounded bg-[#ffffff] text-[#0a0a0a]`}
           >
             Create Password
           </button>
