@@ -7,6 +7,7 @@ const SMIT_IMAGES = [
     'sit-logo-on-dark.png',
     'sit-logo-on-light.png'
 ];
+
 const Images = () => {
     // useState to update image idx 
     const [currImgIdx, setCurrImgIdx] = useState(0);
